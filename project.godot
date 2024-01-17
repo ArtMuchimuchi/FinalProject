@@ -14,6 +14,12 @@ config/name="FinalProject"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+EntityDirection="*res://utils/entity_direction.gd"
+EntityRotation="*res://utils/entity_rotation.gd"
+ConstantNumber="*res://utils/constant_number.gd"
+
 [dotnet]
 
 project/assembly_name="FinalProject"

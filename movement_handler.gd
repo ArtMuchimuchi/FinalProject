@@ -1,6 +1,6 @@
 extends Node
 
-func movementHandler(direction : Vector3, speed : int ):
+func movementHandler(direction : Vector3, speed : int):
 	var velocity : Vector3 = Vector3.ZERO
 	# Move when there is direction
 	if direction: 
@@ -12,3 +12,5 @@ func movementHandler(direction : Vector3, speed : int ):
 		velocity.z = move_toward(velocity.z, 0, speed)
 	
 	return velocity
+
+

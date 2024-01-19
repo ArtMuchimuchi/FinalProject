@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://3qpsv8wk8vwy"]
+
+[ext_resource type="Script" path="res://test_generate_map.gd" id="1_rhvvc"]
+
+[node name="TestGenerateMap" type="Node3D"]
+script = ExtResource("1_rhvvc")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.0414683, -0.489078, 0.871254, -0.0232519, 0.87224, 0.488525, -0.998869, 0, -0.0475423, 5.43491, 2.11473, 0)

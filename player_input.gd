@@ -1,8 +1,9 @@
 extends Node
 
-	
-var direction = Vector3.ZERO
-func checkPlayerInput(dash : Dash,dashDuration : float):
+
+var direction : Vector3 = Vector3.ZERO
+var dash : bool = false
+func checkPlayerInput():
 	# Check 4 direction movement that player could control
 	if Input.is_action_pressed("move_forward"):
 		direction.z -= ConstantNumber.directionConstant
@@ -15,9 +16,7 @@ func checkPlayerInput(dash : Dash,dashDuration : float):
 	
 	
 	if Input.is_action_just_pressed("dash"):
-		#If dashing isn't under cooldown and player isn't already dashing
-		if dash.canDash && !dash.isDashing():
-			dash.startDash(dashDuration)
+		dash = true
 	# Make Diagonal movement same speed as horizontal and vertical
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()

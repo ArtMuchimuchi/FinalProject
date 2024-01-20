@@ -21,7 +21,7 @@ func playerMovement():
 	#Update last direction of player facing
 	lastDirection = characterAnimation.updateLastDirection(direction.x,lastDirection)
 	#Calculate player movement in 4 directional
-	velocity = movement.movementHandler(direction,ConstantNumber.playerSpeed, playerInput.dash)
+	velocity = movement.movementHandler(direction,ConstantNumber.playerSpeed)
 	#Reset the directional input of playerInput function to zero vector
 	playerInput.resetDirection()
 

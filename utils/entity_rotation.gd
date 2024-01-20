@@ -1,4 +1,4 @@
 extends Node
 
-var right : int = 0
-var left : int = 180
+const right : int = 0
+const left : int = 180

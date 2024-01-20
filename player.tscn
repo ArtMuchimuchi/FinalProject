@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://58jmk2r1l0p1"]
+[gd_scene load_steps=18 format=3 uid="uid://58jmk2r1l0p1"]
 
 [ext_resource type="Texture2D" uid="uid://dplin0hu6on07" path="res://player_sprites/run/player-run-1.png" id="1_m43ke"]
 [ext_resource type="Script" path="res://player.gd" id="1_t16q3"]
@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://djx2wyowbt5f3" path="res://player_sprites/run/player-run-5.png" id="5_5aujt"]
 [ext_resource type="Texture2D" uid="uid://y27cljgh7qj7" path="res://player_sprites/idle/player-idle-4.png" id="5_uurp0"]
 [ext_resource type="Texture2D" uid="uid://c2nq5bgrml3n4" path="res://player_sprites/run/player-run-6.png" id="6_g53o3"]
-[ext_resource type="PackedScene" uid="uid://bbw0510u18k0u" path="res://dash.tscn" id="12_8xue8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sv0xa"]
 size = Vector3(1, 1.29736, 1)
@@ -156,5 +155,3 @@ frame = 1
 libraries = {
 "": SubResource("AnimationLibrary_kc8gc")
 }
-
-[node name="Dash" parent="." instance=ExtResource("12_8xue8")]

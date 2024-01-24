@@ -2,32 +2,53 @@ extends CharacterBody3D
 
 var lastDirection : int = EntityDirection.right
 var direction : Vector3 = Vector3.ZERO
+var isDash : bool = false
+
 @onready var animationSprite = get_node("AnimatedSprite3D")
 @onready var animationPlayer = get_node("AnimationPlayer")
-@onready var characterAnimation = preload("res://character_animation.gd").new()
+@onready var animationManager = preload("res://animation_manager.gd").new()
 @onready var movement = preload("res://movement_handler.gd").new()
-@onready var playerInput = preload("res://player_input.gd").new()
+
 func _physics_process(delta):
 	playerMovement()
 	playerAnimation(delta)
+	
 	move_and_slide()
 
 
 func playerMovement():
 	#Check user input movement
-	playerInput.checkPlayerInput()
-	#Assign directional input 
-	direction = playerInput.direction
+	checkPlayerInput()
 	#Update last direction of player facing
-	lastDirection = characterAnimation.updateLastDirection(direction.x,lastDirection)
+	lastDirection = animationManager.updateLastDirection(direction.x,lastDirection)
 	#Calculate player movement in 4 directional
-	velocity = movement.movementHandler(direction,ConstantNumber.playerSpeed)
+	velocity = movement.movementHandler(direction, ConstantNumber.playerSpeed)
 	#Reset the directional input of playerInput function to zero vector
-	playerInput.resetDirection()
+	resetDirection()
 
 func playerAnimation(delta : float):
 	#Play animation of player by the movement of player
-	characterAnimation.playAnimation(animationPlayer,velocity)
+	animationManager.movementAnimation(animationPlayer,velocity)
 	#Flip direction of player 
-	characterAnimation.flipAnimation(lastDirection,animationSprite, delta * ConstantNumber.flipConstant)
+	animationManager.flipAnimation(lastDirection,animationSprite, delta)
 
+func checkPlayerInput():
+	# Check 4 direction movement that player could control
+	if Input.is_action_pressed("move_forward"):
+		direction.z -= ConstantNumber.directionConstant
+	if Input.is_action_pressed("move_back"):
+		direction.z += ConstantNumber.directionConstant
+	if Input.is_action_pressed("move_left"):
+		direction.x -= ConstantNumber.directionConstant
+	if Input.is_action_pressed("move_right"):
+		direction.x += ConstantNumber.directionConstant
+	
+	if Input.is_action_just_pressed("dash"):
+		isDash = true
+		
+	# Make Diagonal movement same speed as horizontal and vertical
+	if direction != Vector3.ZERO:
+		direction = direction.normalized()
+		
+func resetDirection():
+	direction = Vector3.ZERO

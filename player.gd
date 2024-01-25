@@ -24,7 +24,7 @@ func _physics_process(delta):
 	else :
 		playerMovement()
 		playerAnimation(delta)
-	
+	#move depen on velocity vector
 	move_and_slide()
 
 
@@ -44,17 +44,19 @@ func resetDirection():
 	direction = Vector3.ZERO
 
 func dash(delta: float):
+	#Check if dash
 	if isDash == true:
-		# Move when there is direction
+		#Dash with direction input
 		if direction: 
-			velocity.x = direction.x * 7 
-			velocity.z = direction.z * 7
+			velocity.x = direction.x * ConstantNumber.playerDashSpeed
+			velocity.z = direction.z * ConstantNumber.playerDashSpeed
+		#Dash without direction input depend on last direction
 		else:
 			if(lastDirection == EntityDirection.right):
-				velocity.x = 1 * 7
+				velocity.x = EntityDirection.right * ConstantNumber.playerDashSpeed
 			elif (lastDirection == EntityDirection.left):
-				velocity.x = -1 * 7
-		if (dashCountdown >= 0.08) :
+				velocity.x = EntityDirection.left * ConstantNumber.playerDashSpeed
+		if (dashCountdown >= ConstantNumber.playerDashDuration) :
 			isDash = false
 			dashCountdown = 0
 		else :

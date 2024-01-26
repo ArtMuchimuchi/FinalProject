@@ -17,6 +17,9 @@ func checkPlayerInput():
 		direction = direction.normalized()
 	
 	return direction
+	
+func calculateDirection(playerPosition : Vector3, currentPosition : Vector3):
+	return (playerPosition - currentPosition).normalized()
 
 func movementHandler(direction : Vector3, speed : int):
 	var velocity : Vector3 = Vector3.ZERO

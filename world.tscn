@@ -6,7 +6,7 @@
 [node name="World" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_qp4wm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.718, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.718, 0.771329, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.990154, 0.139985, 0, -0.139985, 0.990154, 0.0232377, 1.73209, 4.18605)

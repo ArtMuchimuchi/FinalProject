@@ -8,6 +8,7 @@ var direction : Vector3 = Vector3.ZERO
 @onready var animationPlayer = get_node("AnimationPlayer")
 @onready var movement = preload("res://movement_handler.gd").new()
 @onready var animationManager = preload("res://animation_manager.gd").new()
+@onready var healthPoint : HealthPoint = HealthPoint.new(10, self)
 
 func _physics_process(delta):
 	move()

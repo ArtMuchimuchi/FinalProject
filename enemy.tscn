@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://1pepnmfcjbk7"]
 
-[ext_resource type="Script" path="res://enemy.gd" id="1_j3jud"]
+[ext_resource type="Script" path="res://entities/enemies/enemy.gd" id="1_j3jud"]
 [ext_resource type="Texture2D" uid="uid://dc3kxwk2otphh" path="res://player_sprites/idle/player-idle-1.png" id="2_m7xeg"]
 [ext_resource type="Texture2D" uid="uid://dn3huyv2mlnts" path="res://player_sprites/idle/player-idle-2.png" id="3_dsm2l"]
 [ext_resource type="Texture2D" uid="uid://1qy3gwji4rkj" path="res://player_sprites/idle/player-idle-3.png" id="4_gnxwv"]

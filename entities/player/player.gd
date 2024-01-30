@@ -8,8 +8,8 @@ var healthPoint : int = 10
 
 @onready var animationSprite = get_node("AnimatedSprite3D")
 @onready var animationPlayer = get_node("AnimationPlayer")
-@onready var animationManager = preload("res://animation_manager.gd").new()
-@onready var movement = preload("res://movement_handler.gd").new()
+@onready var animationManager = preload("res://entities/animation_manager.gd").new()
+@onready var movement = preload("res://entities/movement_handler.gd").new()
 @onready var HP : HealthPoint = HealthPoint.new(healthPoint, self)
 
 func _physics_process(delta):

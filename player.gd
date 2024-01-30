@@ -11,6 +11,10 @@ var dashCountdown : float = 0
 @onready var movement = preload("res://movement_handler.gd").new()
 
 func _physics_process(delta):
+	move(delta)
+	playerAnimation(delta)
+
+func move(delta : float):
 	#Check user input movement
 	direction = movement.checkPlayerInput()
 	#Update last direction of player facing
@@ -22,26 +26,18 @@ func _physics_process(delta):
 	if(isDash):
 		dash(delta)
 	else :
-		playerMovement()
-		playerAnimation(delta)
+		#Calculate player movement in 4 directional
+		velocity = movement.movementHandler(direction, ConstantNumber.playerSpeed)
+		#Reset the directional input of playerInput function to zero vector
+		direction = Vector3.ZERO
 	#move depen on velocity vector
 	move_and_slide()
-
-
-func playerMovement():
-	#Calculate player movement in 4 directional
-	velocity = movement.movementHandler(direction, ConstantNumber.playerSpeed)
-	#Reset the directional input of playerInput function to zero vector
-	resetDirection()
 
 func playerAnimation(delta : float):
 	#Play animation of player by the movement of player
 	animationManager.movementAnimation(animationPlayer,velocity)
 	#Flip direction of player 
 	animationManager.flipAnimation(lastDirection,animationSprite, delta)
-	
-func resetDirection():
-	direction = Vector3.ZERO
 
 func dash(delta: float):
 	#Check if dash

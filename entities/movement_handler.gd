@@ -1,7 +1,23 @@
 extends Node
 
+class_name MovementHandler
+
+var lastDirection : int 
+var direction : Vector3 
+var isDash : bool 
+var dashCountdown : float
+var ownerNode : CharacterBody3D
+
+#initiate varbles
+func _init(targetNode : CharacterBody3D):
+	lastDirection = EntityDirection.right
+	direction = Vector3.ZERO
+	isDash = false
+	dashCountdown = 0
+	ownerNode = targetNode
+	
+#check player input and change into vector 3d
 func checkPlayerInput():
-	var direction : Vector3
 	# Check 4 direction movement that player could control
 	if Input.is_action_pressed("move_forward"):
 		direction.z -= ConstantNumber.directionConstant
@@ -16,29 +32,46 @@ func checkPlayerInput():
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
 	
-	return direction
-	
-func calculateDirection(playerPosition : Vector3, currentPosition : Vector3):
-	return (playerPosition - currentPosition).normalized()
+#calculate direction to the desired direction	
+func calculateDirection(desiredPosition : Vector3):
+	direction = (desiredPosition - ownerNode.position).normalized()
 
-func movementHandler(direction : Vector3, speed : int):
-	var velocity : Vector3 = Vector3.ZERO
+#change direction into entity velocity
+func movementHandler(speed : int):
 	# Move when there is direction
 	if direction: 
-		velocity.x = direction.x * speed 
-		velocity.z = direction.z * speed 
+		ownerNode.velocity.x = direction.x * speed 
+		ownerNode.velocity.z = direction.z * speed 
 	# Slow down the movement when there aren't direction
 	else: 
-		velocity.x = move_toward(velocity.x, ConstantNumber.noMovementConstant, speed)
-		velocity.z = move_toward(velocity.z, ConstantNumber.noMovementConstant, speed)
-	
-	return velocity
-	
-func updateLastDirection(velocity:float, lastDirection : int): 
-	if velocity > ConstantNumber.noMovementConstant: 
+		ownerNode.velocity.x = move_toward(ownerNode.velocity.x, ConstantNumber.noMovementConstant, speed)
+		ownerNode.velocity.z = move_toward(ownerNode.velocity.z, ConstantNumber.noMovementConstant, speed)
+	#Reset the direction input after moving
+	direction = Vector3.ZERO
+
+#check latest movement and save lastest direction where entity was point
+func updateLastDirection(): 
+	if direction.x > ConstantNumber.noMovementConstant: 
 		lastDirection = EntityDirection.right
-	elif  velocity < ConstantNumber.noMovementConstant:
+	elif  direction.x < ConstantNumber.noMovementConstant:
 		lastDirection = EntityDirection.left
-	return lastDirection
 
-
+#dashing for player
+func dash(delta: float):
+	#Check if dash
+	if isDash == true:
+		#Dash with direction input
+		if direction: 
+			ownerNode.velocity.x = direction.x * ConstantNumber.playerDashSpeed
+			ownerNode.velocity.z = direction.z * ConstantNumber.playerDashSpeed
+		#Dash without direction input depend on last direction
+		else:
+			if(lastDirection == EntityDirection.right):
+				ownerNode.velocity.x = EntityDirection.right * ConstantNumber.playerDashSpeed
+			elif (lastDirection == EntityDirection.left):
+				ownerNode.velocity.x = EntityDirection.left * ConstantNumber.playerDashSpeed
+		if (dashCountdown >= ConstantNumber.playerDashDuration) :
+			isDash = false
+			dashCountdown = 0
+		else :
+			dashCountdown += delta

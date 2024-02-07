@@ -7,7 +7,7 @@
 [node name="World" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_qp4wm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.717794, 0.765322, 0.00363922)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.718, 0.5, 0.004)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.990154, 0.139985, 0, -0.139985, 0.990154, 0.0232377, 1.73209, 4.18605)
@@ -22,4 +22,4 @@ data = {
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="Enemy" parent="." instance=ExtResource("3_v75h6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.01879, 0.62466, -2.21746)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.019, 0.5, -2.217)

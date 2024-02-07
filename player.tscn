@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://58jmk2r1l0p1"]
+[gd_scene load_steps=19 format=3 uid="uid://58jmk2r1l0p1"]
 
 [ext_resource type="Texture2D" uid="uid://dplin0hu6on07" path="res://player_sprites/run/player-run-1.png" id="1_m43ke"]
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_t16q3"]
@@ -13,7 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://c2nq5bgrml3n4" path="res://player_sprites/run/player-run-6.png" id="6_g53o3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sv0xa"]
-size = Vector3(1, 1.29736, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6ocen"]
 animations = [{
@@ -137,6 +136,9 @@ _data = {
 "Run": SubResource("Animation_2ck7i")
 }
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_wupqp"]
+size = Vector3(1, 1, 2.5)
+
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 script = ExtResource("1_t16q3")
@@ -145,7 +147,7 @@ script = ExtResource("1_t16q3")
 shape = SubResource("BoxShape3D_sv0xa")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(5.115, 0, 0, 0, 5.115, 0, 0, 0, 5.115, 0.106288, 0.192409, 0)
+transform = Transform3D(4.495, 0, 0, 0, 4.495, 0, 0, 0, 4.495, 0.0262242, 0.221906, 0)
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_6ocen")
 animation = &"Idle"
@@ -155,3 +157,7 @@ frame = 1
 libraries = {
 "": SubResource("AnimationLibrary_kc8gc")
 }
+
+[node name="HitBoxAttack" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+shape = SubResource("BoxShape3D_wupqp")

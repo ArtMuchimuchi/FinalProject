@@ -1,5 +1,7 @@
 extends Node
 
+class_name AnimationManager
+
 func movementAnimation(animationPlayer: AnimationPlayer,velocity : Vector3):
 	#If character doesn't move, play idle animation
 	if velocity.x == ConstantNumber.noMovementConstant && velocity.z == ConstantNumber.noMovementConstant: 

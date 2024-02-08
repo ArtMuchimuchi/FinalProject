@@ -2,24 +2,22 @@ extends Node
 
 class_name HealthPoint
 
-var ownerNode : Node3D
+var ownerNode : Entity
 var displayHP : Label3D
-var currentHealthPoint : int
 var healthPointLabel : String
 	
-func _init(initHealthPoint: int, targetNode: Node3D):
-	currentHealthPoint = initHealthPoint
+func _init(targetNode: Entity):
 	ownerNode = targetNode
 	createDisplayHP()
 
 func updateHP(newHealthPoint: int):
-	currentHealthPoint = newHealthPoint
+	ownerNode.healthPoint = newHealthPoint
 	updateHPDisplay()
 
 func updateHPDisplay():
 	#re-create string for display HP
 	var labelHP : String = "HP : "
-	for i in range (self.currentHealthPoint):
+	for i in range (ownerNode.healthPoint):
 		labelHP = labelHP + "[]"
 	healthPointLabel = labelHP
 	#re-display current HP
@@ -28,7 +26,7 @@ func updateHPDisplay():
 func createDisplayHP():
 	#innitiate string for label HP depends on HP number
 	var labelHP : String = "HP : "
-	for i in range (self.currentHealthPoint):
+	for i in range (ownerNode.healthPoint):
 		labelHP = labelHP + "[]"
 	healthPointLabel = labelHP
 	#create Label node for display HP

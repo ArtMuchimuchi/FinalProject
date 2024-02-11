@@ -2,23 +2,26 @@ extends Entity
 
 @onready var animationSprite = get_node("AnimatedSprite3D")
 @onready var animationPlayer = get_node("AnimationPlayer")
+@onready var hitboxMeleeAttack = get_node("HitBoxMeleeAttack")
+
 @onready var animationManager = AnimationManager.new()
 @onready var movement = MovementHandler.new(self)
 var HP : HealthPoint
+@onready var meleeAttack = AttackHandler.new(self, hitboxMeleeAttack)
 
 func _init():
+	initEntity()
 	healthPoint = 10
 	movementSpeed = ConstantNumber.playerSpeed
 	dashSpeed = ConstantNumber.playerDashSpeed
-	lastDirection = EntityDirection.right
-	direction = Vector3.ZERO
-	isDash = false
-	dashCountdown = 0
 	HP = HealthPoint.new(self)
 
 func _physics_process(delta):
 	move(delta)
 	playerAnimation(delta)
+	meleeAttack.updateHitbox()
+	if(Input.is_action_just_pressed("melee_attack")):
+		meleeAttack.attack()
 
 func move(delta : float):
 	#Check user input movement
@@ -30,12 +33,10 @@ func move(delta : float):
 		isDash = true
 	#if player dash then do the dash thing, other wise do movement
 	if(isDash):
-		movement.dash(delta)
+		movement.moveImediately(delta,dashSpeed,ConstantNumber.playerDashDuration)
 	else :
 		#Calculate player movement in 4 directional
 		movement.movementHandler()
-	#move depen on velocity vector
-	move_and_slide()
 
 func playerAnimation(delta : float):
 	#Play animation of player by the movement of player

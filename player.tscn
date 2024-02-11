@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://58jmk2r1l0p1"]
+[gd_scene load_steps=22 format=3 uid="uid://58jmk2r1l0p1"]
 
 [ext_resource type="Texture2D" uid="uid://dplin0hu6on07" path="res://player_sprites/run/player-run-1.png" id="1_m43ke"]
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_t16q3"]
@@ -139,6 +139,14 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_wupqp"]
 size = Vector3(1, 1, 2.5)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_bl453"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bsu06"]
+size = Vector3(1.297, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rjf26"]
+size = Vector3(1.297, 1, 1)
+
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 script = ExtResource("1_t16q3")
@@ -150,7 +158,7 @@ shape = SubResource("BoxShape3D_sv0xa")
 transform = Transform3D(4.495, 0, 0, 0, 4.495, 0, 0, 0, 4.495, 0.0262242, 0.221906, 0)
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_6ocen")
-animation = &"Idle"
+animation = &"Run"
 frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -158,6 +166,21 @@ libraries = {
 "": SubResource("AnimationLibrary_kc8gc")
 }
 
-[node name="HitBoxAttack" type="CollisionShape3D" parent="."]
+[node name="HitBoxMeleeAttack" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="HitBoxAttack" type="CollisionShape3D" parent="HitBoxMeleeAttack"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 shape = SubResource("BoxShape3D_wupqp")
+
+[node name="HitBoxAttack2" type="CollisionShape3D" parent="HitBoxMeleeAttack"]
+shape = SubResource("BoxShape3D_bl453")
+
+[node name="HitBoxAttack3" type="CollisionShape3D" parent="HitBoxMeleeAttack"]
+transform = Transform3D(0.799559, 0, 0.600588, 0, 1, 0, -0.600588, 0, 0.799559, 0.313137, 0, -0.477613)
+shape = SubResource("BoxShape3D_bsu06")
+
+[node name="HitBoxAttack4" type="CollisionShape3D" parent="HitBoxMeleeAttack"]
+transform = Transform3D(0.799685, 0, -0.60042, 0, 1, 0, 0.60042, 0, 0.799685, 0.313, 0, 0.478)
+shape = SubResource("BoxShape3D_rjf26")

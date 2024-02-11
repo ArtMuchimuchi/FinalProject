@@ -11,8 +11,16 @@ func _init(targetNode: Entity):
 	createDisplayHP()
 
 func updateHP(newHealthPoint: int):
+	#update entity HP
 	ownerNode.healthPoint = newHealthPoint
+	#if HP below threshold, die
+	if(ownerNode.healthPoint <= 0):
+		die()
+		#update HP display
 	updateHPDisplay()
+	
+func die():
+	ownerNode.queue_free()
 
 func updateHPDisplay():
 	#re-create string for display HP

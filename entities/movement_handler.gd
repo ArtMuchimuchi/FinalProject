@@ -24,9 +24,26 @@ func checkPlayerInput():
 	if ownerNode.direction != Vector3.ZERO:
 		ownerNode.direction = ownerNode.direction.normalized()
 	
-#calculate direction to the desired direction	
-func calculateDirection(desiredPosition : Vector3):
-	ownerNode.direction = (desiredPosition - ownerNode.position).normalized()
+#set direction to the desired direction	
+func getDirection(desiredPosition : Vector3):
+	ownerNode.direction = calculateDirection(ownerNode.position, desiredPosition) 	
+	
+#calculate direction from 2 positions	
+func calculateDirection(startPosition: Vector3, desiredPosition: Vector3) -> Vector3:
+	return (desiredPosition - startPosition).normalized()
+
+#reset varables flag so entity can be move normally
+func resumeMove():
+	ownerNode.canMove = true
+	ownerNode.isDash = false
+	ownerNode.isKnockback = false
+	
+#set flag varables for knockback state
+func  knockBack(direction: int):
+	ownerNode.canMove = false
+	ownerNode.isDash = false
+	ownerNode.isKnockback = true
+	ownerNode.direction.x = direction
 
 #change direction into entity velocity
 func movementHandler():
@@ -42,6 +59,8 @@ func movementHandler():
 		 ownerNode.movementSpeed)
 	#Reset the direction input after moving
 	ownerNode.direction = Vector3.ZERO
+	#move
+	ownerNode.move_and_slide()
 
 #check latest movement and save lastest direction where entity was point
 func updateLastDirection(): 
@@ -51,21 +70,37 @@ func updateLastDirection():
 		ownerNode.lastDirection = EntityDirection.left
 
 #dashing for player
-func dash(delta: float):
-	#Check if dash
-	if ownerNode.isDash == true:
-		#Dash with direction input
-		if ownerNode.direction: 
-			ownerNode.velocity.x = ownerNode.direction.x * ownerNode.dashSpeed
-			ownerNode.velocity.z = ownerNode.direction.z * ownerNode.dashSpeed
-		#Dash without direction input depend on last direction
-		else:
-			if(ownerNode.lastDirection == EntityDirection.right):
-				ownerNode.velocity.x = EntityDirection.right * ownerNode.dashSpeed
-			elif (ownerNode.lastDirection == EntityDirection.left):
-				ownerNode.velocity.x = EntityDirection.left * ownerNode.dashSpeed
-		if (ownerNode.dashCountdown >= ConstantNumber.playerDashDuration) :
-			ownerNode.isDash = false
-			ownerNode.dashCountdown = 0
-		else :
-			ownerNode.dashCountdown += delta
+func moveImediately(delta: float, moveSpeed: int, duration: float):
+	#Dash with direction input
+	if ownerNode.direction: 
+		ownerNode.velocity.x = ownerNode.direction.x * moveSpeed
+		ownerNode.velocity.z = ownerNode.direction.z * moveSpeed
+	#Dash without direction input depend on last direction
+	else:
+		if(ownerNode.lastDirection == EntityDirection.right):
+			ownerNode.velocity.x = EntityDirection.right * moveSpeed
+		elif (ownerNode.lastDirection == EntityDirection.left):
+			ownerNode.velocity.x = EntityDirection.left * moveSpeed
+	if (ownerNode.movementCountdown >= duration) :
+		resumeMove()
+		ownerNode.movementCountdown = 0
+	else :
+		ownerNode.movementCountdown += delta
+	#move
+	ownerNode.move_and_slide()
+
+#move pattern for enemy
+func enemyMovement(delta: float, player: Entity):
+	#move normally
+	if(ownerNode.canMove == true):
+		#calculate direction for chasing player
+		getDirection(player.position)
+		#Update last direction of player facing
+		updateLastDirection()
+		#check for move pattern
+		#Calculate player movement in 4 directional
+		movementHandler()
+		#get knockback
+	elif (ownerNode.isKnockback == true):
+		#calculate knock back direction
+		moveImediately(delta,14,0.3)

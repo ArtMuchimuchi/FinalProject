@@ -12,6 +12,7 @@ var canMove : bool
 var isKnockback : bool
 var movementCountdown : float
 
+#initiate varables for entity
 func initEntity():
 	lastDirection = EntityDirection.left
 	direction = Vector3.ZERO
@@ -20,5 +21,6 @@ func initEntity():
 	isKnockback = false
 	movementCountdown = 0
 
+#method for damaging this entity
 func damaged(direction: int, damage: int):
 	assert(false)

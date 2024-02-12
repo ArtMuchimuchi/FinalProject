@@ -11,9 +11,9 @@ var HP : HealthPoint
 
 func _init():
 	initEntity()
-	healthPoint = 10
-	movementSpeed = 4
-	dashSpeed = 1
+	healthPoint = ConstantNumber.enemyHealthPoint
+	movementSpeed = ConstantNumber.enemySpeed
+	dashSpeed = 0
 	HP = HealthPoint.new(self)
 
 func _physics_process(delta):
@@ -36,4 +36,4 @@ func animation(delta: float):
 	
 func damaged(direction: int, damage: int):
 	movement.knockBack(direction)
-	HP.updateHP(healthPoint - 1);
+	HP.updateHP(healthPoint - damage);

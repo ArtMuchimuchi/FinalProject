@@ -103,4 +103,4 @@ func enemyMovement(delta: float, player: Entity):
 		#get knockback
 	elif (ownerNode.isKnockback == true):
 		#calculate knock back direction
-		moveImediately(delta,14,0.3)
+		moveImediately(delta, ConstantNumber.enemyDashSpeed, ConstantNumber.playerDashDuration)

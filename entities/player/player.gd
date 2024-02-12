@@ -11,7 +11,7 @@ var HP : HealthPoint
 
 func _init():
 	initEntity()
-	healthPoint = 10
+	healthPoint = ConstantNumber.playerHealthPoint
 	movementSpeed = ConstantNumber.playerSpeed
 	dashSpeed = ConstantNumber.playerDashSpeed
 	HP = HealthPoint.new(self)

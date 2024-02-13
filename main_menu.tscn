@@ -2,22 +2,70 @@
 
 [ext_resource type="Script" path="res://main_menu.gd" id="1_0itcf"]
 
-[node name="main_menu" type="Node2D"]
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_0itcf")
 
-[node name="start_button" type="Button" parent="."]
-offset_left = 302.0
-offset_top = 107.0
-offset_right = 882.0
-offset_bottom = 242.0
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="GameTitle" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 60
+
+[node name="Seperator" type="Control" parent="MarginContainer/GameTitle"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/GameTitle"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 52
+text = "Game Title"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuButtons" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="StartButton" type="Button" parent="MarginContainer/MenuButtons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "Start  "
 
-[node name="quit_button" type="Button" parent="."]
-offset_left = 286.0
-offset_top = 367.0
-offset_right = 866.0
-offset_bottom = 502.0
+[node name="UpgradeButton" type="Button" parent="MarginContainer/MenuButtons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Upgrade"
+
+[node name="OptionsButton" type="Button" parent="MarginContainer/MenuButtons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/MenuButtons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "Quit"
 
-[connection signal="pressed" from="start_button" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="quit_button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MenuButtons/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MenuButtons/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MenuButtons/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MenuButtons/QuitButton" to="." method="_on_quit_button_pressed"]

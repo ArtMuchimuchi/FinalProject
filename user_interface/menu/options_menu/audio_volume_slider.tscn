@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cexiej2uqir7d"]
 
-[ext_resource type="Script" path="res://audio_volume_slider.gd" id="1_bjr7p"]
+[ext_resource type="Script" path="res://user_interface/menu/options_menu/audio_volume_slider.gd" id="1_bjr7p"]
 
 [node name="AudioVolumeSlider" type="HSlider"]
 max_value = 1.0

@@ -1,0 +1,95 @@
+[gd_scene load_steps=3 format=3 uid="uid://occ6mj4y5ipe"]
+
+[ext_resource type="Script" path="res://user_interface/menu/options_menu/options_menu.gd" id="1_b3m20"]
+[ext_resource type="PackedScene" uid="uid://cexiej2uqir7d" path="res://user_interface/menu/options_menu/audio_volume_slider.tscn" id="1_yvo8o"]
+
+[node name="OptionsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b3m20")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Audio" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Audio"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="AudioLabel" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Master" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AudioLabel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Master "
+
+[node name="BackgroundMusic" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AudioLabel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Background Music "
+
+[node name="SoundEffectMusic" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AudioLabel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Sound Effect  "
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 40
+
+[node name="AudioSlider" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MasterVolumeSlider" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/AudioSlider" instance=ExtResource("1_yvo8o")]
+layout_mode = 2
+size_flags_vertical = 6
+bus_name = "Master"
+
+[node name="BackgroundMusicVolumeSlider" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/AudioSlider" instance=ExtResource("1_yvo8o")]
+layout_mode = 2
+size_flags_vertical = 3
+bus_name = "background_music"
+
+[node name="SoundEffectVolumeSlider" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/AudioSlider" instance=ExtResource("1_yvo8o")]
+layout_mode = 2
+size_flags_vertical = 3
+bus_name = "sound_effect"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/margin_bottom = 40
+
+[node name="BackButton" type="Button" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Back"
+
+[connection signal="pressed" from="MarginContainer/MarginContainer/BackButton" to="." method="_on_back_button_pressed"]

@@ -11,6 +11,7 @@ var HP : HealthPoint
 
 func _init():
 	initEntity()
+	meleeAttackDamage = ConstantNumber.playerMeleeDamage
 	healthPoint = ConstantNumber.playerHealthPoint
 	movementSpeed = ConstantNumber.playerSpeed
 	dashSpeed = ConstantNumber.playerDashSpeed
@@ -21,7 +22,7 @@ func _physics_process(delta):
 	playerAnimation(delta)
 	meleeAttack.updateHitbox()
 	if(Input.is_action_just_pressed("melee_attack")):
-		meleeAttack.attack()
+		meleeAttack.attack(meleeAttackDamage)
 
 func move(delta : float):
 	#Check user input movement
@@ -30,9 +31,9 @@ func move(delta : float):
 	movement.updateLastDirection()
 	#Check is player dash or not
 	if Input.is_action_just_pressed("dash"):
-		isDash = true
+		movement.setState(EntityState.dash);
 	#if player dash then do the dash thing, other wise do movement
-	if(isDash):
+	if(movementState == EntityState.dash):
 		movement.moveImediately(delta,dashSpeed,ConstantNumber.playerDashDuration)
 	else :
 		#Calculate player movement in 4 directional

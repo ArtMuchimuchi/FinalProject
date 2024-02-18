@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://1pepnmfcjbk7"]
+[gd_scene load_steps=19 format=3 uid="uid://1pepnmfcjbk7"]
 
 [ext_resource type="Script" path="res://entities/enemies/enemy.gd" id="1_j3jud"]
 [ext_resource type="Texture2D" uid="uid://dc3kxwk2otphh" path="res://player_sprites/idle/player-idle-1.png" id="2_m7xeg"]
@@ -149,6 +149,9 @@ _data = {
 "Run": SubResource("Animation_7ungr")
 }
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_pe4q7"]
+size = Vector3(1, 1, 1.5)
+
 [node name="Enemy" type="CharacterBody3D"]
 collision_layer = 4
 script = ExtResource("1_j3jud")
@@ -168,3 +171,11 @@ frame = 1
 libraries = {
 "": SubResource("AnimationLibrary_anjfr")
 }
+
+[node name="HitBoxMeleeAttack" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="HitBoxAttack" type="CollisionShape3D" parent="HitBoxMeleeAttack"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.440915, 0, 0)
+shape = SubResource("BoxShape3D_pe4q7")

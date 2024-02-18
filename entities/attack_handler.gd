@@ -11,7 +11,7 @@ func _init(targetNode : Entity, targetHitbox: Area3D):
 	hitbox = targetHitbox
 
 #entity attacking
-func attack():
+func attack(damage: int):
 	#change hit box
 	updateHitbox()
 	#check enemies in range
@@ -21,8 +21,11 @@ func attack():
 	#damage enemies in attack range
 	for enemy in enemies:
 		if enemy.has_method("damaged"):
-			enemy.damaged(attackDirection, 1)
+			enemy.damaged(attackDirection, damage)
 	
 #method for update hitbox
 func  updateHitbox():
-	hitbox.position.x = ownerNode.lastDirection
+	if(ownerNode.lastDirection == EntityDirection.right):
+		hitbox.rotation_degrees.y = EntityRotation.right
+	elif(ownerNode.lastDirection == EntityDirection.left):
+		hitbox.rotation_degrees.y = EntityRotation.left

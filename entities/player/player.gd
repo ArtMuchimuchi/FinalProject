@@ -44,5 +44,8 @@ func playerAnimation(delta : float):
 	animationManager.movementAnimation(animationPlayer,velocity)
 	#Flip direction of player 
 	animationManager.flipAnimation(lastDirection, animationSprite, delta)
+	
+func damaged(direction: int, damage: int):
+	HP.updateHP(healthPoint - 1)
 
 

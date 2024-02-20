@@ -113,3 +113,11 @@ func enemyMovement(delta: float, player: Entity):
 		updateLastDirection()
 		ownerNode.direction = Vector3.ZERO
 		ownerNode.movementState = EntityState.idle
+	#tried after attack
+	elif (ownerNode.movementState == EntityState.tried):
+		#tried cooldown
+		if(ownerNode.triedCountdown >= ConstantNumber.enemyTriedDuration):
+			ownerNode.triedCountdown = 0
+			ownerNode.movementState = EntityState.idle
+		else:
+			ownerNode.triedCountdown += delta

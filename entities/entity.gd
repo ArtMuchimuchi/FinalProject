@@ -11,6 +11,7 @@ var dashSpeed : int
 var lastDirection : int 
 var direction : Vector3 
 var movementCountdown : float
+var triedCountdown : float
 
 #initiate varables for entity
 func initEntity():
@@ -18,6 +19,7 @@ func initEntity():
 	direction = Vector3.ZERO
 	movementState = EntityState.idle
 	movementCountdown = 0
+	triedCountdown = 0
 
 #method for damaging this entity
 func damaged(direction: int, damage: int):

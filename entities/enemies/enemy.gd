@@ -29,6 +29,9 @@ func _physics_process(delta):
 		pass
 	else:
 		movement.setState(EntityState.attacking)
+		if(movementState == EntityState.attacking):
+			meleeAttack.attack(meleeAttackDamage)
+			movement.setState(EntityState.tried)
 	
 func move():
 	#calculate direction for chasing player

@@ -15,3 +15,4 @@ const enemySpeed : int = 4
 const enemyDashSpeed : int = 14
 const enemyDashDuration : float = 0.3
 const enemyMeleeDamage : int = 1
+const enemyTriedDuration : float = 0.5

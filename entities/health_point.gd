@@ -20,7 +20,10 @@ func updateHP(newHealthPoint: int):
 	updateHPDisplay()
 	
 func die():
-	ownerNode.queue_free()
+	if(ownerNode.name == "Player"):
+		ownerNode.get_tree().paused = true
+	else:
+		ownerNode.queue_free()
 
 func updateHPDisplay():
 	#re-create string for display HP

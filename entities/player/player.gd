@@ -3,6 +3,7 @@ extends Entity
 @onready var animationSprite = get_node("AnimatedSprite3D")
 @onready var animationPlayer = get_node("AnimationPlayer")
 @onready var hitboxMeleeAttack = get_node("HitBoxMeleeAttack")
+@onready var playerHitbox = get_node("CollisionShape3D")
 
 @onready var animationManager = AnimationManager.new()
 @onready var movement = MovementHandler.new(self)
@@ -34,6 +35,7 @@ func move(delta : float):
 		movement.setState(EntityState.dash);
 	#if player dash then do the dash thing, other wise do movement
 	if(movementState == EntityState.dash):
+		#then dash
 		movement.moveImediately(delta,dashSpeed,ConstantNumber.playerDashDuration)
 	else :
 		#Calculate player movement in 4 directional
@@ -46,6 +48,8 @@ func playerAnimation(delta : float):
 	animationManager.flipAnimation(lastDirection, animationSprite, delta)
 	
 func damaged(direction: int, damage: int):
-	HP.updateHP(healthPoint - 1)
+	#if player dash, be invisibility
+	if(movementState!=EntityState.dash):
+		HP.updateHP(healthPoint - 1)
 
 

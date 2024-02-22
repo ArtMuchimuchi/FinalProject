@@ -21,17 +21,12 @@ func _init():
 	HP = HealthPoint.new(self)
 
 func _physics_process(delta):
+	#follow player
 	movement.enemyMovement(delta, player)
+	#play animation
 	animation(delta)
-	meleeAttack.updateHitbox()
-	var isNearPlayer = hitboxMeleeAttack.get_overlapping_bodies()
-	if(isNearPlayer.is_empty()):
-		pass
-	else:
-		movement.setState(EntityState.attacking)
-		if(movementState == EntityState.attacking):
-			meleeAttack.attack(meleeAttackDamage)
-			movement.setState(EntityState.tried)
+	#about attacking
+	attack()
 	
 func move():
 	#calculate direction for chasing player
@@ -47,6 +42,25 @@ func animation(delta: float):
 	#Flip direction of player 
 	animationManager.flipAnimation(lastDirection, animationSprite, delta)
 	
+func attack():
+	#update melee attack hitbox
+	meleeAttack.updateHitbox()
+	#create variable and check for player
+	var isNearPlayer = hitboxMeleeAttack.get_overlapping_bodies()
+	if(isNearPlayer.is_empty()):
+		pass
+	else:
+		#if player found, attacking
+		movement.setState(EntityState.attacking)
+		if(movementState == EntityState.attacking):
+			#deal damage
+			meleeAttack.attack(meleeAttackDamage)
+			#tried after attack for delay
+			movement.setState(EntityState.tried)
+	
+#get damaged by entity
 func damaged(direction: int, damage: int):
+	#get knock back
 	movement.knockBack(direction)
+	#deal damage to itself
 	HP.updateHP(healthPoint - damage);

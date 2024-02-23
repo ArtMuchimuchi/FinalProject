@@ -54,13 +54,13 @@ func attack():
 		movement.setState(EntityState.attacking)
 		if(movementState == EntityState.attacking):
 			#deal damage
-			meleeAttack.attack(meleeAttackDamage)
+			meleeAttack.meleeAttack(meleeAttackDamage)
 			#tried after attack for delay
 			movement.setState(EntityState.tried)
 	
 #get damaged by entity
-func damaged(direction: int, damage: int):
+func damaged(direction: Vector3, damage: int, knockbackSpeed: int, knockbackDuration: float):
 	#get knock back
-	movement.knockBack(direction)
+	movement.knockBack(direction, knockbackSpeed, knockbackDuration)
 	#deal damage to itself
 	HP.updateHP(healthPoint - damage);

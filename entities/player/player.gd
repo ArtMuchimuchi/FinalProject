@@ -3,16 +3,19 @@ extends Entity
 @onready var animationSprite = get_node("AnimatedSprite3D")
 @onready var animationPlayer = get_node("AnimationPlayer")
 @onready var hitboxMeleeAttack = get_node("HitBoxMeleeAttack")
+@onready var hitboxRangeAttack = get_node("HitBoxRangeAttack")
 @onready var playerHitbox = get_node("CollisionShape3D")
 
 @onready var animationManager = AnimationManager.new()
 @onready var movement = MovementHandler.new(self)
 var HP : HealthPoint
 @onready var meleeAttack = AttackHandler.new(self, hitboxMeleeAttack)
+@onready var rangeAttack = AttackHandler.new(self, hitboxRangeAttack)
 
 func _init():
 	initEntity()
 	meleeAttackDamage = ConstantNumber.playerMeleeDamage
+	rangeAttackDamage = ConstantNumber.playerRangeDamage
 	healthPoint = ConstantNumber.playerHealthPoint
 	movementSpeed = ConstantNumber.playerSpeed
 	dashSpeed = ConstantNumber.playerDashSpeed
@@ -21,9 +24,7 @@ func _init():
 func _physics_process(delta):
 	move(delta)
 	playerAnimation(delta)
-	meleeAttack.updateHitbox()
-	if(Input.is_action_just_pressed("melee_attack")):
-		meleeAttack.attack(meleeAttackDamage)
+	attack()
 
 func move(delta : float):
 	#Check user input movement
@@ -47,9 +48,14 @@ func playerAnimation(delta : float):
 	#Flip direction of player 
 	animationManager.flipAnimation(lastDirection, animationSprite, delta)
 	
-func damaged(direction: int, damage: int):
+func damaged(direction: Vector3, damage: int, knockbackSpeed: int, knockbackDuration: float):
 	#if player dash, be invisibility
 	if(movementState!=EntityState.dash):
 		HP.updateHP(healthPoint - 1)
 
-
+func attack():
+	meleeAttack.updateHitbox()
+	if(Input.is_action_just_pressed("melee_attack")):
+		meleeAttack.meleeAttack(meleeAttackDamage)
+	elif (Input.is_action_just_pressed("range_attack")):
+		rangeAttack.aoeAttack(rangeAttackDamage)

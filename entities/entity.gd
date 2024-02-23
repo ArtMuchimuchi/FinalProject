@@ -8,6 +8,7 @@ var healthPoint : int
 var movementSpeed : int
 var movementState : int
 var dashSpeed : int
+var dashDuration : float
 var lastDirection : int 
 var direction : Vector3 
 var movementCountdown : float
@@ -20,7 +21,4 @@ func initEntity():
 	movementState = EntityState.idle
 	movementCountdown = 0
 	triedCountdown = 0
-
-#method for damaging this entity
-func damaged(direction: int, damage: int):
-	assert(false)
+	dashDuration = 0

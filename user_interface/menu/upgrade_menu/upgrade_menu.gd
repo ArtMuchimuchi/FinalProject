@@ -28,7 +28,7 @@ func add_slot_grid(slots : Array[Slot]):
 	
 # Set slot detail default to first slot in grid 
 func set_slot_detail_default(slots : Array[Slot]):
-		upgrade_slot_detail.set_slot_detail_data(slots[ConstantNumber.defalutSlotDetailIndex])
+		upgrade_slot_detail.set_slot_detail_data(slots[ConstantNumber.defaultSlotDetailIndex])
 		upgrade_slot_detail.pressed_upgrade.connect(on_pressed_upgrade)
 
 # Function to respond after user click slot, change slot detail to selected slot

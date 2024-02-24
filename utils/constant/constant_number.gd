@@ -16,3 +16,7 @@ const enemyDashSpeed : int = 14
 const enemyDashDuration : float = 0.3
 const enemyMeleeDamage : int = 1
 const enemyTriedDuration : float = 0.5
+
+const defaultSlotDetailIndex : int = 0
+const slotLevelZero : int = 0
+const currentSlotLevelIndexDifferent : int = 1

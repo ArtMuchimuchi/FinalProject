@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Slot" load_steps=7 format=3 uid="uid://blx1mkhunlugr"]
+
+[ext_resource type="Script" path="res://user_interface/menu/upgrade_menu/slot_data_model/slot.gd" id="1_fk6ww"]
+[ext_resource type="Script" path="res://user_interface/menu/upgrade_menu/slot_data_model/slot_level.gd" id="2_funxe"]
+[ext_resource type="Texture2D" uid="uid://0p2wljhv44mx" path="res://icon.svg" id="3_vgrnr"]
+
+[sub_resource type="Resource" id="Resource_4re17"]
+script = ExtResource("2_funxe")
+description = "Increase xxx %"
+price = 100
+
+[sub_resource type="Resource" id="Resource_j7l8y"]
+script = ExtResource("2_funxe")
+description = "Increase yyy %"
+price = 200
+
+[sub_resource type="Resource" id="Resource_rvv7o"]
+script = ExtResource("2_funxe")
+description = "Increase zzzzz"
+price = 300
+
+[resource]
+script = ExtResource("1_fk6ww")
+name = "Trait 1"
+texture = ExtResource("3_vgrnr")
+current_level = 0
+slot_level = Array[ExtResource("2_funxe")]([SubResource("Resource_4re17"), SubResource("Resource_j7l8y"), SubResource("Resource_rvv7o")])

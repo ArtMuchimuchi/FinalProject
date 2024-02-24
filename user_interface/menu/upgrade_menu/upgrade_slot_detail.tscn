@@ -1,0 +1,72 @@
+[gd_scene load_steps=3 format=3 uid="uid://c45246jkp3fkw"]
+
+[ext_resource type="PackedScene" uid="uid://bcbldwtmyfv8m" path="res://user_interface/menu/upgrade_menu/upgrade_slot.tscn" id="1_4rn2r"]
+[ext_resource type="Script" path="res://user_interface/menu/upgrade_menu/upgrade_slot_detail.gd" id="1_tpaj6"]
+
+[node name="UpgradeSlotDetail" type="MarginContainer"]
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+script = ExtResource("1_tpaj6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="UpgradeSlotDetail" parent="VBoxContainer" instance=ExtResource("1_4rn2r")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CurrentLevel" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CurrentLevelLabel" type="Label" parent="VBoxContainer/CurrentLevel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.945098, 0.870588, 0.560784, 1)
+theme_override_font_sizes/font_size = 12
+text = "Current Level"
+
+[node name="CurrentDescriptionLabel" type="Label" parent="VBoxContainer/CurrentLevel"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "None
+"
+
+[node name="NextLevel" type="VBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NextLevelLabel" type="Label" parent="VBoxContainer/NextLevel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.945098, 0.870588, 0.560784, 1)
+theme_override_font_sizes/font_size = 12
+text = "Next Level"
+
+[node name="NextDescriptionLabel" type="Label" parent="VBoxContainer/NextLevel"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Increase something for x%
+"
+
+[node name="PriceAndUpgrade" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Price" type="Label" parent="VBoxContainer/PriceAndUpgrade"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+text = "1000 Coin"
+
+[node name="UpgradeButton" type="Button" parent="VBoxContainer/PriceAndUpgrade"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Upgrade"
+
+[connection signal="pressed" from="VBoxContainer/PriceAndUpgrade/UpgradeButton" to="." method="_on_upgrade_button_pressed"]

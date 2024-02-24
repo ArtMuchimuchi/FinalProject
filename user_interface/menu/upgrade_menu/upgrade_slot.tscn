@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcbldwtmyfv8m"]
+
+[ext_resource type="Texture2D" uid="uid://0p2wljhv44mx" path="res://icon.svg" id="1_5ptwl"]
+[ext_resource type="Script" path="res://user_interface/menu/upgrade_menu/upgrade_slot.gd" id="1_gi1qb"]
+
+[node name="UpgradeSlot" type="MarginContainer"]
+offset_right = 196.0
+offset_bottom = 192.0
+script = ExtResource("1_gi1qb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="NameLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 24
+text = "Trait Name"
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="IconTexture" type="TextureRect" parent="VBoxContainer/PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("1_5ptwl")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="LevelLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 24
+text = "0 / 3"
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

@@ -7,11 +7,11 @@ const upgrade_slot = preload("res://user_interface/menu/upgrade_menu/upgrade_slo
 var current_coin : int = 10000
 signal closed_upgrade_menu
 # Mockup trait slot array
-const trait_slot1 = preload("res://user_interface/menu/upgrade_menu/mockup_trait_slot_data/trait_slot1.tres")
-const trait_slot2 = preload("res://user_interface/menu/upgrade_menu/mockup_trait_slot_data/trait_slot2.tres")
+const trait_slot_1 = preload("res://user_interface/menu/upgrade_menu/mockup_trait_slot_data/trait_slot_1.tres")
+const trait_slot_2 = preload("res://user_interface/menu/upgrade_menu/mockup_trait_slot_data/trait_slot_2.tres")
 var mockup_trait_slot_array : Array[TraitSlotData] = [
-	trait_slot1,
-	trait_slot2
+	trait_slot_1,
+	trait_slot_2
 ]
 
 # Called when the node enters the scene tree for the first time.
@@ -19,7 +19,7 @@ func _ready():
 	add_slot_grid(mockup_trait_slot_array)
 	update_current_coin()
 	set_slot_detail_default(mockup_trait_slot_array)
-
+	
 # Add slot slots to the grid
 func add_slot_grid(slots : Array[TraitSlotData]):
 	# Remove old upgrade slots and prevent dulplicate slot when re-used function 

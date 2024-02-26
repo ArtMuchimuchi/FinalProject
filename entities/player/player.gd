@@ -51,7 +51,7 @@ func playerAnimation(delta : float):
 func damaged(direction: Vector3, damage: int, knockbackSpeed: int, knockbackDuration: float):
 	#if player dash, be invisibility
 	if(movementState!=EntityState.dash):
-		HP.updateHP(healthPoint - 1)
+		HP.updateHP(healthPoint - damage)
 
 func attack():
 	meleeAttack.updateHitbox()

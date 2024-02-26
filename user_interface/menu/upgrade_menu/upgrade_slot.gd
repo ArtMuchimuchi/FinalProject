@@ -7,7 +7,7 @@ signal selected_slot(slot_index:int)
 
 
 # Function to set slot data such as name, level, icon texture in slot
-func set_slot_data(slot_data: Slot):
+func set_slot_data(slot_data: TraitSlotData):
 	name_label.text = slot_data.name
 	icon_texture.texture = slot_data.texture
 	var current_level = str(slot_data.current_level)

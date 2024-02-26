@@ -7,13 +7,13 @@ extends MarginContainer
 @onready var upgrade_button = %UpgradeButton
 @onready var next_level = %NextLevel
 var next_level_price : int 
-var upgrade_slot : Slot
+var upgrade_slot : TraitSlotData
 # Boolean variable to check if slot level is max 
 var is_max_level : bool
-signal pressed_upgrade(price:int, upgrade_slot:Slot)
+signal pressed_upgrade(price:int, upgrade_slot:TraitSlotData)
 
 # Function to set slot detail data such as slot, current level, next level description, price and upgrade button
-func set_slot_detail_data(selected_slot : Slot):
+func set_slot_detail_data(selected_slot : TraitSlotData):
 	# Assign selected slot to local upgrade slot to be used in pressed upgrade signal 
 	upgrade_slot = selected_slot
 	upgrade_slot_detail.set_slot_data(selected_slot)

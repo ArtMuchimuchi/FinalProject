@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://c45246jkp3fkw"]
+[gd_scene load_steps=3 format=3 uid="uid://c6yp48ytqhmma"]
 
-[ext_resource type="PackedScene" uid="uid://bcbldwtmyfv8m" path="res://user_interface/menu/upgrade_menu/upgrade_slot.tscn" id="1_4rn2r"]
+[ext_resource type="PackedScene" uid="uid://bbl026urgjdrw" path="res://user_interface/menu/upgrade_menu/upgrade_slot.tscn" id="1_4rn2r"]
 [ext_resource type="Script" path="res://user_interface/menu/upgrade_menu/upgrade_slot_detail.gd" id="1_tpaj6"]
 
 [node name="UpgradeSlotDetail" type="MarginContainer"]

@@ -13,13 +13,18 @@ var mockup_trait_slot_array : Array[TraitSlotData] = [
 	trait_slot_1,
 	trait_slot_2
 ]
+@onready var saver_loader_trait_slot_array = SaverLoaderTraitSlotArray.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Load saved data if there's saved trait slot array data file 
+	if saver_loader_trait_slot_array.load_trait_slot_array(mockup_trait_slot_array) != null:
+		mockup_trait_slot_array = saver_loader_trait_slot_array.load_trait_slot_array(mockup_trait_slot_array)
 	add_slot_grid(mockup_trait_slot_array)
 	update_current_coin()
 	set_slot_detail_default(mockup_trait_slot_array)
 	
+
 # Add slot slots to the grid
 func add_slot_grid(slots : Array[TraitSlotData]):
 	# Remove old upgrade slots and prevent dulplicate slot when re-used function 
@@ -60,7 +65,8 @@ func on_pressed_upgrade(price:int,slot:TraitSlotData):
 		add_slot_grid(mockup_trait_slot_array)
 		# Update slot detail in slot detail 
 		upgrade_slot_detail.set_slot_detail_data(slot)
-		
+		# Saved trait slot array in file when upgrade trait slot level
+		saver_loader_trait_slot_array.save_trait_slot_array(mockup_trait_slot_array)
 		
 
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ts4mrst1vuu3"]
+[gd_scene load_steps=4 format=3 uid="uid://ts4mrst1vuu3"]
 
 [ext_resource type="Script" path="res://user_interface/menu/upgrade_menu/upgrade_menu.gd" id="1_pxj7d"]
 [ext_resource type="PackedScene" uid="uid://c6yp48ytqhmma" path="res://user_interface/menu/upgrade_menu/upgrade_slot_detail.tscn" id="2_pbjye"]
+[ext_resource type="Script" path="res://user_interface/menu/upgrade_menu/saver_loader_trait_slot_array.gd" id="3_456nu"]
 
 [node name="UpgradeMenu" type="Control"]
 layout_mode = 3
@@ -83,5 +84,8 @@ layout_mode = 2
 [node name="SlotDetail" parent="MarginContainer/VBoxContainer/SlotGridAndDetail" instance=ExtResource("2_pbjye")]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="SaverLoaderTraitSlotArray" type="Node" parent="."]
+script = ExtResource("3_456nu")
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Header/CloseUpgradeMenuButton" to="." method="_on_close_upgrade_menu_button_pressed"]

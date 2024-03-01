@@ -16,10 +16,9 @@ func _init():
 	initEntity()
 	meleeAttackDamage = ConstantNumber.playerMeleeDamage
 	rangeAttackDamage = ConstantNumber.playerRangeDamage
-	healthPoint = ConstantNumber.playerHealthPoint
+	healthPoint = HealthPoint.new(self, ConstantNumber.playerHealthPoint)
 	movementSpeed = ConstantNumber.playerSpeed
 	dashSpeed = ConstantNumber.playerDashSpeed
-	HP = HealthPoint.new(self)
 
 func _physics_process(delta):
 	move(delta)
@@ -51,7 +50,7 @@ func playerAnimation(delta : float):
 func damaged(direction: Vector3, damage: int, knockbackSpeed: int, knockbackDuration: float):
 	#if player dash, be invisibility
 	if(movementState!=EntityState.dash):
-		HP.updateHP(healthPoint - damage)
+		healthPoint.decreaseHP(damage)
 
 func attack():
 	meleeAttack.updateHitbox()

@@ -1,6 +1,6 @@
 extends Node
 
-class_name SaverLoaderTraitSlotArray
+class_name SaverLoader
 
 const savedTraitSlotArrayPath : String = "res://user_interface/menu/upgrade_menu/saved_trait_slot_array.json"
 

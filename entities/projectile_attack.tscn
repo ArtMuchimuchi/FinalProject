@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8cgqx3br8vgd"]
+
+[ext_resource type="Texture2D" uid="uid://dc3kxwk2otphh" path="res://player_sprites/idle/player-idle-1.png" id="1_txoa2"]
+[ext_resource type="Script" path="res://entities/projectile_attack.gd" id="1_wym3q"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kcodb"]
+radius = 0.1
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tryet"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_txoa2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="ProjectileAttack" type="CharacterBody3D"]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_wym3q")
+
+[node name="HitBox" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_kcodb")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.0111418, 0)
+sprite_frames = SubResource("SpriteFrames_tryet")

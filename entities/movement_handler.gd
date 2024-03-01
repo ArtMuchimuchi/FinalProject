@@ -33,9 +33,11 @@ func calculateDirection(startPosition: Vector3, desiredPosition: Vector3) -> Vec
 	return (desiredPosition - startPosition).normalized()
 	
 #set flag varables for knockback state
-func  knockBack(direction: int):
+func  knockBack(direction: Vector3, knockbackSpeed: int, knockbackDuration: float):
+	ownerNode.dashSpeed = knockbackSpeed
+	ownerNode.dashDuration = knockbackDuration
 	setState(EntityState.knockBack)
-	ownerNode.direction.x = direction
+	ownerNode.direction = direction
 
 #change direction into entity velocity
 func movementHandler():
@@ -103,7 +105,7 @@ func enemyMovement(delta: float, player: Entity):
 		movementHandler()
 	elif (ownerNode.movementState == EntityState.knockBack):
 		#calculate knock back direction
-		moveImediately(delta, ConstantNumber.enemyDashSpeed, ConstantNumber.enemyDashDuration)
+		moveImediately(delta, ownerNode.dashSpeed, ownerNode.dashDuration)
 	elif(ownerNode.movementState == EntityState.attacking):
 		#stop moving
 		ownerNode.velocity = Vector3.ZERO

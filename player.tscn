@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://58jmk2r1l0p1"]
+[gd_scene load_steps=23 format=3 uid="uid://58jmk2r1l0p1"]
 
 [ext_resource type="Texture2D" uid="uid://dplin0hu6on07" path="res://player_sprites/run/player-run-1.png" id="1_m43ke"]
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_t16q3"]
@@ -147,6 +147,10 @@ size = Vector3(1.297, 1, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_rjf26"]
 size = Vector3(1.297, 1, 1)
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_yd5k0"]
+height = 1.0
+radius = 2.5
+
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 script = ExtResource("1_t16q3")
@@ -184,3 +188,10 @@ shape = SubResource("BoxShape3D_bsu06")
 [node name="HitBoxAttack4" type="CollisionShape3D" parent="HitBoxMeleeAttack"]
 transform = Transform3D(0.799685, 0, -0.60042, 0, 1, 0, 0.60042, 0, 0.799685, 0.313, 0, 0.478)
 shape = SubResource("BoxShape3D_rjf26")
+
+[node name="HitBoxRangeAttack" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="HitBoxAttack" type="CollisionShape3D" parent="HitBoxRangeAttack"]
+shape = SubResource("CylinderShape3D_yd5k0")

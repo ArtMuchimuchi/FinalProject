@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="BuffData" load_steps=6 format=3 uid="uid://q1hbi4jvthgh"]
+
+[ext_resource type="Script" path="res://user_interface/hud/buff/buff_data_model/buff_level_data.gd" id="1_mcke5"]
+[ext_resource type="Script" path="res://user_interface/hud/buff/buff_data_model/buff_data.gd" id="2_7ieyk"]
+[ext_resource type="Texture2D" uid="uid://0p2wljhv44mx" path="res://icon.svg" id="3_x25gi"]
+
+[sub_resource type="Resource" id="Resource_kwqdn"]
+script = ExtResource("1_mcke5")
+description = "Increase attack  xxx%"
+
+[sub_resource type="Resource" id="Resource_tkb4a"]
+script = ExtResource("1_mcke5")
+description = "Increase attack yyy%"
+
+[resource]
+script = ExtResource("2_7ieyk")
+name = "Health  Buff"
+texture = ExtResource("3_x25gi")
+currentLevel = 1
+buffLevel = Array[ExtResource("1_mcke5")]([SubResource("Resource_kwqdn"), SubResource("Resource_tkb4a")])

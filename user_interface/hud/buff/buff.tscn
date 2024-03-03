@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsbeh3wqvc8ks"]
+
+[ext_resource type="Script" path="res://user_interface/hud/buff/buff.gd" id="1_884to"]
+[ext_resource type="Texture2D" uid="uid://0p2wljhv44mx" path="res://icon.svg" id="1_wbmgn"]
+
+[node name="Buff" type="PanelContainer"]
+custom_minimum_size = Vector2(40, 40)
+offset_right = 80.0
+offset_bottom = 80.0
+tooltip_text = "aaa"
+script = ExtResource("1_884to")
+
+[node name="PanelContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="BuffIcon" type="TextureRect" parent="PanelContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("1_wbmgn")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="BuffLevelLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 16
+text = "1"

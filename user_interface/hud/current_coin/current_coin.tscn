@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://buh2ncexxxr2w"]
+
+[ext_resource type="Texture2D" uid="uid://ne02qudu1nu4" path="res://user_interface/hud/hud_sprites/coin_icon.png" id="1_ui06h"]
+
+[node name="CurrentCoin" type="HBoxContainer"]
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/separation = 10
+
+[node name="CurrentCoinLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 20
+text = "1000"
+
+[node name="PanelContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="CurrentCoinIcon" type="TextureRect" parent="PanelContainer"]
+layout_mode = 2
+texture = ExtResource("1_ui06h")
+expand_mode = 2
+stretch_mode = 4

@@ -25,3 +25,5 @@ const enemyRangeKnockbackDuration : float = 0.1
 const defaultSlotDetailIndex : int = 0
 const slotLevelZero : int = 0
 const currentSlotLevelIndexDifferent : int = 1
+
+const currentBuffLevelIndexDifferent : int = 1

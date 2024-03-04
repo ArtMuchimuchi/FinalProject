@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://user_interface/menu/main_menu/main_menu.gd" id="1_0itcf"]
 [ext_resource type="PackedScene" uid="uid://occ6mj4y5ipe" path="res://user_interface/menu/options_menu/options_menu.tscn" id="2_v1kox"]
-[ext_resource type="PackedScene" uid="uid://cutgxwwi1ev8f" path="res://user_interface/menu/upgrade_menu/upgrade_menu.tscn" id="3_5h10t"]
+[ext_resource type="PackedScene" uid="uid://b1i6sowh1lldj" path="res://user_interface/menu/upgrade_menu/upgrade_menu.tscn" id="3_5h10t"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://5j8eqgjqv7fe"]
 
-[ext_resource type="Texture2D" uid="uid://cdxf0607iom0" path="res://user_interface/hud/hud_sprites/healthbarUnder.png" id="1_fdp47"]
-[ext_resource type="Texture2D" uid="uid://bju53y1gl5e0g" path="res://user_interface/hud/hud_sprites/healthbarProgress.png" id="2_6g0f6"]
+[ext_resource type="Texture2D" uid="uid://cdxf0607iom0" path="res://user_interface/hud/hud_sprites/health_point_bar/health_point_bar_under.png" id="1_33blx"]
+[ext_resource type="Texture2D" uid="uid://bju53y1gl5e0g" path="res://user_interface/hud/hud_sprites/health_point_bar/health_point_bar_progress.png" id="2_fwqfq"]
 [ext_resource type="Script" path="res://user_interface/hud/health_point_bar/health_point_bar.gd" id="3_ij2mx"]
 
 [node name="HealthPointBar" type="TextureProgressBar"]
@@ -11,8 +11,8 @@ offset_bottom = 35.0
 max_value = 10.0
 value = 10.0
 nine_patch_stretch = true
-texture_under = ExtResource("1_fdp47")
-texture_progress = ExtResource("2_6g0f6")
+texture_under = ExtResource("1_33blx")
+texture_progress = ExtResource("2_fwqfq")
 script = ExtResource("3_ij2mx")
 
 [node name="CurrentHealthLabel" type="Label" parent="."]

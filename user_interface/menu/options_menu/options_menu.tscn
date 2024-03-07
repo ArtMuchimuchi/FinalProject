@@ -69,17 +69,17 @@ size_flags_horizontal = 3
 [node name="MasterVolumeSlider" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/AudioSlider" instance=ExtResource("1_yvo8o")]
 layout_mode = 2
 size_flags_vertical = 6
-bus_name = "Master"
+busName = "Master"
 
 [node name="BackgroundMusicVolumeSlider" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/AudioSlider" instance=ExtResource("1_yvo8o")]
 layout_mode = 2
 size_flags_vertical = 3
-bus_name = "background_music"
+busName = "backgroundMusic"
 
 [node name="SoundEffectVolumeSlider" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/AudioSlider" instance=ExtResource("1_yvo8o")]
 layout_mode = 2
 size_flags_vertical = 3
-bus_name = "sound_effect"
+busName = "soundEffect"
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -92,4 +92,4 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Back"
 
-[connection signal="pressed" from="MarginContainer/MarginContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/BackButton" to="." method="onBackButtonPressed"]

@@ -11,14 +11,14 @@ func _init(targetNode: Entity, setHP: int):
 	
 func  increaseHP(increaseAmount: int):
 	currentHP += increaseAmount
-	ownerNode.emit_signal("currentHP_changed",currentHP)
+	ownerNode.emit_signal("currentHPChanged",currentHP)
 
 func decreaseHP(decreaseAmount: int):
 	if(decreaseAmount >= currentHP):
 		die()
 	else:
 		currentHP -= decreaseAmount
-		ownerNode.emit_signal("currentHP_changed",currentHP)
+		ownerNode.emit_signal("currentHPChanged",currentHP)
 		
 func die():
 	if(ownerNode.name == "Player"):

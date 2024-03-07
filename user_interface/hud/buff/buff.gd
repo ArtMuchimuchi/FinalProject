@@ -7,7 +7,7 @@ extends PanelContainer
 
 
 
-func set_buff_data(buffData : BuffData):
+func setBuffData(buffData : BuffData):
 		buffIcon.texture = buffData.texture
 		buffLevelLabel.text = str(buffData.currentLevel)
 		var currentBuffLevel = buffData.buffLevel[buffData.currentLevel - ConstantNumber.currentBuffLevelIndexDifferent]

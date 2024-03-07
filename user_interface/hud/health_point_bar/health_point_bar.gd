@@ -10,6 +10,6 @@ func _ready():
 	currentHealthLabel.text = "%s / %s" %[value,max_value]
 
 # Update current health point label 
-func update_current_health(currentHP : int ):
+func updateCurrentHealth(currentHP : int ):
 	value = currentHP 
 	currentHealthLabel.text = "%s / %s" %[currentHP,max_value]

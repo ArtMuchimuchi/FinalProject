@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dplin0hu6on07"
-path.s3tc="res://.godot/imported/player-run-1.png-c159b303dc505d6731e9b8407acf27ed.s3tc.ctex"
+uid="uid://baqcty1evbjlf"
+path.s3tc="res://.godot/imported/player-run-4.png-1b831246f14d85e2c1278745e301c953.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://player_sprites/run/player-run-1.png"
-dest_files=["res://.godot/imported/player-run-1.png-c159b303dc505d6731e9b8407acf27ed.s3tc.ctex"]
+source_file="res://sprites/player_sprites/run/player-run-4.png"
+dest_files=["res://.godot/imported/player-run-4.png-1b831246f14d85e2c1278745e301c953.s3tc.ctex"]
 
 [params]
 

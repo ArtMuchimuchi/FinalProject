@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dc3kxwk2otphh"
-path.s3tc="res://.godot/imported/player-idle-1.png-081944f20930cc86cdcfe8f231d279f4.s3tc.ctex"
+uid="uid://y27cljgh7qj7"
+path.s3tc="res://.godot/imported/player-idle-4.png-8a6964602d0e92aecff6b321ee1bcae9.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://player_sprites/idle/player-idle-1.png"
-dest_files=["res://.godot/imported/player-idle-1.png-081944f20930cc86cdcfe8f231d279f4.s3tc.ctex"]
+source_file="res://sprites/player_sprites/idle/player-idle-4.png"
+dest_files=["res://.godot/imported/player-idle-4.png-8a6964602d0e92aecff6b321ee1bcae9.s3tc.ctex"]
 
 [params]
 

@@ -45,6 +45,7 @@ func movementHandler():
 	ownerNode.movementState = EntityState.moving
 	# Move when there is direction
 	if ownerNode.direction: 
+		#set velocity for moving
 		ownerNode.velocity.x = ownerNode.direction.x * ownerNode.movementSpeed 
 		ownerNode.velocity.z = ownerNode.direction.z * ownerNode.movementSpeed 
 	# Slow down the movement when there aren't direction
@@ -57,7 +58,9 @@ func movementHandler():
 	ownerNode.direction = Vector3.ZERO
 	#move
 	ownerNode.move_and_slide()
-	ownerNode.movementState = EntityState.idle
+	#if entity used to moving, set to idle
+	if(ownerNode.movementState == EntityState.moving):
+		ownerNode.movementState = EntityState.idle
 
 #check latest movement and save lastest direction where entity was point
 func updateLastDirection(): 

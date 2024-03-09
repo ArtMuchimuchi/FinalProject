@@ -14,6 +14,8 @@ var direction : Vector3
 var movementCountdown : float
 var triedCountdown : float
 
+var movement : MovementHandler
+
 #initiate varables for entity
 func initEntity():
 	lastDirection = EntityDirection.left

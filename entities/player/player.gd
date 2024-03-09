@@ -6,8 +6,7 @@ extends Entity
 @onready var hitboxRangeAttack = get_node("HitBoxRangeAttack")
 @onready var playerHitbox = get_node("CollisionShape3D")
 
-@onready var animationManager = AnimationManager.new()
-@onready var movement = MovementHandler.new(self)
+@onready var animationManager = AnimationManager.new() 
 var HP : HealthPoint
 @onready var meleeAttack = AttackHandler.new(self, hitboxMeleeAttack)
 @onready var rangeAttack = AttackHandler.new(self, hitboxRangeAttack)
@@ -19,8 +18,11 @@ func _init():
 	healthPoint = HealthPoint.new(self, ConstantNumber.playerHealthPoint)
 	movementSpeed = ConstantNumber.playerSpeed
 	dashSpeed = ConstantNumber.playerDashSpeed
+	HP = HealthPoint.new(self)
+	movement = MovementHandler.new(self)
 
 func _physics_process(delta):
+	print(movementState)
 	move(delta)
 	playerAnimation(delta)
 	attack()
@@ -43,7 +45,7 @@ func move(delta : float):
 
 func playerAnimation(delta : float):
 	#Play animation of player by the movement of player
-	animationManager.movementAnimation(animationPlayer,velocity)
+	animationManager.movementAnimation(animationPlayer,velocity,movementState)
 	#Flip direction of player 
 	animationManager.flipAnimation(lastDirection, animationSprite, delta)
 	
@@ -55,6 +57,7 @@ func damaged(direction: Vector3, damage: int, knockbackSpeed: int, knockbackDura
 func attack():
 	meleeAttack.updateHitbox()
 	if(Input.is_action_just_pressed("melee_attack")):
-		meleeAttack.meleeAttack(meleeAttackDamage)
+		#meleeAttack.meleeAttack(meleeAttackDamage)
+		meleeAttack.meleeAttack(5)
 	elif (Input.is_action_just_pressed("range_attack")):
 		rangeAttack.aoeAttack(rangeAttackDamage)

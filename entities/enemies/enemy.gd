@@ -8,7 +8,6 @@ class_name Enemy
 @onready var hitboxMeleeAttack = get_node("HitBoxMeleeAttack")
 @onready var hitboxRangeAttack = get_node("HitBoxRangeAttack")
 
-@onready var movement = MovementHandler.new(self)
 @onready var animationManager = AnimationManager.new()
 var HP : HealthPoint
 @onready var meleeAttackManager = AttackHandler.new(self, hitboxMeleeAttack)
@@ -21,6 +20,8 @@ func _init():
 	healthPoint = HealthPoint.new(self, ConstantNumber.enemyHealthPoint)
 	movementSpeed = ConstantNumber.enemySpeed
 	dashSpeed = 0
+	HP = HealthPoint.new(self)
+	movement = MovementHandler.new(self)
 
 func _physics_process(delta):
 	#follow player
@@ -40,7 +41,7 @@ func move():
 
 func animation(delta: float):
 	#Play animation of player by the movement of player
-	animationManager.movementAnimation(animationPlayer, velocity)
+	animationManager.movementAnimation(animationPlayer, velocity, movementState)
 	#Flip direction of player 
 	animationManager.flipAnimation(lastDirection, animationSprite, delta)
 	

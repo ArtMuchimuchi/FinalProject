@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8cgqx3br8vgd"]
+[gd_scene load_steps=4 format=3 uid="uid://c8cgqx3br8vgd"]
 
-[ext_resource type="Texture2D" uid="uid://dc3kxwk2otphh" path="res://player_sprites/idle/player-idle-1.png" id="1_txoa2"]
 [ext_resource type="Script" path="res://entities/projectile_attack.gd" id="1_wym3q"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_kcodb"]
@@ -10,7 +9,7 @@ radius = 0.1
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_txoa2")
+"texture": null
 }],
 "loop": true,
 "name": &"default",

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dkchmoobcs5vm"
-path="res://.godot/imported/player_ranged_attack.png-0b92926b5b70ac4d40d2dc09f532cf44.ctex"
+path="res://.godot/imported/player_ranged_attack.png-8121ea2fcc22a8ecd9492576bd18760f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player_sprites/attack/ranged_attack/player_ranged_attack.png"
-dest_files=["res://.godot/imported/player_ranged_attack.png-0b92926b5b70ac4d40d2dc09f532cf44.ctex"]
+source_file="res://sprites/player_sprites/attack/ranged_attack/player_ranged_attack.png"
+dest_files=["res://.godot/imported/player_ranged_attack.png-8121ea2fcc22a8ecd9492576bd18760f.ctex"]
 
 [params]
 

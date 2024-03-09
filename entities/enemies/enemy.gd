@@ -17,7 +17,7 @@ func _init():
 	initEntity()
 	meleeAttackDamage = ConstantNumber.enemyMeleeDamage
 	rangeAttackDamage = 1
-	healthPoint = ConstantNumber.enemyHealthPoint
+	healthPoint = HealthPoint.new(self, ConstantNumber.enemyHealthPoint)
 	movementSpeed = ConstantNumber.enemySpeed
 	dashSpeed = 0
 	HP = HealthPoint.new(self)
@@ -82,4 +82,4 @@ func damaged(direction: Vector3, damage: int, knockbackSpeed: int, knockbackDura
 	#get knock back
 	movement.knockBack(direction, knockbackSpeed, knockbackDuration)
 	#deal damage to itself
-	HP.updateHP(healthPoint - damage);
+	healthPoint.decreaseHP(damage)

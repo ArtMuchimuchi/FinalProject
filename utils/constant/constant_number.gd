@@ -21,3 +21,7 @@ const enemyMeleeKnockbackSpeed : int = 14
 const enemyMeleeKnockbackDuration : float = 0.3
 const enemyRangeKnockbackSpeed : int = 7
 const enemyRangeKnockbackDuration : float = 0.1
+
+const defaultSlotDetailIndex : int = 0
+const slotLevelZero : int = 0
+const currentSlotLevelIndexDifferent : int = 1

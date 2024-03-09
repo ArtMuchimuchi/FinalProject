@@ -4,7 +4,7 @@ class_name Entity
 
 var meleeAttackDamage : int
 var rangeAttackDamage : int
-var healthPoint : int
+var healthPoint : HealthPoint
 var movementSpeed : int
 var movementState : int
 var dashSpeed : int

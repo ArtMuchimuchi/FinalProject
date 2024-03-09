@@ -18,7 +18,6 @@ func _init():
 	healthPoint = HealthPoint.new(self, ConstantNumber.playerHealthPoint)
 	movementSpeed = ConstantNumber.playerSpeed
 	dashSpeed = ConstantNumber.playerDashSpeed
-	HP = HealthPoint.new(self)
 	movement = MovementHandler.new(self)
 
 func _physics_process(delta):

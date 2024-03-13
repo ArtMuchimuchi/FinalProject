@@ -11,6 +11,8 @@ var HP : HealthPoint
 @onready var meleeAttack = AttackHandler.new(self, hitboxMeleeAttack)
 @onready var rangeAttack = AttackHandler.new(self, hitboxRangeAttack)
 var attackCountDown : float 
+var isMeleeAttack : bool
+var isRangeAttack : bool
 
 func _init():
 	initEntity()
@@ -21,6 +23,8 @@ func _init():
 	dashSpeed = ConstantNumber.playerDashSpeed
 	movement = MovementHandler.new(self)
 	attackCountDown = 0
+	isMeleeAttack = false
+	isRangeAttack = false
 
 func _physics_process(delta):
 	move(delta)
@@ -63,13 +67,25 @@ func attack(delta : float):
 	#if press Z
 	if(Input.is_action_just_pressed("melee_attack") && movementState != EntityState.attacking):
 		movement.setState(EntityState.attacking)
+		isMeleeAttack = true
 		meleeAttack.meleeAttack(meleeAttackDamage)
 	elif (Input.is_action_just_pressed("range_attack")):
+		movement.setState(EntityState.attacking)
+		isRangeAttack = true
 		rangeAttack.aoeAttack(rangeAttackDamage)
-	if(movementState == EntityState.attacking):
+	if(movementState == EntityState.attacking && isMeleeAttack):
 		if(attackCountDown >= ConstantNumber.playerMeleeCooldown):
 			attackCountDown = 0
 			movementState = EntityState.idle
+			isMeleeAttack = false
 		else:
 			attackCountDown = delta + attackCountDown
 			animationPlayer.play("MeleeAttack")
+	elif(movementState == EntityState.attacking && isRangeAttack):
+		if(attackCountDown >= 0.3):
+			attackCountDown = 0
+			movementState = EntityState.idle
+			isRangeAttack = false
+		else:
+			attackCountDown = delta + attackCountDown
+			animationPlayer.play("RangeAttack")

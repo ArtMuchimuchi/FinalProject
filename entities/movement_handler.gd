@@ -9,7 +9,7 @@ func _init(targetNode : Entity):
 	ownerNode = targetNode
 	
 #check player input and change into vector 3d
-func checkPlayerInput():
+func checkPlayerInput() -> Vector3:
 	# Check 4 direction movement that player could control
 	if Input.is_action_pressed("move_forward"):
 		ownerNode.direction.z -= ConstantNumber.directionConstant
@@ -23,6 +23,8 @@ func checkPlayerInput():
 	# Make Diagonal movement same speed as horizontal and vertical
 	if ownerNode.direction != Vector3.ZERO:
 		ownerNode.direction = ownerNode.direction.normalized()
+		
+	return ownerNode.direction
 	
 #set direction to the desired direction	
 func getDirection(desiredPosition : Vector3):
@@ -41,8 +43,6 @@ func  knockBack(direction: Vector3, knockbackSpeed: int, knockbackDuration: floa
 
 #change direction into entity velocity
 func movementHandler():
-	#set state to moving
-	ownerNode.movementState = EntityState.moving
 	# Move when there is direction
 	if ownerNode.direction: 
 		#set velocity for moving
@@ -58,9 +58,6 @@ func movementHandler():
 	ownerNode.direction = Vector3.ZERO
 	#move
 	ownerNode.move_and_slide()
-	#if entity used to moving, set to idle
-	if(ownerNode.movementState == EntityState.moving):
-		ownerNode.movementState = EntityState.idle
 
 #check latest movement and save lastest direction where entity was point
 func updateLastDirection(): 
@@ -92,37 +89,31 @@ func moveImediately(delta: float, moveSpeed: int, duration: float):
 
 #set new state
 func setState(newState: int):
-	if(newState >= ownerNode.movementState):
+	#if want to dash or attack
+	if(newState == EntityState.dash || newState == EntityState.attacking):
+		#can dash when move or idle
+		if(ownerNode.movementState == EntityState.idle || ownerNode.movementState == EntityState.moving):
+			ownerNode.movementState = newState
+	#if want to move or idle
+	elif(newState == EntityState.moving || newState == EntityState.idle):
+		#can move when idle or moving
+		if(ownerNode.movementState == EntityState.idle || ownerNode.movementState == EntityState.moving):
+			ownerNode.movementState = newState
+	#if entity got knockback
+	elif(newState == EntityState.knockBack):
 		ownerNode.movementState = newState
-		
+	
 #move pattern for enemy
 func enemyMovement(delta: float, player: Entity):
 	#move normally
-	if(ownerNode.movementState <= EntityState.moving):
+	if(ownerNode.movementState == EntityState.moving):
 		#calculate direction for chasing player
 		getDirection(player.position)
 		#Update last direction of player facing
 		updateLastDirection()
-		#check for move pattern
-		#Calculate player movement in 4 directional
+		#move
 		movementHandler()
+	#if knockback
 	elif (ownerNode.movementState == EntityState.knockBack):
 		#calculate knock back direction
 		moveImediately(delta, ownerNode.dashSpeed, ownerNode.dashDuration)
-	elif(ownerNode.movementState == EntityState.attacking):
-		#stop moving
-		ownerNode.velocity = Vector3.ZERO
-		#calculate direction for chasing player
-		getDirection(player.position)
-		#Update last direction of player facing
-		updateLastDirection()
-		ownerNode.direction = Vector3.ZERO
-		ownerNode.movementState = EntityState.idle
-	#tried after attack
-	elif (ownerNode.movementState == EntityState.tried):
-		#tried cooldown
-		if(ownerNode.triedCountdown >= ConstantNumber.enemyTriedDuration):
-			ownerNode.triedCountdown = 0
-			ownerNode.movementState = EntityState.idle
-		else:
-			ownerNode.triedCountdown += delta

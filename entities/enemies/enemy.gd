@@ -12,6 +12,9 @@ class_name Enemy
 var HP : HealthPoint
 @onready var meleeAttackManager = AttackHandler.new(self, hitboxMeleeAttack)
 @onready var rangeAttackManager = AttackHandler.new(self, hitboxRangeAttack)
+var isPlayerInRange
+
+var isAttacking : bool
 
 func _init():
 	initEntity()
@@ -21,45 +24,41 @@ func _init():
 	movementSpeed = ConstantNumber.enemySpeed
 	dashSpeed = 0
 	movement = MovementHandler.new(self)
+	isAttacking = false
 
 func _physics_process(delta):
-	#follow player
+	isPlayerInRange = hitboxMeleeAttack.get_overlapping_bodies()
+	#if player in attack range
+	if(isPlayerInRange):
+		#update melee attack hitbox
+		meleeAttackManager.updateHitbox()
+		if(movementState != EntityState.attacking):
+			#set to attacking state
+			movement.setState(EntityState.attacking)
+			#deal damage
+			meleeAttackManager.meleeAttack(meleeAttackDamage)
+	else:
+		#set to moving State
+		movement.setState(EntityState.moving)
 	movement.enemyMovement(delta, player)
+	#attack
+	if(movementState == EntityState.attacking):
+		meleeAttack(delta)
 	#play animation
 	animation(delta)
-	#about attacking
-	attack()
-	
-func move():
-	#calculate direction for chasing player
-	movement.getDirection(player.global_position)
-	#Update last direction of player facing
-	movement.updateLastDirection()
-	#Calculate player movement in 4 directional
-	movement.movementHandler()
 
 func animation(delta: float):
 	#Play animation of player by the movement of player
 	animationManager.movementAnimation(animationPlayer, velocity, movementState)
 	#Flip direction of player 
 	animationManager.flipAnimation(lastDirection, animationSprite, delta)
-	
-func attack():
-	meleeAttack()
 		
-func meleeAttack():
-	#update melee attack hitbox
-	meleeAttackManager.updateHitbox()
-	#create variable and check for player
-	var isNearPlayer = hitboxMeleeAttack.get_overlapping_bodies()
-	if(!isNearPlayer.is_empty()):
-		#if player found, attacking
-		movement.setState(EntityState.attacking)
-		if(movementState == EntityState.attacking):
-			#deal damage
-			meleeAttackManager.meleeAttack(meleeAttackDamage)
-			#tried after attack for delay
-			movement.setState(EntityState.tried)
+func meleeAttack(delta : float):
+	if(triedCountdown >= ConstantNumber.enemyTriedDuration):
+		triedCountdown = 0
+		movementState = EntityState.idle
+	else:
+		triedCountdown += delta
 			
 func rangeAttack():
 	#create variable and check for player
@@ -78,6 +77,9 @@ func rangeAttack():
 	
 #get damaged by entity
 func damaged(direction: Vector3, damage: int, knockbackSpeed: int, knockbackDuration: float):
+	#set to knockback state
+	movement.setState(EntityState.knockBack)
+	triedCountdown = 0
 	#get knock back
 	movement.knockBack(direction, knockbackSpeed, knockbackDuration)
 	#deal damage to itself

@@ -10,6 +10,7 @@ extends Entity
 var HP : HealthPoint
 @onready var meleeAttack = AttackHandler.new(self, hitboxMeleeAttack)
 @onready var rangeAttack = AttackHandler.new(self, hitboxRangeAttack)
+var attackCountDown : float 
 
 func _init():
 	initEntity()
@@ -19,16 +20,20 @@ func _init():
 	movementSpeed = ConstantNumber.playerSpeed
 	dashSpeed = ConstantNumber.playerDashSpeed
 	movement = MovementHandler.new(self)
+	attackCountDown = 0
 
 func _physics_process(delta):
-	print(movementState)
 	move(delta)
 	playerAnimation(delta)
-	attack()
+	attack(delta)
 
 func move(delta : float):
 	#Check user input movement
-	movement.checkPlayerInput()
+	var justMove = movement.checkPlayerInput()
+	if(justMove):
+		movement.setState(EntityState.moving)
+	else :
+		movement.setState(EntityState.idle)
 	#Update last direction of player facing
 	movement.updateLastDirection()
 	#Check is player dash or not
@@ -38,8 +43,8 @@ func move(delta : float):
 	if(movementState == EntityState.dash):
 		#then dash
 		movement.moveImediately(delta,dashSpeed,ConstantNumber.playerDashDuration)
-	else :
-		#Calculate player movement in 4 directional
+	elif(movementState == EntityState.moving):
+		#move depend on direction
 		movement.movementHandler()
 
 func playerAnimation(delta : float):
@@ -53,10 +58,18 @@ func damaged(direction: Vector3, damage: int, knockbackSpeed: int, knockbackDura
 	if(movementState!=EntityState.dash):
 		healthPoint.decreaseHP(damage)
 
-func attack():
+func attack(delta : float):
 	meleeAttack.updateHitbox()
-	if(Input.is_action_just_pressed("melee_attack")):
-		#meleeAttack.meleeAttack(meleeAttackDamage)
-		meleeAttack.meleeAttack(5)
+	#if press Z
+	if(Input.is_action_just_pressed("melee_attack") && movementState != EntityState.attacking):
+		movement.setState(EntityState.attacking)
+		meleeAttack.meleeAttack(meleeAttackDamage)
 	elif (Input.is_action_just_pressed("range_attack")):
 		rangeAttack.aoeAttack(rangeAttackDamage)
+	if(movementState == EntityState.attacking):
+		if(attackCountDown >= ConstantNumber.playerMeleeCooldown):
+			attackCountDown = 0
+			movementState = EntityState.idle
+		else:
+			attackCountDown = delta + attackCountDown
+			animationPlayer.play("MeleeAttack")

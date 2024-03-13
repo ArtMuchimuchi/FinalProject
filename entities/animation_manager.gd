@@ -2,7 +2,7 @@ extends Node
 
 class_name AnimationManager
 
-func movementAnimation(animationPlayer: AnimationPlayer,velocity : Vector3, movementState : int):
+func movementAnimation(animationPlayer: AnimationPlayer, movementState : int):
 	#If character doesn't move, play idle animation
 	if movementState == EntityState.idle : 
 		animationPlayer.play("Idle")

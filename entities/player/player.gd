@@ -49,7 +49,7 @@ func move(delta : float):
 
 func playerAnimation(delta : float):
 	#Play animation of player by the movement of player
-	animationManager.movementAnimation(animationPlayer,velocity,movementState)
+	animationManager.movementAnimation(animationPlayer,movementState)
 	#Flip direction of player 
 	animationManager.flipAnimation(lastDirection, animationSprite, delta)
 	

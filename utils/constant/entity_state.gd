@@ -1,6 +1,6 @@
 class_name EntityState
 
-const knockBack : int = 4
+const knockBack : int = 5
 const dash : int = 4
 const tried : int = 3
 const attacking : int = 2

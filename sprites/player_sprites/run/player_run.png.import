@@ -2,26 +2,27 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chc4tii8w7cig"
-path="res://.godot/imported/player_dash.png-43887d573886bd17e58420c5e4178ca2.ctex"
+uid="uid://dv6sjo1i234iq"
+path.s3tc="res://.godot/imported/player_run.png-808dd18bd2b92060b0ec7fdaa380ec95.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://player_sprites/dash/player_dash.png"
-dest_files=["res://.godot/imported/player_dash.png-43887d573886bd17e58420c5e4178ca2.ctex"]
+source_file="res://sprites/player_sprites/run/player_run.png"
+dest_files=["res://.godot/imported/player_run.png-808dd18bd2b92060b0ec7fdaa380ec95.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -31,4 +32,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

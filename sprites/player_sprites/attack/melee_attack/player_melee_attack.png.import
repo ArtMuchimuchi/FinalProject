@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://x8oflwl00int"
-path.s3tc="res://.godot/imported/player-run-2.png-614b767dd1c9ff482dd1835b9b5adff7.s3tc.ctex"
+uid="uid://bunki4q0qs662"
+path.s3tc="res://.godot/imported/player_melee_attack.png-02c85bedb47052d3851233457fb79d8e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://player_sprites/run/player-run-2.png"
-dest_files=["res://.godot/imported/player-run-2.png-614b767dd1c9ff482dd1835b9b5adff7.s3tc.ctex"]
+source_file="res://sprites/player_sprites/attack/melee_attack/player_melee_attack.png"
+dest_files=["res://.godot/imported/player_melee_attack.png-02c85bedb47052d3851233457fb79d8e.s3tc.ctex"]
 
 [params]
 

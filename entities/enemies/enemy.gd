@@ -5,14 +5,17 @@ class_name Enemy
 @onready var player = get_node("../Player")
 @onready var animationSprite = get_node("AnimatedSprite3D")
 @onready var animationPlayer = get_node("AnimationPlayer")
-@onready var hitboxMeleeAttack = get_node("HitBoxMeleeAttack")
-@onready var hitboxRangeAttack = get_node("HitBoxRangeAttack")
+@onready var hitboxAttack : Array[Node] = [get_node("HitBoxMeleeAttack"),get_node("HitBoxRangeAttack")]
 
-@onready var movement = MovementHandler.new(self)
 @onready var animationManager = AnimationManager.new()
 var HP : HealthPoint
-@onready var meleeAttackManager = AttackHandler.new(self, hitboxMeleeAttack)
-@onready var rangeAttackManager = AttackHandler.new(self, hitboxRangeAttack)
+@onready var attackManager : Array[AttackHandler] = [
+	AttackHandler.new(self, hitboxAttack[ConstantNumber.enemyMeleeType])
+,AttackHandler.new(self, hitboxAttack[ConstantNumber.enemyRangeType])]
+var isPlayerInRange
+
+var isAttacking : bool
+var enemyType : int
 
 func _init():
 	initEntity()
@@ -21,63 +24,60 @@ func _init():
 	healthPoint = HealthPoint.new(self, ConstantNumber.enemyHealthPoint)
 	movementSpeed = ConstantNumber.enemySpeed
 	dashSpeed = 0
+	movement = MovementHandler.new(self)
+	isAttacking = false
+	enemyType = ConstantNumber.enemyMeleeType
 
 func _physics_process(delta):
-	#follow player
+	isPlayerInRange = hitboxAttack[enemyType].get_overlapping_bodies()
+	#update hitbox attack
+	attackManager[enemyType].updateHitbox()
+	#if player in attack range
+	if(isPlayerInRange):
+		if(movementState != EntityState.attacking):
+			#set to attacking state
+			movement.setState(EntityState.attacking)
+			#deal damage
+			if(enemyType == ConstantNumber.enemyMeleeType):
+				attackManager[enemyType].meleeAttack(meleeAttackDamage)
+			elif(enemyType == ConstantNumber.enemyRangeType):
+				rangeAttack()
+	else:
+		#set to moving State
+		movement.setState(EntityState.moving)
 	movement.enemyMovement(delta, player)
+	#attack
+	if(movementState == EntityState.attacking):
+		attackCooldown(delta)
 	#play animation
 	animation(delta)
-	#about attacking
-	attack()
-	
-func move():
-	#calculate direction for chasing player
-	movement.getDirection(player.global_position)
-	#Update last direction of player facing
-	movement.updateLastDirection()
-	#Calculate player movement in 4 directional
-	movement.movementHandler()
 
 func animation(delta: float):
 	#Play animation of player by the movement of player
-	animationManager.movementAnimation(animationPlayer, velocity)
+	animationManager.movementAnimation(animationPlayer, movementState)
 	#Flip direction of player 
 	animationManager.flipAnimation(lastDirection, animationSprite, delta)
 	
-func attack():
-	meleeAttack()
 		
-func meleeAttack():
-	#update melee attack hitbox
-	meleeAttackManager.updateHitbox()
-	#create variable and check for player
-	var isNearPlayer = hitboxMeleeAttack.get_overlapping_bodies()
-	if(!isNearPlayer.is_empty()):
-		#if player found, attacking
-		movement.setState(EntityState.attacking)
-		if(movementState == EntityState.attacking):
-			#deal damage
-			meleeAttackManager.meleeAttack(meleeAttackDamage)
-			#tried after attack for delay
-			movement.setState(EntityState.tried)
+func attackCooldown(delta : float):
+	if(triedCountdown >= ConstantNumber.enemyTriedDuration):
+		triedCountdown = 0
+		movementState = EntityState.idle
+	else:
+		triedCountdown += delta
 			
 func rangeAttack():
-	#create variable and check for player
-	var isNearPlayer = hitboxRangeAttack.get_overlapping_bodies()
-	if(!isNearPlayer.is_empty()):
-		#if player found, attacking
-		movement.setState(EntityState.attacking)
-		if(movementState == EntityState.attacking):
-			#create projectile and shoot in player current position
-			var projectile = preload("res://entities/projectile_attack.tscn").instantiate()
-			projectile.direction = (player.global_position - position).normalized()
-			projectile.damage = rangeAttackDamage
-			self.add_child(projectile)
-			#tried after attack for delay
-			movement.setState(EntityState.tried)
+	#create projectile and shoot in player current position
+	var projectile = preload("res://entities/projectile_attack.tscn").instantiate()
+	projectile.direction = (player.global_position - position).normalized()
+	projectile.damage = rangeAttackDamage
+	self.add_child(projectile)
 	
 #get damaged by entity
 func damaged(direction: Vector3, damage: int, knockbackSpeed: int, knockbackDuration: float):
+	#set to knockback state
+	movement.setState(EntityState.knockBack)
+	triedCountdown = 0
 	#get knock back
 	movement.knockBack(direction, knockbackSpeed, knockbackDuration)
 	#deal damage to itself

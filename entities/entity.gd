@@ -15,6 +15,8 @@ var movementCountdown : float
 var triedCountdown : float
 signal hpChanged(currentHP : int,maxHP : int)
 
+var movement : MovementHandler
+
 #initiate varables for entity
 func initEntity():
 	lastDirection = EntityDirection.left

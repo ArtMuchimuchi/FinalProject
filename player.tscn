@@ -1,33 +1,78 @@
-[gd_scene load_steps=23 format=3 uid="uid://58jmk2r1l0p1"]
+[gd_scene load_steps=33 format=3 uid="uid://58jmk2r1l0p1"]
 
-[ext_resource type="Texture2D" uid="uid://dplin0hu6on07" path="res://player_sprites/run/player-run-1.png" id="1_m43ke"]
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_t16q3"]
-[ext_resource type="Texture2D" uid="uid://x8oflwl00int" path="res://player_sprites/run/player-run-2.png" id="2_7qtg3"]
-[ext_resource type="Texture2D" uid="uid://dc3kxwk2otphh" path="res://player_sprites/idle/player-idle-1.png" id="2_fbquc"]
-[ext_resource type="Texture2D" uid="uid://dn3huyv2mlnts" path="res://player_sprites/idle/player-idle-2.png" id="3_14mim"]
-[ext_resource type="Texture2D" uid="uid://cngayu35sj8x7" path="res://player_sprites/run/player-run-3.png" id="3_tsbjf"]
-[ext_resource type="Texture2D" uid="uid://baqcty1evbjlf" path="res://player_sprites/run/player-run-4.png" id="4_30he2"]
-[ext_resource type="Texture2D" uid="uid://1qy3gwji4rkj" path="res://player_sprites/idle/player-idle-3.png" id="4_ioihk"]
-[ext_resource type="Texture2D" uid="uid://djx2wyowbt5f3" path="res://player_sprites/run/player-run-5.png" id="5_5aujt"]
-[ext_resource type="Texture2D" uid="uid://y27cljgh7qj7" path="res://player_sprites/idle/player-idle-4.png" id="5_uurp0"]
-[ext_resource type="Texture2D" uid="uid://c2nq5bgrml3n4" path="res://player_sprites/run/player-run-6.png" id="6_g53o3"]
+[ext_resource type="Texture2D" uid="uid://bma5mvlf7tr2r" path="res://sprites/player_sprites/idle/player_idle.png" id="2_5umhh"]
+[ext_resource type="Texture2D" uid="uid://chc4tii8w7cig" path="res://sprites/player_sprites/dash/player_dash.png" id="2_bkirr"]
+[ext_resource type="Texture2D" uid="uid://dv6sjo1i234iq" path="res://sprites/player_sprites/run/player_run.png" id="3_hwpvn"]
+[ext_resource type="Texture2D" uid="uid://bunki4q0qs662" path="res://sprites/player_sprites/attack/melee_attack/player_melee_attack.png" id="4_dw1wh"]
+[ext_resource type="Texture2D" uid="uid://dkchmoobcs5vm" path="res://sprites/player_sprites/attack/ranged_attack/player_ranged_attack.png" id="5_vjxqe"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sv0xa"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vu6q7"]
+atlas = ExtResource("2_bkirr")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u27xa"]
+atlas = ExtResource("2_5umhh")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjvm1"]
+atlas = ExtResource("2_5umhh")
+region = Rect2(0, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06nxw"]
+atlas = ExtResource("4_dw1wh")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6g1tq"]
+atlas = ExtResource("4_dw1wh")
+region = Rect2(0, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbbb3"]
+atlas = ExtResource("4_dw1wh")
+region = Rect2(0, 640, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6lxw"]
+atlas = ExtResource("5_vjxqe")
+region = Rect2(0, 0, 1920, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oy2ec"]
+atlas = ExtResource("5_vjxqe")
+region = Rect2(0, 1920, 1920, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23032"]
+atlas = ExtResource("5_vjxqe")
+region = Rect2(0, 3840, 1920, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bxnry"]
+atlas = ExtResource("5_vjxqe")
+region = Rect2(0, 5760, 1920, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ennlo"]
+atlas = ExtResource("3_hwpvn")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4gt7"]
+atlas = ExtResource("3_hwpvn")
+region = Rect2(0, 320, 320, 320)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6ocen"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_fbquc")
+"texture": SubResource("AtlasTexture_vu6q7")
+}],
+"loop": true,
+"name": &"Dash",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u27xa")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_14mim")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_ioihk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_uurp0")
+"texture": SubResource("AtlasTexture_xjvm1")
 }],
 "loop": true,
 "name": &"Idle",
@@ -35,32 +80,107 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_m43ke")
+"texture": SubResource("AtlasTexture_06nxw")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_7qtg3")
+"texture": SubResource("AtlasTexture_6g1tq")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_tsbjf")
+"texture": SubResource("AtlasTexture_nbbb3")
+}],
+"loop": true,
+"name": &"MeleeAttack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6lxw")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_30he2")
+"texture": SubResource("AtlasTexture_oy2ec")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_5aujt")
+"texture": SubResource("AtlasTexture_23032")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_g53o3")
+"texture": SubResource("AtlasTexture_bxnry")
+}],
+"loop": true,
+"name": &"RangeAttack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ennlo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4gt7")
 }],
 "loop": true,
 "name": &"Run",
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_p0eyv"]
+resource_name = "Dash"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"Dash", &"Dash"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite3D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 0]
+}
+
 [sub_resource type="Animation" id="Animation_jmmfx"]
 resource_name = "Idle"
-length = 0.45
+length = 0.4
 loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0, 1, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite3D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [&"Idle"]
+}
+
+[sub_resource type="Animation" id="Animation_my1jw"]
+resource_name = "MeleeAttack"
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -71,7 +191,62 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"Idle"]
+"values": [&"MeleeAttack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite3D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [2, 1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_f1d44"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite3D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Dash"]
+}
+
+[sub_resource type="Animation" id="Animation_x220a"]
+resource_name = "RangeAttack"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"RangeAttack"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -86,24 +261,9 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3]
 }
 
-[sub_resource type="Animation" id="Animation_f1d44"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite3D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-
 [sub_resource type="Animation" id="Animation_2ck7i"]
 resource_name = "Run"
-length = 0.6
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -111,7 +271,7 @@ tracks/0/path = NodePath("AnimatedSprite3D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.4),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"Run"]
@@ -123,16 +283,19 @@ tracks/1/path = NodePath("AnimatedSprite3D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5]
+"values": [0, 1, 0, 1, 0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kc8gc"]
 _data = {
+"Dash": SubResource("Animation_p0eyv"),
 "Idle": SubResource("Animation_jmmfx"),
+"MeleeAttack": SubResource("Animation_my1jw"),
 "RESET": SubResource("Animation_f1d44"),
+"RangeAttack": SubResource("Animation_x220a"),
 "Run": SubResource("Animation_2ck7i")
 }
 
@@ -159,11 +322,10 @@ script = ExtResource("1_t16q3")
 shape = SubResource("BoxShape3D_sv0xa")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(4.495, 0, 0, 0, 4.495, 0, 0, 0, 4.495, 0.0262242, 0.221906, 0)
+transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.13, -0.00383314, 0.0129922, 0)
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_6ocen")
-animation = &"Run"
-frame = 1
+animation = &"Dash"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -171,6 +333,7 @@ libraries = {
 }
 
 [node name="HitBoxMeleeAttack" type="Area3D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 4
 
@@ -190,6 +353,7 @@ transform = Transform3D(0.799685, 0, -0.60042, 0, 1, 0, 0.60042, 0, 0.799685, 0.
 shape = SubResource("BoxShape3D_rjf26")
 
 [node name="HitBoxRangeAttack" type="Area3D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 4
 

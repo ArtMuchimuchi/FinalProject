@@ -4,8 +4,8 @@ class_name TraitSlotData
 
 @export var name : String = ""
 @export var texture : Texture
-@export var current_level : int = 0
-@export var slot_level : Array[TraitSlotLevelData]
+@export var currentLevel : int = 0
+@export var slotLevel : Array[TraitSlotLevelData]
 
-func upgrade_level():
-	current_level += 1
+func upgradeLevel():
+	currentLevel += 1

@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://5j8eqgjqv7fe"]
+
+[ext_resource type="Texture2D" uid="uid://cdxf0607iom0" path="res://user_interface/hud/hud_sprites/health_point_bar/health_point_bar_under.png" id="1_33blx"]
+[ext_resource type="Texture2D" uid="uid://bju53y1gl5e0g" path="res://user_interface/hud/hud_sprites/health_point_bar/health_point_bar_progress.png" id="2_fwqfq"]
+[ext_resource type="Script" path="res://user_interface/hud/health_point_bar/health_point_bar.gd" id="3_ij2mx"]
+
+[node name="HealthPointBar" type="TextureProgressBar"]
+custom_minimum_size = Vector2(300, 40)
+offset_right = 300.0
+offset_bottom = 35.0
+max_value = 10.0
+value = 10.0
+nine_patch_stretch = true
+texture_under = ExtResource("1_33blx")
+texture_progress = ExtResource("2_fwqfq")
+script = ExtResource("3_ij2mx")
+
+[node name="CurrentHealthLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -14.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 20
+text = "10 / 10"
+horizontal_alignment = 1

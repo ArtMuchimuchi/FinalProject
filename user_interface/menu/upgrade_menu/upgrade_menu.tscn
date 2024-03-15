@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ts4mrst1vuu3"]
 
 [ext_resource type="Script" path="res://user_interface/menu/upgrade_menu/upgrade_menu.gd" id="1_pxj7d"]
-[ext_resource type="PackedScene" path="res://user_interface/menu/upgrade_menu/upgrade_slot_detail.tscn" id="2_pbjye"]
+[ext_resource type="PackedScene" uid="uid://dxe27w7ldugch" path="res://user_interface/menu/upgrade_menu/upgrade_slot_detail.tscn" id="2_pbjye"]
 
 [node name="UpgradeMenu" type="Control"]
 layout_mode = 3
@@ -84,4 +84,4 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Header/CloseUpgradeMenuButton" to="." method="_on_close_upgrade_menu_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Header/CloseUpgradeMenuButton" to="." method="onCloseUpgradeMenuButtonPressed"]

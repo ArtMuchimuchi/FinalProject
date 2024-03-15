@@ -1,22 +1,27 @@
-[gd_resource type="Resource" script_class="TraitSlotData" load_steps=6 format=3 uid="uid://b141sihdqbfxf"]
+[gd_resource type="Resource" script_class="TraitSlotData" load_steps=7 format=3 uid="uid://b141sihdqbfxf"]
 
 [ext_resource type="Script" path="res://user_interface/menu/upgrade_menu/trait_slot_data_model/trait_slot_data.gd" id="1_v4xw0"]
 [ext_resource type="Script" path="res://user_interface/menu/upgrade_menu/trait_slot_data_model/trait_slot_level_data.gd" id="2_jcf7r"]
 [ext_resource type="Texture2D" uid="uid://0p2wljhv44mx" path="res://icon.svg" id="3_wvk1y"]
 
-[sub_resource type="Resource" id="Resource_6m6rn"]
+[sub_resource type="Resource" id="Resource_4ab0x"]
 script = ExtResource("2_jcf7r")
 description = "Increase xxx%"
-price = 200
+price = 100
 
-[sub_resource type="Resource" id="Resource_7ldvm"]
+[sub_resource type="Resource" id="Resource_dg2v1"]
 script = ExtResource("2_jcf7r")
 description = "Increase yyy%"
-price = 400
+price = 200
+
+[sub_resource type="Resource" id="Resource_r8vbx"]
+script = ExtResource("2_jcf7r")
+description = "Increase zzz%%"
+price = 300
 
 [resource]
 script = ExtResource("1_v4xw0")
 name = "Trait 1"
 texture = ExtResource("3_wvk1y")
-current_level = 0
-slot_level = Array[ExtResource("2_jcf7r")]([SubResource("Resource_6m6rn"), SubResource("Resource_7ldvm")])
+currentLevel = 0
+slotLevel = Array[ExtResource("2_jcf7r")]([SubResource("Resource_4ab0x"), SubResource("Resource_dg2v1"), SubResource("Resource_r8vbx")])

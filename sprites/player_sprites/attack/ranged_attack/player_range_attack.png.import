@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkchmoobcs5vm"
-path.s3tc="res://.godot/imported/player_ranged_attack.png-8121ea2fcc22a8ecd9492576bd18760f.s3tc.ctex"
+uid="uid://clljxecx402t4"
+path.s3tc="res://.godot/imported/player_range_attack.png-23039b4c19142b47a62501e7c72dc59a.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://sprites/player_sprites/attack/ranged_attack/player_ranged_attack.png"
-dest_files=["res://.godot/imported/player_ranged_attack.png-8121ea2fcc22a8ecd9492576bd18760f.s3tc.ctex"]
+source_file="res://sprites/player_sprites/attack/ranged_attack/player_range_attack.png"
+dest_files=["res://.godot/imported/player_range_attack.png-23039b4c19142b47a62501e7c72dc59a.s3tc.ctex"]
 
 [params]
 

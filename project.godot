@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 EntityDirection="*res://utils/constant/entity_direction.gd"
 EntityRotation="*res://utils/constant/entity_rotation.gd"
 ConstantNumber="*res://utils/constant/constant_number.gd"
+DictionaryKey="*res://utils/constant/dictionary_key.gd"
 
 [dotnet]
 

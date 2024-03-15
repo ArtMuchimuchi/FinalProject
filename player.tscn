@@ -322,7 +322,7 @@ script = ExtResource("1_t16q3")
 shape = SubResource("BoxShape3D_sv0xa")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.13, -0.00383314, 0.0129922, 0)
+transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, -0.00383338, 0.0158766, 0)
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_6ocen")
 animation = &"Dash"

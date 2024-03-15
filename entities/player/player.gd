@@ -11,6 +11,9 @@ extends Entity
 var HP : HealthPoint
 @onready var meleeAttack = AttackHandler.new(self, hitboxMeleeAttack)
 @onready var rangeAttack = AttackHandler.new(self, hitboxRangeAttack)
+@onready var buffManager = BuffManager.new(self)
+signal activeBuffsUpdated(activeBuffs:Array[BuffData])
+signal modifyStatsFromActiveBuffs
 
 func _init():
 	initEntity()
@@ -19,6 +22,9 @@ func _init():
 	healthPoint = HealthPoint.new(self, ConstantNumber.playerHealthPoint)
 	movementSpeed = ConstantNumber.playerSpeed
 	dashSpeed = ConstantNumber.playerDashSpeed
+
+func _ready():
+	connect("modifyStatsFromActiveBuffs",modifyStats)
 
 func _physics_process(delta):
 	move(delta)
@@ -58,3 +64,16 @@ func attack():
 		meleeAttack.meleeAttack(meleeAttackDamage)
 	elif (Input.is_action_just_pressed("range_attack")):
 		rangeAttack.aoeAttack(rangeAttackDamage)
+
+# Modify each player stat from buff percentage 
+func modifyStats():
+	meleeAttackDamage = calculateStatValue(ConstantNumber.playerMeleeDamage,DictionaryKey.meleeAttackDamage)
+	rangeAttackDamage = calculateStatValue(ConstantNumber.playerRangeDamage,DictionaryKey.rangeAttackDamage)
+	movementSpeed = calculateStatValue(ConstantNumber.playerSpeed,DictionaryKey.movementSpeed)
+	var modifiedmaxHP = calculateStatValue(ConstantNumber.playerHealthPoint,DictionaryKey.maxHP)
+	healthPoint.updateHPFromPercentage(modifiedmaxHP, ConstantNumber.playerHealthPoint)
+
+# Calculate base stat with buff percentage
+func calculateStatValue(baseStat,statType:String):
+	var statPercentage = buffManager.getStatPercentage(statType)
+	return baseStat * (ConstantNumber.defaultPercentage + statPercentage)

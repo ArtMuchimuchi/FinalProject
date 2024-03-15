@@ -5,11 +5,10 @@ extends TextureProgressBar
 
 func _ready():
 	# Set default health point bar of player
-	max_value = ConstantNumber.playerHealthPoint 
-	value = max_value
-	currentHealthLabel.text = "%s / %s" %[value,max_value]
+	updateCurrentHealth(ConstantNumber.playerHealthPoint,ConstantNumber.playerHealthPoint)
 
 # Update current health point label 
-func updateCurrentHealth(currentHP : int ):
+func updateCurrentHealth(currentHP : int, maxHP : int ):
 	value = currentHP 
-	currentHealthLabel.text = "%s / %s" %[currentHP,max_value]
+	max_value = maxHP
+	currentHealthLabel.text = "%s / %s" %[currentHP,maxHP]

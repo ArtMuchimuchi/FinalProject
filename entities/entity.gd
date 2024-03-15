@@ -13,7 +13,7 @@ var lastDirection : int
 var direction : Vector3 
 var movementCountdown : float
 var triedCountdown : float
-signal currentHPChanged(changedHP : int)
+signal hpChanged(currentHP : int,maxHP : int)
 
 #initiate varables for entity
 func initEntity():

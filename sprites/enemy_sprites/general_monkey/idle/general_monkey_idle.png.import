@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwn1kgrhkhtu0"
-path.s3tc="res://.godot/imported/general_monkey.png-571791f8d0de65bb1b081e04348fc29e.s3tc.ctex"
+uid="uid://dcpwko2h0vbgp"
+path.s3tc="res://.godot/imported/general_monkey_idle.png-48a75029a2573c5b79923034fecae7ab.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://sprites/enemy_sprites/general_monkey/idle/general_monkey.png"
-dest_files=["res://.godot/imported/general_monkey.png-571791f8d0de65bb1b081e04348fc29e.s3tc.ctex"]
+source_file="res://sprites/enemy_sprites/general_monkey/idle/general_monkey_idle.png"
+dest_files=["res://.godot/imported/general_monkey_idle.png-48a75029a2573c5b79923034fecae7ab.s3tc.ctex"]
 
 [params]
 

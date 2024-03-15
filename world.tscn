@@ -24,4 +24,4 @@ data = {
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="Enemy" parent="." instance=ExtResource("4_idrhl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.91849, 0.571418, -1.5979)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.918, 0.501, -1.598)

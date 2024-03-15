@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://chc4tii8w7cig" path="res://sprites/player_sprites/dash/player_dash.png" id="2_bkirr"]
 [ext_resource type="Texture2D" uid="uid://dv6sjo1i234iq" path="res://sprites/player_sprites/run/player_run.png" id="3_hwpvn"]
 [ext_resource type="Texture2D" uid="uid://bunki4q0qs662" path="res://sprites/player_sprites/attack/melee_attack/player_melee_attack.png" id="4_dw1wh"]
-[ext_resource type="Texture2D" uid="uid://dkchmoobcs5vm" path="res://sprites/player_sprites/attack/ranged_attack/player_ranged_attack.png" id="5_vjxqe"]
+[ext_resource type="Texture2D" uid="uid://clljxecx402t4" path="res://sprites/player_sprites/attack/ranged_attack/player_range_attack.png" id="5_1lgla"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sv0xa"]
 
@@ -33,21 +33,21 @@ region = Rect2(0, 320, 320, 320)
 atlas = ExtResource("4_dw1wh")
 region = Rect2(0, 640, 320, 320)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d6lxw"]
-atlas = ExtResource("5_vjxqe")
-region = Rect2(0, 0, 1920, 1920)
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rloc"]
+atlas = ExtResource("5_1lgla")
+region = Rect2(0, 0, 320, 320)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_oy2ec"]
-atlas = ExtResource("5_vjxqe")
-region = Rect2(0, 1920, 1920, 1920)
+[sub_resource type="AtlasTexture" id="AtlasTexture_abw2o"]
+atlas = ExtResource("5_1lgla")
+region = Rect2(0, 320, 320, 320)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_23032"]
-atlas = ExtResource("5_vjxqe")
-region = Rect2(0, 3840, 1920, 1920)
+[sub_resource type="AtlasTexture" id="AtlasTexture_rf75g"]
+atlas = ExtResource("5_1lgla")
+region = Rect2(0, 640, 320, 320)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bxnry"]
-atlas = ExtResource("5_vjxqe")
-region = Rect2(0, 5760, 1920, 1920)
+[sub_resource type="AtlasTexture" id="AtlasTexture_765rd"]
+atlas = ExtResource("5_1lgla")
+region = Rect2(0, 960, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ennlo"]
 atlas = ExtResource("3_hwpvn")
@@ -94,16 +94,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_d6lxw")
+"texture": SubResource("AtlasTexture_5rloc")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_oy2ec")
+"texture": SubResource("AtlasTexture_abw2o")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_23032")
+"texture": SubResource("AtlasTexture_rf75g")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bxnry")
+"texture": SubResource("AtlasTexture_765rd")
 }],
 "loop": true,
 "name": &"RangeAttack",

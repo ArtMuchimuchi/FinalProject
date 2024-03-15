@@ -12,6 +12,9 @@ const playerMeleeDamage : int = 3
 const playerMeleeCooldown : float = 0.2
 const playerRangeDamage : int = 1
 
+const enemyMeleeType : int = 0
+const enemyRangeType : int = 1
+
 const enemyHealthPoint : int = 10
 const enemySpeed : int = 4
 const enemyDashSpeed : int = 14

@@ -60,7 +60,7 @@ func animation(delta: float):
 	
 		
 func attackCooldown(delta : float):
-	if(triedCountdown >= ConstantNumber.enemyTriedDuration):
+	if(triedCountdown >= triedDuration):
 		triedCountdown = 0
 		movementState = EntityState.idle
 	else:

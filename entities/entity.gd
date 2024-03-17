@@ -12,6 +12,7 @@ var dashDuration : float
 var lastDirection : int 
 var direction : Vector3 
 var movementCountdown : float
+var triedDuration : float
 var triedCountdown : float
 signal hpChanged(currentHP : int,maxHP : int)
 
@@ -25,3 +26,4 @@ func initEntity():
 	movementCountdown = 0
 	triedCountdown = 0
 	dashDuration = 0
+	triedDuration = ConstantNumber.enemyTriedDuration

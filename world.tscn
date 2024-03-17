@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://58jmk2r1l0p1" path="res://player.tscn" id="1_qp4wm"]
 [ext_resource type="MeshLibrary" uid="uid://nfnohaph7grb" path="res://demo.meshlib" id="3_1kqhu"]
-[ext_resource type="PackedScene" uid="uid://xf854a1nlet3" path="res://entities/enemies/general_monkey/general_monkey.tscn" id="4_idrhl"]
+[ext_resource type="PackedScene" uid="uid://ccswq1g8uqao6" path="res://entities/enemies/fly_monkey/fly_monkey.tscn" id="4_5c5ed"]
 
 [node name="World" type="Node3D"]
 
@@ -23,5 +23,5 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="Enemy" parent="." instance=ExtResource("4_idrhl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.918, 0.501, -1.598)
+[node name="Enemy2" parent="." instance=ExtResource("4_5c5ed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.05475, 0.487038, -2.10303)

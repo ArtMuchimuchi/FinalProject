@@ -34,7 +34,7 @@ func _physics_process(delta):
 	attackManager[enemyType].updateHitbox()
 	#if player in attack range
 	if(isPlayerInRange):
-		if(movementState != EntityState.attacking):
+		if(movementState != EntityState.attacking && movementState != EntityState.knockBack):
 			#set to attacking state
 			movement.setState(EntityState.attacking)
 			#deal damage

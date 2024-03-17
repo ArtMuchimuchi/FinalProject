@@ -69,9 +69,11 @@ func attackCooldown(delta : float):
 func rangeAttack():
 	#create projectile and shoot in player current position
 	var projectile = preload("res://entities/projectile_attack.tscn").instantiate()
+	projectile.position = position
 	projectile.direction = (player.global_position - position).normalized()
 	projectile.damage = rangeAttackDamage
-	self.add_child(projectile)
+	var parent = self.get_parent()
+	parent.add_child(projectile)
 	
 #get damaged by entity
 func damaged(direction: Vector3, damage: int, knockbackSpeed: int, knockbackDuration: float):

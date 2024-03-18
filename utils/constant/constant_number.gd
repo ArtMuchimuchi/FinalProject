@@ -33,3 +33,6 @@ const slotLevelZero : int = 0
 const currentSlotLevelIndexDifferent : int = 1
 
 const defaultPercentage : float = 1.0
+const defaultBuffLevel : int = 1
+const emptyArray : int = 0
+const emptyBuffIndex : int = -1

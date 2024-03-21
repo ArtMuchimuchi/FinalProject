@@ -17,6 +17,7 @@ func  increaseHP(increaseAmount: int):
 
 func decreaseHP(decreaseAmount: int):
 	if(decreaseAmount >= currentHP):
+		ownerNode.emit_signal("hpChanged",0,maxHP)
 		die()
 	else:
 		currentHP -= decreaseAmount
@@ -24,7 +25,7 @@ func decreaseHP(decreaseAmount: int):
 
 func die():
 	if(ownerNode.name == "Player"):
-		ownerNode.get_tree().paused = true
+		ownerNode.emit_signal("playerDeath")
 	else:
 		ownerNode.queue_free()
 

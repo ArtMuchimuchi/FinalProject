@@ -10,6 +10,7 @@ extends Control
 
 func _ready():
 	# Connect currentHP_changed signal from player scene to HUD and update health func.
+	updateHealthPointBar(player.healthPoint.currentHP,player.healthPoint.maxHP)
 	player.connect("hpChanged",updateHealthPointBar)
 	player.connect("activeBuffsUpdated",updateBuffGrid)
 

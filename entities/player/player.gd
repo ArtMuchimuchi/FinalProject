@@ -14,6 +14,7 @@ var HP : HealthPoint
 @onready var buffManager = BuffManager.new(self)
 signal activeBuffsUpdated(activeBuffs:Array[BuffData])
 signal modifyStatsFromActiveBuffs
+signal playerDeath
 
 var attackCountDown : float 
 var isMeleeAttack : bool

@@ -43,3 +43,12 @@ func getStatPercentage(statType : String):
 		if statTypePercentage != null:
 			totalStatPercentage += statTypePercentage
 	return totalStatPercentage
+
+func getMaxLevelBuffs():
+	var maxLevelBuffs : Array[BuffData] = []
+	if activeBuffs.size() > ConstantNumber.emptyArray:
+		for buff in activeBuffs:
+			if buff.currentLevel == buff.maxLevel:
+				maxLevelBuffs.append(buff)
+	
+	return maxLevelBuffs

@@ -2,7 +2,7 @@ extends Entity
 
 class_name Enemy
 
-@onready var player = get_node("../Player")
+@onready var player = get_node("../../Player")
 @onready var animationSprite = get_node("AnimatedSprite3D")
 @onready var animationPlayer = get_node("AnimationPlayer")
 @onready var hitboxAttack : Array[Node] = [get_node("HitBoxMeleeAttack"),get_node("HitBoxRangeAttack")]

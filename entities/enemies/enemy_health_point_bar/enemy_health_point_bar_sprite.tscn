@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjifdhnssa7h5"]
+
+[ext_resource type="Script" path="res://entities/enemies/enemy_health_point_bar/enemy_health_point_bar_sprite.gd" id="1_pfr56"]
+[ext_resource type="PackedScene" uid="uid://cn46c6ugeabaf" path="res://entities/enemies/enemy_health_point_bar/enemy_health_point_bar.tscn" id="2_encl8"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_pwm0k"]
+viewport_path = NodePath("SubViewport")
+
+[node name="HealthPointBarSprite3D" type="Sprite3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_pwm0k")
+script = ExtResource("1_pfr56")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(50, 10)
+
+[node name="HealthPointBar" parent="SubViewport" instance=ExtResource("2_encl8")]

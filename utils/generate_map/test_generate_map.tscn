@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://3qpsv8wk8vwy"]
 
-[ext_resource type="Script" path="res://test_generate_map.gd" id="1_rhvvc"]
+[ext_resource type="Script" path="res://utils/generate_map/test_generate_map.gd" id="1_rhvvc"]
 
 [node name="TestGenerateMap" type="Node3D"]
 script = ExtResource("1_rhvvc")

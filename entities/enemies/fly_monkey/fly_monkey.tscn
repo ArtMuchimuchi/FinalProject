@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://ccswq1g8uqao6"]
+[gd_scene load_steps=16 format=3 uid="uid://ccswq1g8uqao6"]
 
 [ext_resource type="Script" path="res://entities/enemies/fly_monkey/fly_monkey.gd" id="1_u2px4"]
 [ext_resource type="Texture2D" uid="uid://dakwq4dj7bqds" path="res://sprites/enemy_sprites/fly_monkey/idle/fly_monkey.png" id="2_2v3en"]
+[ext_resource type="PackedScene" uid="uid://cjifdhnssa7h5" path="res://entities/enemies/enemy_health_point_bar/enemy_health_point_bar_sprite.tscn" id="3_qtvxq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u8r0w"]
 
@@ -142,6 +143,9 @@ _data = {
 height = 1.0
 radius = 3.0
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_8boki"]
+viewport_path = NodePath("SubViewport")
+
 [node name="Enemy" type="CharacterBody3D"]
 collision_layer = 4
 script = ExtResource("1_u2px4")
@@ -150,7 +154,7 @@ script = ExtResource("1_u2px4")
 shape = SubResource("BoxShape3D_u8r0w")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(0.305, 0, 0, 0, 0.305, 0, 0, 0, 0.305, 0.0179856, 0.470844, -0.0285645)
+transform = Transform3D(0.305, 0, 0, 0, 0.305, 0, 0, 0, 0.305, 0.018, 0.471, -0.029)
 layers = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_bk7w8")
@@ -168,3 +172,6 @@ collision_mask = 2
 
 [node name="HitBoxAttack" type="CollisionShape3D" parent="HitBoxRangeAttack"]
 shape = SubResource("CylinderShape3D_5xl2f")
+
+[node name="HealthPointBarSprite3D" parent="." instance=ExtResource("3_qtvxq")]
+texture = SubResource("ViewportTexture_8boki")

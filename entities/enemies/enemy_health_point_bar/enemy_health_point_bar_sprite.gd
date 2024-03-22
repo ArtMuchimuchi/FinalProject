@@ -11,7 +11,7 @@ func _ready():
 		self.position = enemySprite.position + Vector3(0,0.4,0)
 	else:
 		self.position = enemySprite.position + Vector3(0,0.5,0)
-
+	# Set default hp bar of enemy
 	updateCurrentHPBar(enemy.healthPoint.currentHP,enemy.healthPoint.maxHP)
 	enemy.connect("hpChanged",updateCurrentHPBar)
 

@@ -17,8 +17,7 @@ func onQuitButtonPressed():
 
 
 func onStartButtonPressed():
-	get_tree().change_scene_to_file("res://mock_scene.tscn")
-
+	get_tree().change_scene_to_file("res://mock_room/mock_room.tscn")
 
 func onUpgradeButtonPressed():
 	mainMenuMarginContainer.visible = false

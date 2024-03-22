@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3 uid="uid://k3ec65lalrxj"]
+
+[ext_resource type="Script" path="res://user_interface/game_over/game_over.gd" id="1_5ldib"]
+
+[node name="GameClear" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5ldib")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="GameClearLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 52
+text = "You conquered	 dungeon !"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="GameOverButtons" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="MainMenuButton" type="Button" parent="MarginContainer/VBoxContainer/GameOverButtons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Back to Main Menu"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/GameOverButtons/MainMenuButton" to="." method="onMainMenuButtonPressed"]

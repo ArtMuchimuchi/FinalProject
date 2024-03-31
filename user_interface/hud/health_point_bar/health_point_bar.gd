@@ -5,6 +5,7 @@ extends TextureProgressBar
 
 # Update current health point label 
 func updateCurrentHealth(currentHP : int, maxHP : int ):
-	value = currentHP 
 	max_value = maxHP
-	currentHealthLabel.text = "%s / %s" %[currentHP,maxHP]
+	value = currentHP
+	currentHealthLabel.text = "%s / %s" %[value,max_value]
+	

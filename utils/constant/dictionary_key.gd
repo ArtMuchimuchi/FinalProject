@@ -6,4 +6,4 @@ const meleeAttackDamage : String = "meleeAttackDamage"
 const rangeAttackDamage : String = "rangeAttackDamage" 
 const maxHP : String = "maxHP" 
 const movementSpeed : String = "movementSpeed" 
-
+const defense : String = "defense"

@@ -12,3 +12,4 @@ func _init():
 	isAttacking = false
 	enemyType = ConstantNumber.enemyRangeType
 	triedDuration = ConstantNumber.flyMonkeyAttackCooldown
+	defense = ConstantNumber.enemyDefense

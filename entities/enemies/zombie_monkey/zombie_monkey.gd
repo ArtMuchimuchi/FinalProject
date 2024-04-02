@@ -11,3 +11,4 @@ func _init():
 	movement = MovementHandler.new(self)
 	isAttacking = false
 	enemyType = ConstantNumber.enemyMeleeType
+	defense = ConstantNumber.enemyDefense

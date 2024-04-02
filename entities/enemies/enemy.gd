@@ -17,6 +17,9 @@ var isPlayerInRange
 var isAttacking : bool
 var enemyType : int
 
+func _ready():
+	add_to_group("enemies")
+
 func _init():
 	initEntity()
 	meleeAttackDamage = ConstantNumber.enemyMeleeDamage

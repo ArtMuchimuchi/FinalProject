@@ -31,6 +31,7 @@ func _init():
 	attackCountDown = 0
 	isMeleeAttack = false
 	isRangeAttack = false
+	defense = ConstantNumber.playerDefense
 
 func _ready():
 	connect("modifyStatsFromActiveBuffs",modifyStats)
@@ -106,6 +107,7 @@ func modifyStats():
 	movementSpeed = calculateStatValue(ConstantNumber.playerSpeed,DictionaryKey.movementSpeed)
 	var modifiedmaxHP = calculateStatValue(ConstantNumber.playerHealthPoint,DictionaryKey.maxHP)
 	healthPoint.updateHPFromPercentage(modifiedmaxHP, ConstantNumber.playerHealthPoint)
+	defense = calculateStatValue(ConstantNumber.playerDefense,DictionaryKey.defense)
 
 # Calculate base stat with buff percentage
 func calculateStatValue(baseStat,statType:String):

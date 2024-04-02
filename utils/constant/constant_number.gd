@@ -11,6 +11,7 @@ const playerHealthPoint : int = 10
 const playerMeleeDamage : int = 3
 const playerMeleeCooldown : float = 0.2
 const playerRangeDamage : int = 1
+const playerDefense : int = 2
 
 const enemyMeleeType : int = 0
 const enemyRangeType : int = 1
@@ -25,6 +26,7 @@ const enemyMeleeKnockbackSpeed : int = 14
 const enemyMeleeKnockbackDuration : float = 0.3
 const enemyRangeKnockbackSpeed : int = 7
 const enemyRangeKnockbackDuration : float = 0.1
+const enemyDefense : int = 1
 
 const flyMonkeyAttackCooldown : int = 2
 
@@ -36,3 +38,5 @@ const defaultPercentage : float = 1.0
 const defaultBuffLevel : int = 1
 const emptyArray : int = 0
 const emptyBuffIndex : int = -1
+
+const minimalDamage : int = 1

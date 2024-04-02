@@ -20,7 +20,13 @@ func decreaseHP(decreaseAmount: int):
 		ownerNode.emit_signal("hpChanged",0,maxHP)
 		die()
 	else:
-		currentHP -= decreaseAmount
+		# Reduce damage recieved with defense value
+		var defense = ownerNode.defense
+		if defense < decreaseAmount:
+			currentHP -= decreaseAmount - defense 
+		# If defense value is greater than damage, reduce damage to 1 
+		elif defense >= decreaseAmount:
+			currentHP -= ConstantNumber.minimalDamage
 		ownerNode.emit_signal("hpChanged",currentHP,maxHP)
 
 func die():

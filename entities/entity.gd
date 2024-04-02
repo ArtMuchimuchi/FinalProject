@@ -6,6 +6,7 @@ var meleeAttackDamage : int
 var rangeAttackDamage : int
 var healthPoint : HealthPoint
 var movementSpeed : int
+var defense : int
 var movementState : int
 var dashSpeed : int
 var dashDuration : float

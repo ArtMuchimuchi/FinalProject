@@ -5,10 +5,14 @@ extends Node3D
 @onready var player = $Player
 var generalMonkey = preload("res://entities/enemies/general_monkey/general_monkey.tscn")
 var flyMonkey = preload("res://entities/enemies/fly_monkey/fly_monkey.tscn")
-#
+var zombieMonkey = preload("res://entities/enemies/zombie_monkey/zombie_monkey.tscn")
+var muscleMonkey = preload("res://entities/enemies/muscle_monkey/muscle_monkey.tscn")
+
 var enemyTypes  = [
 	generalMonkey,
 	flyMonkey,
+	zombieMonkey,
+	muscleMonkey,
 ] 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -44,11 +48,10 @@ func spawnEnemies(limit:int):
 		enemiesNode.add_child(enemyInstance)
 		enemyInstance.position = randomPosition
 
-
 func gameOver():
 	get_tree().change_scene_to_file("res://user_interface/game_over/game_over.tscn")
 
 # Check if enemies are zero / player killed all then game is cleared
 func gameClear():
-	if enemiesNode.get_child_count() == 0:
+	if get_tree().get_nodes_in_group("enemies").size() == 0:
 		get_tree().change_scene_to_file("res://user_interface/game_clear/game_clear.tscn")

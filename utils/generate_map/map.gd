@@ -4,8 +4,9 @@ const impassableTile : int = 0
 const passableTile : int = 1
 const specialTile : int = 2
 
-const maxRowNumber : int = 2
-const maxColumnNumber : int = 2
+const maxRowNumber : int = 5
+const maxColumnNumber : int = maxRowNumber
+const mapSize : int = maxColumnNumber * maxRowNumber
 
 var mapArray : Array[Tile]
 var visitedArray : Array[bool]
@@ -13,10 +14,12 @@ var visitedArray : Array[bool]
 var specialTiles : int
 
 var isPlayable : bool
+var specialTilesScore : int
 
 func  _init():
 	mapArray.resize(maxColumnNumber * maxRowNumber)
 	specialTiles = 0
+	specialTilesScore = 0
 	isPlayable = true
 	for i in range(maxColumnNumber * maxRowNumber):
 		mapArray[i] = Tile.new(impassableTile, i, maxRowNumber)
@@ -34,15 +37,22 @@ func indexToVirtual(index: int) -> Array[int]:
 	return arrayRealIndex
 	
 func random():
-	specialTiles = 0
 	var rng = RandomNumberGenerator.new()
 	for i in range(maxColumnNumber * maxRowNumber):
 		var tile = rng.randi_range(0,2)
 		mapArray[i] = Tile.new(tile, i, maxRowNumber)
-		if(tile == specialTile):
-			specialTiles = specialTiles + 1
+
+func countSpecialTiles():
+	isPlayable = true
+	specialTiles = 0
+	specialTilesScore = 0
+	for i in range(mapSize):
+		if(mapArray[i].type == specialTile):
+			specialTiles += 1
+	specialTilesScore = specialTiles 
 	if(specialTiles < 1):
 		isPlayable = false
+			
 
 func display():
 	var line : String
@@ -55,6 +65,7 @@ func display():
 
 #for evaluating gen map
 func evaluate():
+	countSpecialTiles()
 	if(isPlayable == false):
 		return
 	checkConnection()

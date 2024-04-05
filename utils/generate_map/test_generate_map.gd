@@ -11,13 +11,7 @@ func  _ready():
 	#var gridMap = GridMap.new()
 	#mapGenerator.createMap(map, gridMap, mesh_lib)
 	#thisNode.add_child(gridMap)
-	var sketchMap : Array[Map]
-	sketchMap.resize(10)
-	for i in range(sketchMap.size()):
-		sketchMap[i] = Map.new()
-		sketchMap[i].random()
-		print("Map " + str(i + 1))
-		sketchMap[i].display()
+	
 	#var tileConverter : TileConverter = TileConverter.new()
 	#var gridMap : Array[int] = []
 	#var indexMap : Array[int]
@@ -40,8 +34,6 @@ func  _ready():
 	#		ss = ss + str(gridMap[indexMap[i + (j * roomSize * Map.maxColumnNumber)]]) + " "
 	#	ss = ss + "\n"
 	#print(ss)
-	for i in range(sketchMap.size()):
-		sketchMap[i].evaluate()
-		
-	for i in range(sketchMap.size()):
-		print(sketchMap[i].isPlayable)
+	var ga = GeneticAlgorithm.new()
+	ga.a()
+

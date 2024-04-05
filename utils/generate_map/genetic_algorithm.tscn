@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://dvao3vky7s3hv"]
+
+[node name="GeneticAlgorithm" type="Node2D"]

@@ -7,11 +7,11 @@ signal selectedSlot(slotIndex:int)
 
 
 # Function to set slot data such as name, level, icon texture in slot
-func setSlotData(slotData: TraitSlotData):
-	nameLabel.text = slotData.name
-	iconTexture.texture = slotData.texture
-	var currentLevel = str(slotData.currentLevel)
-	var maxLevel = str(slotData.slotLevel.size())
+func setSlotData(traitData: TraitData):
+	nameLabel.text = traitData.traitName
+	iconTexture.texture = traitData.traitTexture
+	var currentLevel = str(traitData.currentLevel)
+	var maxLevel = str(traitData.maxLevel)
 	levelLabel.text = currentLevel + " / " + maxLevel 
 
 # Function to respond when slot was clicked, send signal of slot index 

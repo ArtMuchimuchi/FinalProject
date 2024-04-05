@@ -12,6 +12,7 @@ var HP : HealthPoint
 @onready var rangeAttack = AttackHandler.new(self, hitboxRangeAttack)
 
 @onready var buffManager = BuffManager.new(self)
+@onready var traitManager = TraitManager.new(self)
 signal activeBuffsUpdated(activeBuffs:Array[BuffData])
 signal modifyStatsFromActiveBuffs
 signal playerDeath
@@ -35,6 +36,7 @@ func _init():
 
 func _ready():
 	connect("modifyStatsFromActiveBuffs",modifyStats)
+	modifyStats()
 
 func _physics_process(delta):
 	move(delta)
@@ -111,5 +113,5 @@ func modifyStats():
 
 # Calculate base stat with buff percentage
 func calculateStatValue(baseStat,statType:String):
-	var statPercentage = buffManager.getStatPercentage(statType)
+	var statPercentage = buffManager.getStatPercentage(statType) + traitManager.getStatPercentage(statType)
 	return baseStat * (ConstantNumber.defaultPercentage + statPercentage)

@@ -12,6 +12,7 @@ const playerMeleeDamage : int = 3
 const playerMeleeCooldown : float = 0.2
 const playerRangeDamage : int = 1
 const playerDefense : int = 2
+const rebirthInvincibleDuration : float = 2.0
 
 const enemyMeleeType : int = 0
 const enemyRangeType : int = 1

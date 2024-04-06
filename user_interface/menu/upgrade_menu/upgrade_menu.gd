@@ -12,6 +12,7 @@ var mockupTraitSlotArray : Array[TraitData] = [
 	MaxHPTrait.new(),
 	DefenseTrait.new(),
 	MovementSpeedTrait.new(), 
+	RebirthTrait.new(),
 ]
 @onready var saverLoader = SaverLoader.new()
 

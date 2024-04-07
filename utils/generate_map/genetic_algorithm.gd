@@ -2,15 +2,17 @@ class_name GeneticAlgorithm
 
 const roomSize : int = 1
 const numberPopulation : int = 10
-const selectedProportion : float = 0.2
+const selectedProportion : float = 0.3
 const selectedNumber : int = numberPopulation * selectedProportion
-const maxGeneration : int = 1000 
+const maxGeneration : int = 2000
 
 var sketchMap : Array[Map]
 var biasedRoulette : Array[float]
 var selectedPop : Array[Map]
 
 var generation : int 
+
+var data : SaveLog = SaveLog.new()
 
 const log1 : bool = false
 
@@ -33,6 +35,8 @@ func  a():
 		print(sketchMap[i].isPlayable)
 		print(sketchMap[i].specialTilesScore)
 		sketchMap[i].display()
+	data.display()
+	data.save()
 
 #spawn
 func firstGeneration():
@@ -47,9 +51,12 @@ func firstGeneration():
 
 #evaluate		
 func evaluate():
+	var sum = 0
 	for i in range(sketchMap.size()):
-		sketchMap[i].evaluate()	
-		
+		sketchMap[i].evaluate()
+		sum += sketchMap[i].specialTilesScore
+	sum = sum / sketchMap.size()
+	data.add(generation, sum)
 #Calculation For Rullete Select
 func calculateRoulette():	
 	var scoreList : Array[float] = []
@@ -131,7 +138,7 @@ func selectParent() -> Array[int]:
 	
 func crossOver(parent1 : Map, parent2 : Map) -> Map:
 	var offspring : Map = Map.new()
-	var cutindex : int = 0.7 * Map.mapSize
+	var cutindex : int = 0.5 * Map.mapSize
 	if(log1):
 		print("Cut index " + str(cutindex))
 		print("parent 1 ")
@@ -147,6 +154,11 @@ func crossOver(parent1 : Map, parent2 : Map) -> Map:
 		print("offspring")
 		offspring.display()
 	return offspring
+	
+func saveLog():
+	for i in range(10):
+		data.add(generation, 1)
+	data.display()
 	
 	
 	

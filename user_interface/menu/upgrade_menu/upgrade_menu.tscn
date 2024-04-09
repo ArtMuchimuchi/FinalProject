@@ -5,20 +5,13 @@
 
 [node name="UpgradeMenu" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 script = ExtResource("1_pxj7d")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 1092.0
+offset_bottom = 578.0
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
@@ -60,14 +53,15 @@ layout_mode = 2
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/SlotGridAndDetail"]
 custom_minimum_size = Vector2(600, 400)
 layout_mode = 2
+size_flags_horizontal = 3
 horizontal_scroll_mode = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/SlotGridAndDetail/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_right = 40
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
 
 [node name="SlotGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/SlotGridAndDetail/ScrollContainer/MarginContainer"]
 unique_name_in_owner = true

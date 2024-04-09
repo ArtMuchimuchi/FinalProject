@@ -31,7 +31,17 @@ func decreaseHP(decreaseAmount: int):
 
 func die():
 	if(ownerNode.name == "Player"):
-		ownerNode.emit_signal("playerDeath")
+		# Check if player have enough rebirth point to rebirth.     
+		var traitManager : TraitManager = ownerNode.traitManager
+		# If player have heal hp for percentage and gain invincible for short duration, reduced rebirth point per usage
+		if traitManager.rebirthPoint > 0:
+			var rebirthHP = maxHP * traitManager.rebirthTrait.getTraitPropertyValue(DictionaryKey.rebirthHP) 
+			increaseHP(rebirthHP)
+			ownerNode.rebirthInvincible()
+			traitManager.rebirthPoint =- 1
+		# If player don't have enough rebirth point, trigger death signal
+		else: 
+			ownerNode.emit_signal("playerDeath")
 	else:
 		ownerNode.queue_free()
 
@@ -42,3 +52,4 @@ func updateHPFromPercentage(modifiedHP:int, baseHP: int):
 	currentHP = newCurrentHP
 	ownerNode.emit_signal("hpChanged",currentHP,maxHP)
 	
+

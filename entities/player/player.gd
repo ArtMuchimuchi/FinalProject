@@ -12,6 +12,7 @@ var HP : HealthPoint
 @onready var rangeAttack = AttackHandler.new(self, hitboxRangeAttack)
 
 @onready var buffManager = BuffManager.new(self)
+@onready var traitManager = TraitManager.new(self)
 signal activeBuffsUpdated(activeBuffs:Array[BuffData])
 signal modifyStatsFromActiveBuffs
 signal playerDeath
@@ -19,6 +20,7 @@ signal playerDeath
 var attackCountDown : float 
 var isMeleeAttack : bool
 var isRangeAttack : bool
+var isRebirth : bool = false
 
 func _init():
 	initEntity()
@@ -35,6 +37,7 @@ func _init():
 
 func _ready():
 	connect("modifyStatsFromActiveBuffs",modifyStats)
+	modifyStats()
 
 func _physics_process(delta):
 	move(delta)
@@ -68,8 +71,8 @@ func playerAnimation(delta : float):
 	animationManager.flipAnimation(lastDirection, animationSprite, delta)
 	
 func damaged(direction: Vector3, damage: int, knockbackSpeed: int, knockbackDuration: float):
-	#if player dash, be invisibility
-	if(movementState!=EntityState.dash):
+	#if player dash or rebirth, be invisibility
+	if(movementState!=EntityState.dash && !isRebirth):
 		healthPoint.decreaseHP(damage)
 
 func attack(delta : float):
@@ -111,5 +114,12 @@ func modifyStats():
 
 # Calculate base stat with buff percentage
 func calculateStatValue(baseStat,statType:String):
-	var statPercentage = buffManager.getStatPercentage(statType)
+	var statPercentage = buffManager.getStatPercentage(statType) + traitManager.getStatPercentage(statType)
+	print(traitManager.getStatPercentage(statType))
 	return baseStat * (ConstantNumber.defaultPercentage + statPercentage)
+
+# Make player invincible for period of time after rebirth
+func setRebirthInvincible():
+	isRebirth = true
+	await get_tree().create_timer(ConstantNumber.rebirthInvincibleDuration).timeout
+	isRebirth = false

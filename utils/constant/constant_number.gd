@@ -12,6 +12,7 @@ const playerMeleeDamage : int = 3
 const playerMeleeCooldown : float = 0.2
 const playerRangeDamage : int = 1
 const playerDefense : int = 2
+const rebirthInvincibleDuration : float = 2.0
 
 const enemyMeleeType : int = 0
 const enemyRangeType : int = 1
@@ -31,8 +32,8 @@ const enemyDefense : int = 1
 const flyMonkeyAttackCooldown : int = 2
 
 const defaultSlotDetailIndex : int = 0
-const slotLevelZero : int = 0
-const currentSlotLevelIndexDifferent : int = 1
+const defaultTraitLevel : int = 0
+const nextTraitLevel : int = 1
 
 const defaultPercentage : float = 1.0
 const defaultBuffLevel : int = 1

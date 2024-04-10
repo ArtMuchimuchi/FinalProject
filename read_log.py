@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 import json
 
 dictionary = json.load(open('log1.json', 'r'))
@@ -8,6 +9,9 @@ yAxis = [value for key, value in dictionary.items()]
 plt.plot(xAxis,yAxis)
 
 plt.xlim(1,110)
+plt.ylim(0,40)
+
+plt.xticks(np.arange(9,110,step=10))
 
 plt.ylabel("score")
 plt.xlabel("generation")

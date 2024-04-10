@@ -1,10 +1,12 @@
 class_name GeneticAlgorithm
 
 const roomSize : int = 1
-const numberPopulation : int = 10
+const numberPopulation : int = 100
 const selectedProportion : float = 0.3
 const selectedNumber : int = numberPopulation * selectedProportion
-const maxGeneration : int = 2000
+const maxGeneration : int = 100
+
+const mutateChance : float = 0.01
 
 var sketchMap : Array[Map]
 var biasedRoulette : Array[float]
@@ -153,7 +155,46 @@ func crossOver(parent1 : Map, parent2 : Map) -> Map:
 	if(log1):
 		print("offspring")
 		offspring.display()
+	mutate(offspring)
 	return offspring
+	
+func mutate(offSpring : Map):
+	var mutate : float = randf() 
+	if(mutate<mutateChance):
+		var randomMutate : float = randf()
+		if(randomMutate > 0.5):
+			mutateSwap(offSpring)
+		else:
+			rotateSwap(offSpring)
+
+func mutateSwap(offSpring : Map):
+	var mapLimit : int = Map.mapSize - 1
+	var tile1 : int = randi_range(0, mapLimit)
+	var tile2 : int = randi_range(0, mapLimit)
+	while(tile1==tile2):
+		tile2 = randi_range(0, mapLimit)
+	var temp = offSpring.mapArray[tile1].type
+	offSpring.mapArray[tile1].type = offSpring.mapArray[tile2].type
+	offSpring.mapArray[tile2].type = temp
+	
+func rotateSwap(offSpring : Map):
+	var mapLimit : int = Map.mapSize - 1
+	var firstIndex : int = randi_range(0, mapLimit)
+	var secondIndex : int = randi_range(0, mapLimit)
+	while(firstIndex==secondIndex):
+		secondIndex = randi_range(0, mapLimit)
+	if(firstIndex > secondIndex):
+		var temp = firstIndex
+		firstIndex = secondIndex
+		secondIndex = temp
+	var tempArray : Array = []
+	var i = firstIndex
+	while(i<=secondIndex):
+		tempArray.append(offSpring.mapArray[i].type)
+		i += 1
+	tempArray.reverse()
+	for j in range(tempArray.size()):
+		offSpring.mapArray[j + firstIndex].type = tempArray[j]
 	
 func saveLog():
 	for i in range(10):

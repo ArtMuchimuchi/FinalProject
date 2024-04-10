@@ -14,7 +14,7 @@ var selectedPop : Array[Map]
 
 var generation : int 
 
-var data : SaveLog = SaveLog.new()
+var constrain1 : SaveLog = SaveLog.new("Constrain1")
 
 const log1 : bool = false
 
@@ -37,8 +37,7 @@ func  a():
 		print(sketchMap[i].isPlayable)
 		print(sketchMap[i].specialTilesScore)
 		sketchMap[i].display()
-	data.display()
-	data.save()
+	constrain1.save()
 
 #spawn
 func firstGeneration():
@@ -58,7 +57,7 @@ func evaluate():
 		sketchMap[i].evaluate()
 		sum += sketchMap[i].specialTilesScore
 	sum = sum / sketchMap.size()
-	data.add(generation, sum)
+	constrain1.add(generation, sum)
 #Calculation For Rullete Select
 func calculateRoulette():	
 	var scoreList : Array[float] = []
@@ -195,11 +194,6 @@ func rotateSwap(offSpring : Map):
 	tempArray.reverse()
 	for j in range(tempArray.size()):
 		offSpring.mapArray[j + firstIndex].type = tempArray[j]
-	
-func saveLog():
-	for i in range(10):
-		data.add(generation, 1)
-	data.display()
 	
 	
 	

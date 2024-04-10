@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import json
 
-dictionary = json.load(open('log1.json', 'r'))
+dictionary = json.load(open('Constrain1.json', 'r'))
 xAxis = [key for key, value in dictionary.items()]
 yAxis = [value for key, value in dictionary.items()]
 

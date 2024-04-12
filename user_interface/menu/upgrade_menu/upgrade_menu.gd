@@ -4,7 +4,7 @@ extends Control
 @onready var upgradeSlotDetail = %SlotDetail
 @onready var currentCoinLabel = %CurrentCoinLabel
 const upgradeSlot = preload("res://user_interface/menu/upgrade_menu/upgrade_slot.tscn")
-var currentCoin : int = 10000
+var currentCoin : int = 1000
 signal closedUpgradeMenu
 # Mockup trait slot array
 var mockupTraitSlotArray : Array[TraitData] = [
@@ -40,13 +40,13 @@ func addSlotGrid(slots : Array[TraitData]):
 	
 # Set slot detail default to first slot in grid 
 func setDefaultSlotDetail(slots : Array[TraitData]):
-		upgradeSlotDetail.setSlotDetailData(slots[ConstantNumber.defaultSlotDetailIndex])
+		upgradeSlotDetail.setSlotDetailData(slots[ConstantNumber.defaultSlotDetailIndex],currentCoin)
 		upgradeSlotDetail.pressedUpgrade.connect(onPressedUpgrade)
 
 # Function to respond after user click slot, change slot detail to selected slot
 func onSelecetdSlot(slotIndex:int):
 	var selectedSlot = mockupTraitSlotArray[slotIndex]
-	upgradeSlotDetail.setSlotDetailData(selectedSlot)
+	upgradeSlotDetail.setSlotDetailData(selectedSlot,currentCoin)
 
 # Function to change current coin value display
 func updateCurrentCoin():
@@ -65,7 +65,7 @@ func onPressedUpgrade(price:int,slot:TraitData):
 		# Update upgrade slot data by re-adding slots
 		addSlotGrid(mockupTraitSlotArray)
 		# Update slot detail in slot detail 
-		upgradeSlotDetail.setSlotDetailData(slot)
+		upgradeSlotDetail.setSlotDetailData(slot,currentCoin)
 		# Saved trait slot array in file when upgrade trait slot level
 		saverLoader.saveTraitArray(mockupTraitSlotArray)
 		

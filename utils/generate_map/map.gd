@@ -4,7 +4,7 @@ const impassableTile : int = 0
 const passableTile : int = 1
 const specialTile : int = 2
 
-const maxRowNumber : int = 4
+const maxRowNumber : int = 5
 const maxColumnNumber : int = maxRowNumber
 const mapSize : int = maxColumnNumber * maxRowNumber
 

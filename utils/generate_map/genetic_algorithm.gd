@@ -117,7 +117,7 @@ func generateNewPopulation():
 		print("new pop number = " + str(newPopNumber))
 	for i in range(newPopNumber):
 		var selectedParent : Array[int] = selectParent()
-		var offspring : Map = crossOver(selectedPop[selectedParent[0]], selectedPop[selectedParent[1]])
+		var offspring : Map = uniformCrossOver(selectedPop[selectedParent[0]], selectedPop[selectedParent[1]])
 		sketchMap.append(offspring)
 	for i in range(sketchMap.size()):
 		if(log1):
@@ -137,7 +137,7 @@ func selectParent() -> Array[int]:
 				print("Chosen parent 2 = " + str(parent2))
 		return [parent1,parent2]
 	
-func crossOver(parent1 : Map, parent2 : Map) -> Map:
+func singleCrossOver(parent1 : Map, parent2 : Map) -> Map:
 	var offspring : Map = Map.new()
 	var cutindex : int = 0.5 * Map.mapSize
 	if(log1):
@@ -154,6 +154,20 @@ func crossOver(parent1 : Map, parent2 : Map) -> Map:
 	if(log1):
 		print("offspring")
 		offspring.display()
+	mutate(offspring)
+	return offspring
+	
+func uniformCrossOver(parent1 : Map, parent2 : Map) -> Map:
+	var offspring : Map = Map.new()
+	var uniform : Array[int] = []
+	for i in range(Map.mapSize):
+		var rand = randi_range(0,1)
+		uniform.append(rand)
+	for i in range(Map.mapSize):
+		if(uniform[i]==0):
+			offspring.mapArray[i] = parent1.mapArray[i]
+		else:
+			offspring.mapArray[i] = parent2.mapArray[i]
 	mutate(offspring)
 	return offspring
 	

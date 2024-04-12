@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bws8q8cvj4oml"]
+
+[ext_resource type="Script" path="res://utils/sound_manager/background_music_manager/background_music_manager.gd" id="1_krlun"]
+
+[node name="BackgroundMusicManager" type="AudioStreamPlayer"]
+autoplay = true
+bus = &"backgroundMusic"
+script = ExtResource("1_krlun")

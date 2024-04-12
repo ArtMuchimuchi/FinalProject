@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxe27w7ldugch"]
+[gd_scene load_steps=4 format=3 uid="uid://dxe27w7ldugch"]
 
 [ext_resource type="PackedScene" uid="uid://cs5grcudnb6hb" path="res://user_interface/menu/upgrade_menu/upgrade_slot.tscn" id="1_4rn2r"]
 [ext_resource type="Script" path="res://user_interface/menu/upgrade_menu/upgrade_slot_detail.gd" id="1_tpaj6"]
+[ext_resource type="Script" path="res://user_interface/menu/components/button/ui_button.gd" id="3_1836x"]
 
 [node name="UpgradeSlotDetail" type="MarginContainer"]
 custom_minimum_size = Vector2(400, 0)
@@ -32,6 +33,7 @@ text = "Current Level"
 
 [node name="CurrentDescriptionLabel" type="Label" parent="VBoxContainer/CurrentLevel"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(380, 0)
 layout_mode = 2
 text = "None
 "
@@ -51,6 +53,7 @@ text = "Next Level"
 
 [node name="NextDescriptionLabel" type="Label" parent="VBoxContainer/NextLevel"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(380, 0)
 layout_mode = 2
 text = "Increase something for x%
 "
@@ -71,5 +74,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 text = "Upgrade"
+script = ExtResource("3_1836x")
+buttonType = "upgrade"
 
 [connection signal="pressed" from="VBoxContainer/PriceAndUpgrade/UpgradeButton" to="." method="onUpgradeButtonPressed"]

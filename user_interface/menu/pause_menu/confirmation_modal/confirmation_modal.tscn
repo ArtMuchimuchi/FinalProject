@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bf4j8sjvm0un8"]
+[gd_scene load_steps=4 format=3 uid="uid://bf4j8sjvm0un8"]
 
 [ext_resource type="Script" path="res://user_interface/menu/pause_menu/confirmation_modal/confirmation_modal.gd" id="1_7cfqc"]
+[ext_resource type="Script" path="res://user_interface/menu/components/button/ui_button.gd" id="2_l8skd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ie6sl"]
 bg_color = Color(0.2, 0.2, 0.2, 1)
@@ -46,6 +47,7 @@ custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 8
 text = "X"
+script = ExtResource("2_l8skd")
 
 [node name="Title" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -77,6 +79,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 text = "Yes"
+script = ExtResource("2_l8skd")
 
 [node name="Spacer2" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/ConfirmationButtons"]
 custom_minimum_size = Vector2(30, 0)
@@ -90,6 +93,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 20
 text = "No"
+script = ExtResource("2_l8skd")
 
 [node name="Spacer3" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/ConfirmationButtons"]
 custom_minimum_size = Vector2(30, 0)

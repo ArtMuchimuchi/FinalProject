@@ -14,12 +14,13 @@ var enemyTypes  = [
 	zombieMonkey,
 	muscleMonkey,
 ] 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Connect player death signal for changing game over scene
 	player.connect("playerDeath",gameOver)
 	spawnEnemies(4)
-	
+	BackgroundMusicManager.playfightBGM()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

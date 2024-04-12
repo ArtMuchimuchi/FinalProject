@@ -9,7 +9,6 @@ const maxGeneration : int = 100
 const mutateChance : float = 0.01
 
 var sketchMap : Array[Map]
-var biasedRoulette : Array[float]
 var selectedPop : Array[Map]
 
 var generation : int 
@@ -27,8 +26,7 @@ func  a():
 		if(log1):
 			print(str(i+1) + " " + str(sketchMap[i].isPlayable))
 	for i in range(maxGeneration):
-		calculateRoulette()
-		selectPopulation()
+		biasedRoulette()
 		generateNewPopulation()
 		generation += 1
 		print("generation " + str(generation))
@@ -59,7 +57,8 @@ func evaluate():
 	sum = sum / sketchMap.size()
 	constrain1.add(generation, sum)
 #Calculation For Rullete Select
-func calculateRoulette():	
+func biasedRoulette():	
+	#evaluation!!!!!!!!!!!!!
 	var scoreList : Array[float] = []
 	var min : float = 100
 	var max : float = 0
@@ -76,7 +75,7 @@ func calculateRoulette():
 		print("Max = " + str(max))
 		print(scoreList)
 	var proportionList : Array[float] = []
-	biasedRoulette.clear()
+	var biasedRoulette : Array[float]
 	var totalProportion : float = 0
 	for i in range(scoreList.size()):
 		var num : float = scoreList[i] / sum
@@ -86,9 +85,6 @@ func calculateRoulette():
 	if(log1):
 		print(proportionList)
 		print(biasedRoulette)
-	
-#select
-func selectPopulation():
 	selectedPop.clear()
 	if(log1):
 		print("selected pop number = " + str(selectedNumber))
@@ -105,6 +101,7 @@ func selectPopulation():
 				if(log1):
 					selectedPop[i].display()
 				break
+				
 #gen new pop			
 func generateNewPopulation():
 	sketchMap.clear()

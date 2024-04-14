@@ -9,7 +9,6 @@ const maxGeneration : int = 100
 const mutateChance : float = 0.01
 
 var sketchMap : Array[Map]
-var biasedRoulette : Array[float]
 var selectedPop : Array[Map]
 
 var generation : int 
@@ -27,8 +26,7 @@ func  a():
 		if(log1):
 			print(str(i+1) + " " + str(sketchMap[i].isPlayable))
 	for i in range(maxGeneration):
-		calculateRoulette()
-		selectPopulation()
+		tournamentSelection()
 		generateNewPopulation()
 		generation += 1
 		print("generation " + str(generation))
@@ -59,7 +57,8 @@ func evaluate():
 	sum = sum / sketchMap.size()
 	constrain1.add(generation, sum)
 #Calculation For Rullete Select
-func calculateRoulette():	
+func biasedRoulette():	
+	#evaluation!!!!!!!!!!!!!
 	var scoreList : Array[float] = []
 	var min : float = 100
 	var max : float = 0
@@ -76,7 +75,7 @@ func calculateRoulette():
 		print("Max = " + str(max))
 		print(scoreList)
 	var proportionList : Array[float] = []
-	biasedRoulette.clear()
+	var biasedRoulette : Array[float]
 	var totalProportion : float = 0
 	for i in range(scoreList.size()):
 		var num : float = scoreList[i] / sum
@@ -86,9 +85,6 @@ func calculateRoulette():
 	if(log1):
 		print(proportionList)
 		print(biasedRoulette)
-	
-#select
-func selectPopulation():
 	selectedPop.clear()
 	if(log1):
 		print("selected pop number = " + str(selectedNumber))
@@ -105,6 +101,29 @@ func selectPopulation():
 				if(log1):
 					selectedPop[i].display()
 				break
+				
+func tournamentSelection():
+	selectedPop.clear()
+	selectedPop.resize(selectedNumber)
+	var isSeleted : Array[bool]
+	isSeleted.resize(numberPopulation)
+	for i in range(selectedNumber):
+		var candidate1 : int = randi_range(0, numberPopulation - 1)
+		while(isSeleted[candidate1] == true):
+			print("select " + str(candidate1) + " " + str(isSeleted[candidate1]))
+			candidate1 = randi_range(0, numberPopulation - 1)
+		var candidate2 : int = randi_range(0, numberPopulation - 1)
+		while(candidate1 == candidate2 || isSeleted[candidate2] == true):
+			print("select " + str(candidate2) + " " + str(isSeleted[candidate2]))
+			candidate2 = randi_range(0, numberPopulation - 1)
+		print(str(candidate1) + " " + str(candidate2))
+		if(sketchMap[candidate1].specialTilesScore > sketchMap[candidate2].specialTilesScore):
+			selectedPop[i] = sketchMap[candidate1]
+			isSeleted[candidate1] = true
+		else:
+			selectedPop[i] = sketchMap[candidate2]
+			isSeleted[candidate2] = true
+				
 #gen new pop			
 func generateNewPopulation():
 	sketchMap.clear()
@@ -115,10 +134,20 @@ func generateNewPopulation():
 	var newPopNumber : int = numberPopulation - selectedNumber
 	if(log1):
 		print("new pop number = " + str(newPopNumber))
-	for i in range(newPopNumber):
+	var newPop : int = 0
+	while (newPop < newPopNumber):
 		var selectedParent : Array[int] = selectParent()
-		var offspring : Map = uniformCrossOver(selectedPop[selectedParent[0]], selectedPop[selectedParent[1]])
-		sketchMap.append(offspring)
+		var offspring : Array[Map] = uniformCrossOver(selectedPop[selectedParent[0]], selectedPop[selectedParent[1]])
+		sketchMap.append(offspring[0])
+		newPop += 1
+		if(newPop < newPopNumber):
+			sketchMap.append(offspring[1])
+			newPop += 1
+
+	#for i in range(newPopNumber):
+	#	var selectedParent : Array[int] = selectParent()
+	#	var offspring : Map = uniformCrossOver(selectedPop[selectedParent[0]], selectedPop[selectedParent[1]])
+	#	sketchMap.append(offspring)
 	for i in range(sketchMap.size()):
 		if(log1):
 			print("new gen " + str(i+1))
@@ -137,8 +166,9 @@ func selectParent() -> Array[int]:
 				print("Chosen parent 2 = " + str(parent2))
 		return [parent1,parent2]
 	
-func singleCrossOver(parent1 : Map, parent2 : Map) -> Map:
-	var offspring : Map = Map.new()
+func singleCrossOver(parent1 : Map, parent2 : Map) -> Array[Map]:
+	var offspring1 : Map = Map.new()
+	var offspring2 : Map = Map.new()
 	var cutindex : int = 0.5 * Map.mapSize
 	if(log1):
 		print("Cut index " + str(cutindex))
@@ -148,28 +178,36 @@ func singleCrossOver(parent1 : Map, parent2 : Map) -> Map:
 		parent2.display()
 	for i in range(Map.mapSize):
 		if(i < cutindex):
-			offspring.mapArray[i] = parent1.mapArray[i]
+			offspring1.mapArray[i] = parent1.mapArray[i]
+			offspring2.mapArray[i] = parent2.mapArray[i]
 		else:
-			offspring.mapArray[i] = parent2.mapArray[i]
+			offspring1.mapArray[i] = parent2.mapArray[i]
+			offspring2.mapArray[i] = parent1.mapArray[i]
 	if(log1):
 		print("offspring")
-		offspring.display()
-	mutate(offspring)
-	return offspring
+		offspring1.display()
+		offspring2.display()
+	mutate(offspring1)
+	mutate(offspring2)
+	return [offspring1, offspring2]
 	
-func uniformCrossOver(parent1 : Map, parent2 : Map) -> Map:
-	var offspring : Map = Map.new()
+func uniformCrossOver(parent1 : Map, parent2 : Map) -> Array[Map]:
+	var offspring1 : Map = Map.new()
+	var offspring2 : Map = Map.new()
 	var uniform : Array[int] = []
 	for i in range(Map.mapSize):
 		var rand = randi_range(0,1)
 		uniform.append(rand)
 	for i in range(Map.mapSize):
 		if(uniform[i]==0):
-			offspring.mapArray[i] = parent1.mapArray[i]
+			offspring1.mapArray[i] = parent1.mapArray[i]
+			offspring2.mapArray[i] = parent2.mapArray[i]
 		else:
-			offspring.mapArray[i] = parent2.mapArray[i]
-	mutate(offspring)
-	return offspring
+			offspring1.mapArray[i] = parent2.mapArray[i]
+			offspring2.mapArray[i] = parent1.mapArray[i]
+	mutate(offspring1)
+	mutate(offspring2)
+	return [offspring1, offspring2]
 	
 func mutate(offSpring : Map):
 	var mutate : float = randf() 

@@ -26,7 +26,7 @@ func  a():
 		if(log1):
 			print(str(i+1) + " " + str(sketchMap[i].isPlayable))
 	for i in range(maxGeneration):
-		biasedRoulette()
+		tournamentSelection()
 		generateNewPopulation()
 		generation += 1
 		print("generation " + str(generation))
@@ -102,6 +102,28 @@ func biasedRoulette():
 					selectedPop[i].display()
 				break
 				
+func tournamentSelection():
+	selectedPop.clear()
+	selectedPop.resize(selectedNumber)
+	var isSeleted : Array[bool]
+	isSeleted.resize(numberPopulation)
+	for i in range(selectedNumber):
+		var candidate1 : int = randi_range(0, numberPopulation - 1)
+		while(isSeleted[candidate1] == true):
+			print("select " + str(candidate1) + " " + str(isSeleted[candidate1]))
+			candidate1 = randi_range(0, numberPopulation - 1)
+		var candidate2 : int = randi_range(0, numberPopulation - 1)
+		while(candidate1 == candidate2 || isSeleted[candidate2] == true):
+			print("select " + str(candidate2) + " " + str(isSeleted[candidate2]))
+			candidate2 = randi_range(0, numberPopulation - 1)
+		print(str(candidate1) + " " + str(candidate2))
+		if(sketchMap[candidate1].specialTilesScore > sketchMap[candidate2].specialTilesScore):
+			selectedPop[i] = sketchMap[candidate1]
+			isSeleted[candidate1] = true
+		else:
+			selectedPop[i] = sketchMap[candidate2]
+			isSeleted[candidate2] = true
+				
 #gen new pop			
 func generateNewPopulation():
 	sketchMap.clear()
@@ -115,7 +137,7 @@ func generateNewPopulation():
 	var newPop : int = 0
 	while (newPop < newPopNumber):
 		var selectedParent : Array[int] = selectParent()
-		var offspring : Array[Map] = singleCrossOver(selectedPop[selectedParent[0]], selectedPop[selectedParent[1]])
+		var offspring : Array[Map] = uniformCrossOver(selectedPop[selectedParent[0]], selectedPop[selectedParent[1]])
 		sketchMap.append(offspring[0])
 		newPop += 1
 		if(newPop < newPopNumber):

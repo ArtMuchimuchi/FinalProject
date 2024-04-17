@@ -2,9 +2,9 @@ class_name GeneticAlgorithm
 
 const roomSize : int = 1
 const numberPopulation : int = 100
-const selectedProportion : float = 0.3
+const selectedProportion : float = 0.4
 const selectedNumber : int = numberPopulation * selectedProportion
-const maxGeneration : int = 100
+const maxGeneration : int = 60
 
 const mutateChance : float = 0.01
 
@@ -13,7 +13,9 @@ var selectedPop : Array[Map]
 
 var generation : int 
 
-var constrain1 : SaveLog = SaveLog.new("Constrain1")
+var constrain1 : SaveLog = SaveLog.new("PlayableScore")
+var constrain2 : SaveLog = SaveLog.new("ExitTileScore")
+var constrain3 : SaveLog = SaveLog.new("OverAllScore")
 
 const log1 : bool = false
 
@@ -36,7 +38,9 @@ func  a():
 		print(sketchMap[i].specialTilesScore)
 		sketchMap[i].display()
 	constrain1.save()
-
+	constrain2.save()
+	constrain3.save()
+	
 #spawn
 func firstGeneration():
 	sketchMap.clear()
@@ -50,12 +54,37 @@ func firstGeneration():
 
 #evaluate		
 func evaluate():
-	var sum = 0
+	var sumPlayable : float = 0.0
+	var sumExitTile : float = 0.0
+	var sumOverAll : float = 0.0
+	var minExit : float = Map.mapSize * 10
+	var maxExit : float = 0.0
+	#evaluate and find minmax
 	for i in range(sketchMap.size()):
 		sketchMap[i].evaluate()
-		sum += sketchMap[i].specialTilesScore
-	sum = sum / sketchMap.size()
-	constrain1.add(generation, sum)
+		if(sketchMap[i].exitTileScore > maxExit):
+			maxExit = sketchMap[i].exitTileScore
+		if(sketchMap[i].exitTileScore < minExit):
+			minExit = sketchMap[i].exitTileScore
+	print("min = " + str(minExit) + " max = " + str(maxExit))
+	#cal score
+	for i in range(sketchMap.size()):
+		#print(str(i) + " " + str(sketchMap[i].exitTileScore))
+		sketchMap[i].exitTileScore = (1.0 - normalize(minExit, maxExit, sketchMap[i].exitTileScore)) 
+		#print(sketchMap[i].exitTileScore)
+		print("playable " + str(sketchMap[i].playableScore))
+		#print("exit " + str(sketchMap[i].exitTileScore))
+		sumPlayable += sketchMap[i].playableScore
+		sumExitTile += sketchMap[i].exitTileScore
+		sketchMap[i].specialTilesScore = (sketchMap[i].exitTileScore * 0.8) + (sketchMap[i].playableScore * 0.2)
+		#print("overall " + str(sketchMap[i].specialTilesScore))
+		sumOverAll += sketchMap[i].specialTilesScore
+	sumPlayable = sumPlayable / sketchMap.size()
+	sumExitTile = sumExitTile / sketchMap.size()
+	sumOverAll = sumOverAll / sketchMap.size()
+	constrain1.add(generation, sumPlayable)
+	constrain2.add(generation, sumExitTile)
+	constrain3.add(generation, sumOverAll)
 #Calculation For Rullete Select
 func biasedRoulette():	
 	#evaluation!!!!!!!!!!!!!
@@ -110,13 +139,10 @@ func tournamentSelection():
 	for i in range(selectedNumber):
 		var candidate1 : int = randi_range(0, numberPopulation - 1)
 		while(isSeleted[candidate1] == true):
-			print("select " + str(candidate1) + " " + str(isSeleted[candidate1]))
 			candidate1 = randi_range(0, numberPopulation - 1)
 		var candidate2 : int = randi_range(0, numberPopulation - 1)
 		while(candidate1 == candidate2 || isSeleted[candidate2] == true):
-			print("select " + str(candidate2) + " " + str(isSeleted[candidate2]))
 			candidate2 = randi_range(0, numberPopulation - 1)
-		print(str(candidate1) + " " + str(candidate2))
 		if(sketchMap[candidate1].specialTilesScore > sketchMap[candidate2].specialTilesScore):
 			selectedPop[i] = sketchMap[candidate1]
 			isSeleted[candidate1] = true
@@ -247,6 +273,9 @@ func rotateSwap(offSpring : Map):
 	for j in range(tempArray.size()):
 		offSpring.mapArray[j + firstIndex].type = tempArray[j]
 	
-	
+func normalize(min: float, max: float, value: float) -> float:
+	if((max - min) == 0.0):
+		return 0.0
+	return (value - min)/(max - min)
 	
 

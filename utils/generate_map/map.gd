@@ -2,7 +2,7 @@ class_name Map
 
 const impassableTile : int = 0
 const passableTile : int = 1
-const specialTile : int = 2
+const exitTile : int = 2
 
 const maxRowNumber : int = 8
 const maxColumnNumber : int = maxRowNumber
@@ -14,12 +14,16 @@ var visitedArray : Array[bool]
 var specialTiles : int
 
 var isPlayable : bool
-var specialTilesScore : int
+var playableScore : float
+var exitTileScore : float
+var specialTilesScore : float
 
 func  _init():
 	mapArray.resize(maxColumnNumber * maxRowNumber)
 	specialTiles = 0
 	specialTilesScore = 0
+	playableScore = 0
+	exitTileScore = 0
 	isPlayable = true
 	for i in range(maxColumnNumber * maxRowNumber):
 		mapArray[i] = Tile.new(impassableTile, i, maxRowNumber)
@@ -46,8 +50,9 @@ func countSpecialTiles():
 	isPlayable = true
 	specialTiles = 0
 	specialTilesScore = 0
+	var specialTypeList : Array[bool] = [false, false, true]
 	for i in range(mapSize):
-		if(mapArray[i].type == specialTile):
+		if(specialTypeList[mapArray[i].type]):
 			specialTiles += 1
 	specialTilesScore = specialTiles 
 	if(specialTiles < 1):
@@ -66,9 +71,20 @@ func display():
 #for evaluating gen map
 func evaluate():
 	countSpecialTiles()
-	if(isPlayable == false):
-		return
-	checkConnection()
+	checkExitTile()
+	if(specialTiles != 0):
+		checkConnection()
+	if(isPlayable):
+		playableScore = 0
+		playableScore += 1
+	
+func checkExitTile():
+	exitTileScore = 0.0
+	var totalExitTiles : float = 0.0
+	for i in range(mapSize):
+		if(mapArray[i].type == exitTile):
+			totalExitTiles += 1.0
+	exitTileScore = abs(totalExitTiles - 2.0)
 	
 #check if all special tiles are connected
 func checkConnection():

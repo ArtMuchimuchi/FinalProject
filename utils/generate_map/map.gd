@@ -36,7 +36,9 @@ func getTile(column: int, row: int) -> int:
 #convert real index to virtual index
 func indexToVirtual(index: int) -> Array[int]:
 	var arrayRealIndex : Array[int] = [-1, -1]
+	#row
 	arrayRealIndex[1] = index / maxRowNumber
+	#column
 	arrayRealIndex[0] = index - (arrayRealIndex[1] * maxRowNumber)
 	return arrayRealIndex
 	
@@ -121,3 +123,104 @@ func dfs(row:int, column:int):
 			dfs(row + 1, column)
 		if(mapArray[getTile(column, row)].left != null && visitedArray[mapArray[getTile(column, row)].left] != true):
 			dfs(row, column - 1)
+			
+func calDistance(startingTile: int, destinationTile: int) -> float:
+	var tile1: Array[int] = indexToVirtual(startingTile)
+	var tile2: Array[int] = indexToVirtual(destinationTile)
+	return sqrt(pow((tile1[0] - tile2[0]),2) + pow((tile1[1] - tile2[1]),2))
+	
+func averageExploration(tilesSet: Array[int]):
+	var avgExplor : float = 0
+	for i in range(tilesSet.size()):
+		print("value of " + str(tilesSet[i]))
+		var explorValue : float = calExploration(tilesSet, tilesSet[i])
+		print("exp " + str(explorValue))
+	
+func calExploration(tilesSet: Array[int], targetTile: int) -> float:
+	#number of element in Sn
+	var N : int = tilesSet.size()
+	var isPassable = [false, true, true]
+	#passable tiles
+	var P : float = 0
+	for i in range(mapSize):
+		if(isPassable[mapArray[i].type]):
+			P += 1
+	#print("N = " + str(N))
+	#print("P = " + str(P))
+	var sumCoverage : float = 0
+	for i in range(tilesSet.size()):
+		if(tilesSet[i]!=targetTile):
+			var coverage : float = floodFill(targetTile,tilesSet[i]) / P
+			print("coverage " + str(i) + " " + str(coverage))
+			sumCoverage += coverage
+	#print("sum before " + str(sumCoverage))
+	sumCoverage = sumCoverage / (N - 1)
+	#print("sum after " + str(sumCoverage))
+	return sumCoverage
+	
+func floodFill(startingTile: int, destinationTile: int) -> int:
+	var filled : Array[bool]
+	filled.resize(mapSize)
+	var inList : Array[bool]
+	inList.resize(mapSize)
+	var isPassable = [false, true, true]
+	var queue : Array[int] = []
+	queue.append(startingTile)
+	#print(queue)
+	inList[startingTile] = true
+	var i : int = 0
+	var searchingIndex : int = startingTile
+	var isReachDestination : bool = false
+	while(searchingIndex != destinationTile && i < queue.size()):
+		searchingIndex = queue[i]
+		#print("i " + str(i))
+		#print("sindex " + str(searchingIndex) + " --- " + str(destinationTile))
+		#print("Search " + str(i) + " " + str(queue[i]))
+		if(searchingIndex == destinationTile):
+			isReachDestination = true
+			#print("Reached!" + str(startingTile) + " " + str(destinationTile))
+		filled[searchingIndex] = true
+		#dis(filled)
+		if(mapArray[searchingIndex].top != null && !filled[mapArray[searchingIndex].top] && isPassable[mapArray[mapArray[searchingIndex].top].type]):
+			if(!inList[mapArray[searchingIndex].top]):
+				queue.append(mapArray[searchingIndex].top)
+				inList[mapArray[searchingIndex].top] = true
+				#print("Append " + str(mapArray[searchingIndex].top))
+		if(mapArray[searchingIndex].right != null && !filled[mapArray[searchingIndex].right] && isPassable[mapArray[mapArray[searchingIndex].right].type]):
+			if(!inList[mapArray[searchingIndex].right]):	
+				queue.append(mapArray[searchingIndex].right)
+				inList[mapArray[searchingIndex].right] = true
+				#print("Append " + str(mapArray[searchingIndex].right))
+		if(mapArray[searchingIndex].bottom != null && !filled[mapArray[searchingIndex].bottom] && isPassable[mapArray[mapArray[searchingIndex].bottom].type]):
+			if(!inList[mapArray[searchingIndex].bottom]):
+				queue.append(mapArray[searchingIndex].bottom)
+				inList[mapArray[searchingIndex].bottom] = true
+				#print("Append " + str(mapArray[searchingIndex].bottom))
+		if(mapArray[searchingIndex].left != null && !filled[mapArray[searchingIndex].left] && isPassable[mapArray[mapArray[searchingIndex].left].type]):
+			if(!inList[mapArray[searchingIndex].left]):	
+				queue.append(mapArray[searchingIndex].left)
+				inList[mapArray[searchingIndex].left] = true
+				#print("Append " + str(mapArray[searchingIndex].left))
+		#print(queue)
+		i += 1
+	#print("s " + str(searchingIndex))
+	#print("d " + str(destinationTile))
+	#print("i " + str(i))
+	#print("qu " + str(queue.size()))
+	var coverage : int = 0
+	for k in range(filled.size()):
+		if(filled[k]):
+			coverage += 1
+	if(!isReachDestination):
+		coverage *= -1
+	#dis(filled)
+	return coverage
+
+func dis(array: Array[bool]):
+	var line : String
+	for j in range(maxRowNumber):
+		line = line + "| "
+		for i in range(maxColumnNumber):
+			line = line + str(array[getTile(i,j)]) + " "
+		line = line + "|\n"
+	print(line)

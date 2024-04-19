@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://58jmk2r1l0p1"]
+[gd_scene load_steps=36 format=3 uid="uid://58jmk2r1l0p1"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_t16q3"]
 [ext_resource type="Texture2D" uid="uid://bma5mvlf7tr2r" path="res://sprites/player_sprites/idle/player_idle.png" id="2_5umhh"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://dv6sjo1i234iq" path="res://sprites/player_sprites/run/player_run.png" id="3_hwpvn"]
 [ext_resource type="Texture2D" uid="uid://bunki4q0qs662" path="res://sprites/player_sprites/attack/melee_attack/player_melee_attack.png" id="4_dw1wh"]
 [ext_resource type="Texture2D" uid="uid://clljxecx402t4" path="res://sprites/player_sprites/attack/ranged_attack/player_range_attack.png" id="5_1lgla"]
+[ext_resource type="AudioStream" uid="uid://dhbaqmkncdwyq" path="res://audio/sound_effect/player/dash_sfx.wav" id="7_yhmgm"]
+[ext_resource type="AudioStream" uid="uid://4j32f82uma5b" path="res://audio/sound_effect/player/melee_attack_sfx.wav" id="8_nb2ms"]
+[ext_resource type="AudioStream" uid="uid://cmou4sp0wgl1l" path="res://audio/sound_effect/player/range_attack_sfx.wav" id="9_xoky8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sv0xa"]
 
@@ -148,6 +151,21 @@ tracks/1/keys = {
 "update": 1,
 "values": [0, 0]
 }
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("7_yhmgm")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/2/use_blend = true
 
 [sub_resource type="Animation" id="Animation_jmmfx"]
 resource_name = "Idle"
@@ -205,6 +223,21 @@ tracks/1/keys = {
 "update": 1,
 "values": [2, 1, 0]
 }
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("8_nb2ms")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/2/use_blend = true
 
 [sub_resource type="Animation" id="Animation_f1d44"]
 length = 0.001
@@ -260,6 +293,21 @@ tracks/1/keys = {
 "update": 1,
 "values": [0, 1, 2, 3]
 }
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("9_xoky8")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/2/use_blend = true
 
 [sub_resource type="Animation" id="Animation_2ck7i"]
 resource_name = "Run"
@@ -359,3 +407,6 @@ collision_mask = 4
 
 [node name="HitBoxAttack" type="CollisionShape3D" parent="HitBoxRangeAttack"]
 shape = SubResource("CylinderShape3D_yd5k0")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"soundEffect"

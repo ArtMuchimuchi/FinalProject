@@ -21,6 +21,8 @@ EntityDirection="*res://utils/constant/entity_direction.gd"
 EntityRotation="*res://utils/constant/entity_rotation.gd"
 ConstantNumber="*res://utils/constant/constant_number.gd"
 DictionaryKey="*res://utils/constant/dictionary_key.gd"
+SoundEffectManager="*res://utils/sound_manager/sound_effect_manager/sound_effect_manager.gd"
+BackgroundMusicManager="*res://utils/sound_manager/background_music_manager/background_music_manager.tscn"
 
 [dotnet]
 

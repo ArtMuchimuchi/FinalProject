@@ -23,7 +23,8 @@ func _init(targetNode:Entity):
 	if savedTraitArray != null:
 		activeTraits = savedTraitArray
 	var foundRebirthTrait = findExistedTrait(RebirthTrait.new())
-	if foundRebirthTrait != null:
+	# Check if rebirth trait exist and current level is not zero
+	if foundRebirthTrait != null && foundRebirthTrait.currentLevel != ConstantNumber.defaultTraitLevel:
 		rebirthTrait = foundRebirthTrait
 		rebirthPoint = rebirthTrait.getTraitPropertyValue(DictionaryKey.rebirthPoint) 
 

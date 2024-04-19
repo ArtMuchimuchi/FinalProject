@@ -5,6 +5,7 @@ extends Control
 @onready var selectButton = %SelectButton
 @onready var availableBuffs : Array[BuffData] = [
 	AttackBuff.new(),
+	DefenseBuff.new(),
 	MaxHPBuff.new(),
 	MovementSpeedBuff.new()
 ] 

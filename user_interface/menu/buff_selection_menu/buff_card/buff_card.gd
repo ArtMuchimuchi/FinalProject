@@ -40,6 +40,8 @@ func _on_gui_input(event):
 			and event.is_pressed():
 					var buffCardIndex = get_index()
 					buffCardSelected.emit(buffCardIndex)
+					var buffClickedSFX = preload("res://audio/sound_effect/user_interface/click_sfx.wav")
+					SoundEffectManager.playSoundEffect(self,buffClickedSFX)
 
 # Set buff card border to yellow when selected
 func showSelectedBorder():

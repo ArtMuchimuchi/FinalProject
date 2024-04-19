@@ -10,7 +10,7 @@ func _ready():
 	optionsMenu.backOptionsMenu.connect(onBackOptionsMenu)
 	# Connect signal of pressed closed button in upgrade menu	
 	upgradeMenu.closedUpgradeMenu.connect(onClosedUpgradeMenu)
-	
+	BackgroundMusicManager.playMenuBGM()
 
 func onQuitButtonPressed():
 	get_tree().quit()

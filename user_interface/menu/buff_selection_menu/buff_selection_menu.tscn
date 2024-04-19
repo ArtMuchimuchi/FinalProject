@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://csn1h5aw7vqt5"]
+[gd_scene load_steps=3 format=3 uid="uid://csn1h5aw7vqt5"]
 
 [ext_resource type="Script" path="res://user_interface/menu/buff_selection_menu/buff_selection_menu.gd" id="1_oj2q1"]
+[ext_resource type="Script" path="res://user_interface/menu/components/button/ui_button.gd" id="2_jloiu"]
 
 [node name="BuffSelectionMenu" type="Control"]
 layout_mode = 3
@@ -49,5 +50,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 24
 text = "Select "
+script = ExtResource("2_jloiu")
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SelectButton" to="." method="onSelectButtonPressed"]

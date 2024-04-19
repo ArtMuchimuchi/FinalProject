@@ -115,7 +115,6 @@ func modifyStats():
 # Calculate base stat with buff percentage
 func calculateStatValue(baseStat,statType:String):
 	var statPercentage = buffManager.getStatPercentage(statType) + traitManager.getStatPercentage(statType)
-	print(traitManager.getStatPercentage(statType))
 	return baseStat * (ConstantNumber.defaultPercentage + statPercentage)
 
 # Make player invincible for period of time after rebirth

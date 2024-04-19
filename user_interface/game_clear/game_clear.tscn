@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://k3ec65lalrxj"]
 
-[ext_resource type="Script" path="res://user_interface/game_over/game_over.gd" id="1_5ldib"]
+[ext_resource type="Script" path="res://user_interface/game_clear/game_clear.gd" id="1_ohned"]
 
 [node name="GameClear" type="Control"]
 layout_mode = 3
@@ -9,7 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_5ldib")
+script = ExtResource("1_ohned")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

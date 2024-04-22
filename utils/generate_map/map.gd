@@ -8,15 +8,21 @@ const maxRowNumber : int = 8
 const maxColumnNumber : int = maxRowNumber
 const mapSize : int = maxColumnNumber * maxRowNumber
 
+const passableList : Array[bool] = [false, true, true]
+const exitList : Array[bool] = [false, false, true]
+const specialTileList : Array[bool] = [false, false, true]
+
 var mapArray : Array[Tile]
 var visitedArray : Array[bool]
 
 var specialTiles : int
 
 var isPlayable : bool
+var isSpecialConnect : bool
 var playableScore : float
 var exitTileScore : float
 var specialTilesScore : float
+var exitExplorScore : float
 
 func  _init():
 	mapArray.resize(maxColumnNumber * maxRowNumber)
@@ -24,7 +30,9 @@ func  _init():
 	specialTilesScore = 0
 	playableScore = 0
 	exitTileScore = 0
+	exitExplorScore = 0
 	isPlayable = true
+	isSpecialConnect = false
 	for i in range(maxColumnNumber * maxRowNumber):
 		mapArray[i] = Tile.new(impassableTile, i, maxRowNumber)
 
@@ -52,9 +60,8 @@ func countSpecialTiles():
 	isPlayable = true
 	specialTiles = 0
 	specialTilesScore = 0
-	var specialTypeList : Array[bool] = [false, false, true]
 	for i in range(mapSize):
-		if(specialTypeList[mapArray[i].type]):
+		if(specialTileList[mapArray[i].type]):
 			specialTiles += 1
 	specialTilesScore = specialTiles 
 	if(specialTiles < 1):
@@ -72,10 +79,16 @@ func display():
 
 #for evaluating gen map
 func evaluate():
+	#if no special tiles set to not playable
 	countSpecialTiles()
+	#cal exut tiles score and if below than 2 set playable to false
 	checkExitTile()
 	if(specialTiles != 0):
 		checkConnection()
+	if(isSpecialConnect && isPlayable):
+		calExitExplore()
+	else:
+		exitExplorScore = 0
 	if(isPlayable):
 		playableScore = 0
 		playableScore += 1
@@ -88,32 +101,42 @@ func checkExitTile():
 			totalExitTiles += 1.0
 	exitTileScore = abs(totalExitTiles - 2.0)
 	
+	if(totalExitTiles < 2):
+		isPlayable = false;
+	
+func calExitExplore():
+	var exitLocation : Array[int] = []
+	for i in range(mapSize):
+		if(exitList[mapArray[i].type]):
+			exitLocation.append(i)
+	exitExplorScore = averageExploration(exitLocation)	
+	
 #check if all special tiles are connected
 func checkConnection():
 	#set visited array to false
 	for i in range(mapArray.size()):
 		visitedArray.append(false)
 	#find special tiles
-	var specialTypeList : Array[bool] = [false, false, true]
-	var specialTilesList : Array[int] = []
+	var tilesList : Array[int] = []
 	for i in range(mapArray.size()):
-		if(specialTypeList[mapArray[i].type]):
-			specialTilesList.append(i)
+		if(specialTileList[mapArray[i].type]):
+			tilesList.append(i)
 	#traverse through every grid
-	var startSearch : Array[int] = indexToVirtual(specialTilesList[0])
+	var startSearch : Array[int] = indexToVirtual(tilesList[0])
 	dfs(startSearch[1], startSearch[0])
 	#check if special tiles are connected
 	var ifConnected : bool = true
-	for i in range(specialTilesList.size()):
-		if(visitedArray[specialTilesList[i]]==false):
+	for i in range(tilesList.size()):
+		if(visitedArray[tilesList[i]]==false):
 			ifConnected = false
 	
 	if(ifConnected == false):
 		isPlayable = false
+	else:
+		isSpecialConnect = true
 
 func dfs(row:int, column:int):
-	var ifPassableArray : Array[bool] = [false, true, true]
-	if(ifPassableArray[mapArray[getTile(column, row)].type]):
+	if(passableList[mapArray[getTile(column, row)].type]):
 		visitedArray[getTile(column, row)] = true
 		if(mapArray[getTile(column, row)].top != null && visitedArray[mapArray[getTile(column, row)].top] != true):
 			dfs(row - 1, column)
@@ -129,21 +152,22 @@ func calDistance(startingTile: int, destinationTile: int) -> float:
 	var tile2: Array[int] = indexToVirtual(destinationTile)
 	return sqrt(pow((tile1[0] - tile2[0]),2) + pow((tile1[1] - tile2[1]),2))
 	
-func averageExploration(tilesSet: Array[int]):
+func averageExploration(tilesSet: Array[int]) -> float:
 	var avgExplor : float = 0
 	for i in range(tilesSet.size()):
-		print("value of " + str(tilesSet[i]))
+		#print("value of " + str(tilesSet[i]))
 		var explorValue : float = calExploration(tilesSet, tilesSet[i])
-		print("exp " + str(explorValue))
+		#print("exp " + str(explorValue))
+		avgExplor += explorValue
+	return avgExplor / tilesSet.size()
 	
 func calExploration(tilesSet: Array[int], targetTile: int) -> float:
 	#number of element in Sn
 	var N : int = tilesSet.size()
-	var isPassable = [false, true, true]
 	#passable tiles
 	var P : float = 0
 	for i in range(mapSize):
-		if(isPassable[mapArray[i].type]):
+		if(passableList[mapArray[i].type]):
 			P += 1
 	#print("N = " + str(N))
 	#print("P = " + str(P))
@@ -151,7 +175,7 @@ func calExploration(tilesSet: Array[int], targetTile: int) -> float:
 	for i in range(tilesSet.size()):
 		if(tilesSet[i]!=targetTile):
 			var coverage : float = floodFill(targetTile,tilesSet[i]) / P
-			print("coverage " + str(i) + " " + str(coverage))
+			#print("coverage " + str(i) + " " + str(coverage))
 			sumCoverage += coverage
 	#print("sum before " + str(sumCoverage))
 	sumCoverage = sumCoverage / (N - 1)
@@ -163,7 +187,6 @@ func floodFill(startingTile: int, destinationTile: int) -> int:
 	filled.resize(mapSize)
 	var inList : Array[bool]
 	inList.resize(mapSize)
-	var isPassable = [false, true, true]
 	var queue : Array[int] = []
 	queue.append(startingTile)
 	#print(queue)
@@ -181,22 +204,22 @@ func floodFill(startingTile: int, destinationTile: int) -> int:
 			#print("Reached!" + str(startingTile) + " " + str(destinationTile))
 		filled[searchingIndex] = true
 		#dis(filled)
-		if(mapArray[searchingIndex].top != null && !filled[mapArray[searchingIndex].top] && isPassable[mapArray[mapArray[searchingIndex].top].type]):
+		if(mapArray[searchingIndex].top != null && !filled[mapArray[searchingIndex].top] && passableList[mapArray[mapArray[searchingIndex].top].type]):
 			if(!inList[mapArray[searchingIndex].top]):
 				queue.append(mapArray[searchingIndex].top)
 				inList[mapArray[searchingIndex].top] = true
 				#print("Append " + str(mapArray[searchingIndex].top))
-		if(mapArray[searchingIndex].right != null && !filled[mapArray[searchingIndex].right] && isPassable[mapArray[mapArray[searchingIndex].right].type]):
+		if(mapArray[searchingIndex].right != null && !filled[mapArray[searchingIndex].right] && passableList[mapArray[mapArray[searchingIndex].right].type]):
 			if(!inList[mapArray[searchingIndex].right]):	
 				queue.append(mapArray[searchingIndex].right)
 				inList[mapArray[searchingIndex].right] = true
 				#print("Append " + str(mapArray[searchingIndex].right))
-		if(mapArray[searchingIndex].bottom != null && !filled[mapArray[searchingIndex].bottom] && isPassable[mapArray[mapArray[searchingIndex].bottom].type]):
+		if(mapArray[searchingIndex].bottom != null && !filled[mapArray[searchingIndex].bottom] && passableList[mapArray[mapArray[searchingIndex].bottom].type]):
 			if(!inList[mapArray[searchingIndex].bottom]):
 				queue.append(mapArray[searchingIndex].bottom)
 				inList[mapArray[searchingIndex].bottom] = true
 				#print("Append " + str(mapArray[searchingIndex].bottom))
-		if(mapArray[searchingIndex].left != null && !filled[mapArray[searchingIndex].left] && isPassable[mapArray[mapArray[searchingIndex].left].type]):
+		if(mapArray[searchingIndex].left != null && !filled[mapArray[searchingIndex].left] && passableList[mapArray[mapArray[searchingIndex].left].type]):
 			if(!inList[mapArray[searchingIndex].left]):	
 				queue.append(mapArray[searchingIndex].left)
 				inList[mapArray[searchingIndex].left] = true

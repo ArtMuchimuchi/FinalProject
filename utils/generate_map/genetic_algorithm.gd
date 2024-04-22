@@ -4,7 +4,7 @@ const roomSize : int = 1
 const numberPopulation : int = 100
 const selectedProportion : float = 0.4
 const selectedNumber : int = numberPopulation * selectedProportion
-const maxGeneration : int = 60
+const maxGeneration : int = 100
 
 const mutateChance : float = 0.01
 
@@ -16,6 +16,7 @@ var generation : int
 var constrain1 : SaveLog = SaveLog.new("PlayableScore")
 var constrain2 : SaveLog = SaveLog.new("ExitTileScore")
 var constrain3 : SaveLog = SaveLog.new("OverAllScore")
+var constrain4 : SaveLog = SaveLog.new("ExitExploreScore")
 
 const log1 : bool = false
 
@@ -36,10 +37,12 @@ func  a():
 	for i in range(sketchMap.size()):
 		print(sketchMap[i].isPlayable)
 		print(sketchMap[i].specialTilesScore)
+		print("exit explore " + str(sketchMap[i].exitExplorScore))
 		sketchMap[i].display()
 	constrain1.save()
 	constrain2.save()
 	constrain3.save()
+	constrain4.save()
 	
 #spawn
 func firstGeneration():
@@ -59,6 +62,7 @@ func evaluate():
 	var sumOverAll : float = 0.0
 	var minExit : float = Map.mapSize * 10
 	var maxExit : float = 0.0
+	var sumExitExplore : float = 0.0
 	#evaluate and find minmax
 	for i in range(sketchMap.size()):
 		sketchMap[i].evaluate()
@@ -66,25 +70,32 @@ func evaluate():
 			maxExit = sketchMap[i].exitTileScore
 		if(sketchMap[i].exitTileScore < minExit):
 			minExit = sketchMap[i].exitTileScore
-	print("min = " + str(minExit) + " max = " + str(maxExit))
+	#print("min = " + str(minExit) + " max = " + str(maxExit))
 	#cal score
 	for i in range(sketchMap.size()):
-		#print(str(i) + " " + str(sketchMap[i].exitTileScore))
+		#print("map " + str(i) + " score before " + str(sketchMap[i].exitTileScore))
 		sketchMap[i].exitTileScore = (1.0 - normalize(minExit, maxExit, sketchMap[i].exitTileScore)) 
 		#print(sketchMap[i].exitTileScore)
-		print("playable " + str(sketchMap[i].playableScore))
+		#print("playable " + str(sketchMap[i].playableScore))
 		#print("exit " + str(sketchMap[i].exitTileScore))
 		sumPlayable += sketchMap[i].playableScore
 		sumExitTile += sketchMap[i].exitTileScore
-		sketchMap[i].specialTilesScore = (sketchMap[i].exitTileScore * 0.8) + (sketchMap[i].playableScore * 0.2)
+		sumExitExplore += sketchMap[i].exitExplorScore
+		#print("explore " + str(sketchMap[i].exitExplorScore))
+		sketchMap[i].specialTilesScore = (sketchMap[i].exitTileScore * 0.4) + (sketchMap[i].playableScore * 0.2)
+		+ (sketchMap[i].exitExplorScore * 0.4)
 		#print("overall " + str(sketchMap[i].specialTilesScore))
 		sumOverAll += sketchMap[i].specialTilesScore
 	sumPlayable = sumPlayable / sketchMap.size()
 	sumExitTile = sumExitTile / sketchMap.size()
+	#print("sum before" + str(sumExitExplore))
+	sumExitExplore = sumExitExplore / sketchMap.size()
+	#print("sum " + str(sumExitExplore))
 	sumOverAll = sumOverAll / sketchMap.size()
 	constrain1.add(generation, sumPlayable)
 	constrain2.add(generation, sumExitTile)
 	constrain3.add(generation, sumOverAll)
+	constrain4.add(generation, sumExitExplore)
 #Calculation For Rullete Select
 func biasedRoulette():	
 	#evaluation!!!!!!!!!!!!!

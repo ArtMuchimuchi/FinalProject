@@ -182,6 +182,27 @@ func calExploration(tilesSet: Array[int], targetTile: int) -> float:
 	#print("sum after " + str(sumCoverage))
 	return sumCoverage
 	
+func calSepExploration(tilesSet: Array[int], targetTile: int) -> float:
+	#number of element in Sn
+	var N : int = tilesSet.size()
+	#passable tiles
+	var P : float = 0
+	for i in range(mapSize):
+		if(passableList[mapArray[i].type]):
+			P += 1
+	#print("N = " + str(N))
+	#print("P = " + str(P))
+	var sumCoverage : float = 0
+	for i in range(tilesSet.size()):
+		if(tilesSet[i]!=targetTile):
+			var coverage : float = floodFill(targetTile,tilesSet[i]) / P
+			#print("coverage " + str(i) + " " + str(coverage))
+			sumCoverage += coverage
+	#print("sum before " + str(sumCoverage))
+	sumCoverage = sumCoverage / (N)
+	#print("sum after " + str(sumCoverage))
+	return sumCoverage
+	
 func floodFill(startingTile: int, destinationTile: int) -> int:
 	var filled : Array[bool]
 	filled.resize(mapSize)

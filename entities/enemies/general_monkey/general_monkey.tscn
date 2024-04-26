@@ -1,9 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://xf854a1nlet3"]
+[gd_scene load_steps=24 format=3 uid="uid://xf854a1nlet3"]
 
 [ext_resource type="Script" path="res://entities/enemies/general_monkey/general_monkey.gd" id="1_l65pj"]
 [ext_resource type="Texture2D" uid="uid://dcpwko2h0vbgp" path="res://sprites/enemy_sprites/general_monkey/idle/general_monkey_idle.png" id="2_7oimb"]
+[ext_resource type="Texture2D" uid="uid://d2t4silcofosa" path="res://sprites/enemy_sprites/general_monkey/attack/general_monkey_melee_attack.png" id="3_82syw"]
 [ext_resource type="Texture2D" uid="uid://dmrys5jjs7asv" path="res://sprites/enemy_sprites/general_monkey/run/general_monkey_run.png" id="3_g8n0m"]
 [ext_resource type="PackedScene" uid="uid://cjifdhnssa7h5" path="res://entities/enemies/enemy_health_point_bar/enemy_health_point_bar_sprite.tscn" id="4_67aou"]
+[ext_resource type="AudioStream" uid="uid://c087noevpv5rx" path="res://audio/sound_effect/enemies/melee_attack_sfx.wav" id="5_ak5x1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u8r0w"]
 
@@ -14,6 +16,22 @@ region = Rect2(0, 0, 320, 320)
 [sub_resource type="AtlasTexture" id="AtlasTexture_h6wrv"]
 atlas = ExtResource("2_7oimb")
 region = Rect2(0, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebuw4"]
+atlas = ExtResource("3_82syw")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0c8c"]
+atlas = ExtResource("3_82syw")
+region = Rect2(0, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4abi"]
+atlas = ExtResource("3_82syw")
+region = Rect2(0, 640, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjh8p"]
+atlas = ExtResource("3_82syw")
+region = Rect2(0, 960, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7s3v7"]
 atlas = ExtResource("3_g8n0m")
@@ -34,6 +52,23 @@ animations = [{
 }],
 "loop": true,
 "name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ebuw4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u0c8c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4abi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mjh8p")
+}],
+"loop": true,
+"name": &"MeleeAttack",
 "speed": 5.0
 }, {
 "frames": [{
@@ -76,6 +111,49 @@ tracks/1/keys = {
 "update": 1,
 "values": [0, 1, 0]
 }
+
+[sub_resource type="Animation" id="Animation_fa2sh"]
+resource_name = "MeleeAttack"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"MeleeAttack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite3D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 0]
+}
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_ak5x1")
+}],
+"times": PackedFloat32Array(0.2)
+}
+tracks/2/use_blend = true
 
 [sub_resource type="Animation" id="Animation_6tqfe"]
 length = 0.001
@@ -136,6 +214,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_anjfr"]
 _data = {
 "Idle": SubResource("Animation_fpy7u"),
+"MeleeAttack": SubResource("Animation_fa2sh"),
 "RESET": SubResource("Animation_6tqfe"),
 "Run": SubResource("Animation_7ungr")
 }
@@ -176,3 +255,5 @@ shape = SubResource("BoxShape3D_pe4q7")
 
 [node name="HealthPointBarSprite3D" parent="." instance=ExtResource("4_67aou")]
 texture = SubResource("ViewportTexture_qoq6t")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

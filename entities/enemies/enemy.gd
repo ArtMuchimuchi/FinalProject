@@ -6,6 +6,7 @@ class_name Enemy
 @onready var animationSprite = get_node("AnimatedSprite3D")
 @onready var animationPlayer = get_node("AnimationPlayer")
 @onready var hitboxAttack : Array[Node] = [get_node("HitBoxMeleeAttack"),get_node("HitBoxRangeAttack")]
+@onready var audioStreamPlayer = get_node("AudioStreamPlayer")
 
 @onready var animationManager = AnimationManager.new()
 var HP : HealthPoint
@@ -19,6 +20,7 @@ var enemyType : int
 
 func _ready():
 	add_to_group("enemies")
+	audioStreamPlayer.volume_db = -5
 
 func _init():
 	initEntity()
@@ -43,6 +45,7 @@ func _physics_process(delta):
 			#deal damage
 			if(enemyType == ConstantNumber.enemyMeleeType):
 				attackManager[enemyType].meleeAttack(meleeAttackDamage)
+				animationPlayer.play("MeleeAttack")
 			elif(enemyType == ConstantNumber.enemyRangeType):
 				rangeAttack()
 	else:
@@ -71,12 +74,16 @@ func attackCooldown(delta : float):
 			
 func rangeAttack():
 	#create projectile and shoot in player current position
-	var projectile = preload("res://entities/projectile_attack.tscn").instantiate()
-	projectile.position = position
-	projectile.direction = (player.global_position - position).normalized()
-	projectile.damage = rangeAttackDamage
-	var parent = self.get_parent()
-	parent.add_child(projectile)
+	animationPlayer.play("RangeAttack")
+	animationPlayer.connect("animation_finished", func shootProjectile(animName : String):
+		if animName  == "RangeAttack":
+			var projectile = preload("res://entities/projectile_attack.tscn").instantiate()
+			projectile.position = position
+			projectile.direction = (player.global_position - position).normalized()
+			projectile.damage = rangeAttackDamage
+			var parent = self.get_parent()
+			parent.add_child(projectile)
+		)
 	
 #get damaged by entity
 func damaged(direction: Vector3, damage: int, knockbackSpeed: int, knockbackDuration: float):
@@ -87,3 +94,4 @@ func damaged(direction: Vector3, damage: int, knockbackSpeed: int, knockbackDura
 	movement.knockBack(direction, knockbackSpeed, knockbackDuration)
 	#deal damage to itself
 	healthPoint.decreaseHP(damage)
+

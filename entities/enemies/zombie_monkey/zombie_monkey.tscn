@@ -1,9 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://2lk31dbilr5d"]
+[gd_scene load_steps=24 format=3 uid="uid://2lk31dbilr5d"]
 
 [ext_resource type="Script" path="res://entities/enemies/zombie_monkey/zombie_monkey.gd" id="1_ixwwe"]
 [ext_resource type="Texture2D" uid="uid://cdrd2exgb1jra" path="res://sprites/enemy_sprites/zombie_monkey/idle/zombie_monkey_idle.png" id="2_s6m5s"]
+[ext_resource type="Texture2D" uid="uid://danp8xtu2b4rr" path="res://sprites/enemy_sprites/zombie_monkey/attack/zombie_monkey_melee_attack.png" id="3_tan6p"]
 [ext_resource type="Texture2D" uid="uid://xw17565sg20q" path="res://sprites/enemy_sprites/zombie_monkey/run/zombie_monkey_run.png" id="3_u34pm"]
 [ext_resource type="PackedScene" uid="uid://cjifdhnssa7h5" path="res://entities/enemies/enemy_health_point_bar/enemy_health_point_bar_sprite.tscn" id="4_aml5e"]
+[ext_resource type="AudioStream" uid="uid://c087noevpv5rx" path="res://audio/sound_effect/enemies/melee_attack_sfx.wav" id="5_wwp3o"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u8r0w"]
 
@@ -14,6 +16,22 @@ region = Rect2(0, 0, 320, 320)
 [sub_resource type="AtlasTexture" id="AtlasTexture_p32js"]
 atlas = ExtResource("2_s6m5s")
 region = Rect2(0, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pudr"]
+atlas = ExtResource("3_tan6p")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5w77"]
+atlas = ExtResource("3_tan6p")
+region = Rect2(0, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xptu"]
+atlas = ExtResource("3_tan6p")
+region = Rect2(0, 640, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_og3br"]
+atlas = ExtResource("3_tan6p")
+region = Rect2(0, 960, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h1ait"]
 atlas = ExtResource("3_u34pm")
@@ -34,6 +52,23 @@ animations = [{
 }],
 "loop": true,
 "name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pudr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5w77")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xptu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_og3br")
+}],
+"loop": true,
+"name": &"MeleeAttack",
 "speed": 5.0
 }, {
 "frames": [{
@@ -133,9 +168,53 @@ tracks/1/keys = {
 "values": [0, 1]
 }
 
+[sub_resource type="Animation" id="Animation_h1kfq"]
+resource_name = "MeleeAttack"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"MeleeAttack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite3D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 0]
+}
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_wwp3o")
+}],
+"times": PackedFloat32Array(0.2)
+}
+tracks/2/use_blend = true
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_anjfr"]
 _data = {
 "Idle": SubResource("Animation_fpy7u"),
+"MeleeAttack": SubResource("Animation_h1kfq"),
 "RESET": SubResource("Animation_6tqfe"),
 "Run": SubResource("Animation_7ungr")
 }
@@ -159,7 +238,6 @@ layers = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_bk7w8")
 animation = &"Run"
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -177,3 +255,5 @@ shape = SubResource("BoxShape3D_pe4q7")
 
 [node name="HealthPointBarSprite3D" parent="." instance=ExtResource("4_aml5e")]
 texture = SubResource("ViewportTexture_tulhh")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

@@ -2,6 +2,10 @@ extends CharacterBody3D
 
 var direction : Vector3 
 var damage : int
+@onready var animatedSprite : AnimatedSprite3D = get_node("AnimatedSprite3D")
+
+func _ready():
+	animatedSprite.play("banana")
 
 func _physics_process(delta):
 	var collisionObject = moving(direction, 1, delta)

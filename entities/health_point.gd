@@ -43,6 +43,11 @@ func die():
 		else: 
 			ownerNode.emit_signal("playerDeath")
 	else:
+		# Play enemy deatj sound effect before it queued free
+		var enemyDeathSFX = preload("res://audio/sound_effect/enemies/death_sfx.wav") 
+		SoundEffectManager.playSoundEffect(ownerNode,enemyDeathSFX)
+		# Create time delay so that death sound effect can play properly
+		await ownerNode.get_tree().create_timer(0.1).timeout
 		ownerNode.queue_free()
 
 func updateHPFromPercentage(modifiedHP:int, baseHP: int):

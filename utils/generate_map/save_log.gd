@@ -7,7 +7,7 @@ var savePath : String
 
 func  _init(newName : String):
 	name = newName
-	savePath = "res://" + name + ".json"
+	savePath = "res://utils/generate_map/log/" + name + ".json"
 
 func add(key, value):
 	data[key] = value

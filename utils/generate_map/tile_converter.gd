@@ -9,8 +9,8 @@ func tileToGridMap(inputTile: Tile, desiredSize: int)->Array[int]:
 		blankRoom(inputTile, resultMap)
 	elif(inputTile.type == Map.impassableTile):
 		wallRoom(inputTile, resultMap)
-	elif(inputTile.type == Map.specialTile):
-		specialRoom(inputTile, resultMap)
+	elif(inputTile.type == Map.exitTile):
+		exitRoom(inputTile, resultMap)
 	makeEdge(inputTile, resultMap)
 	return resultMap
 
@@ -20,11 +20,15 @@ func blankRoom(inputTile: Tile,resultMap: Array[int]):
 		
 func wallRoom(inputTile: Tile, resultMap: Array[int]):
 	for i in range(resultMap.size()):
-		resultMap[i] = 0
+		resultMap[i] = Map.impassableTile
 		
-func specialRoom(inputTile: Tile, resultMap: Array[int]):
+func exitRoom(inputTile: Tile, resultMap: Array[int]):
 	for i in range(resultMap.size()):
-		resultMap[i] = 2
+		if(i == ceil(resultMap.size() / 2)):
+			print("ceil = " + str(ceil(resultMap.size() / 2)))
+			resultMap[i] = Map.exitTile
+		else:
+			resultMap[i] = Map.passableTile
 		
 func makeEdge(inputTile: Tile,resultMap: Array[int]):
 	if(inputTile.top == null):

@@ -4,7 +4,7 @@ const roomSize : int = 1
 const numberPopulation : int = 100
 const selectedProportion : float = 0.4
 const selectedNumber : int = numberPopulation * selectedProportion
-const maxGeneration : int = 100
+const maxGeneration : int = 60
 
 const mutateChance : float = 0.01
 
@@ -20,7 +20,27 @@ var constrain4 : SaveLog = SaveLog.new("ExitExploreScore")
 
 const log1 : bool = false
 
-func  a():
+func getMap() -> Map:
+	generateMap()
+	var bestMap : int = findBestMap()
+	while (bestMap == -1):
+		generateMap()
+		bestMap = findBestMap()
+	sketchMap[bestMap].display()
+	print("score " + str(sketchMap[bestMap].specialTilesScore))
+	return sketchMap[bestMap]
+	
+func findBestMap() -> int:
+	var indexBestMap : int = -1
+	var threshold : float = 0
+	for i in range(sketchMap.size()):
+		if(sketchMap[i].specialTilesScore > threshold && 
+		sketchMap[i].isPlayable == true):
+			indexBestMap = i
+			threshold = sketchMap[i].specialTilesScore
+	return indexBestMap
+
+func  generateMap():
 	generation = 1
 	print("generation " + str(generation))
 	firstGeneration()

@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://blc1g122jagdl"]
+
+[ext_resource type="Texture2D" uid="uid://7f84mdotodcd" path="res://texture/grass.png" id="1_g6a28"]
+[ext_resource type="Texture2D" uid="uid://cd2k31us27iqx" path="res://texture/exit.png" id="2_dvxpd"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8856d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ws110"]
+albedo_texture = ExtResource("1_g6a28")
+uv1_scale = Vector3(1.32, 1.32, 1.32)
+uv1_offset = Vector3(0.09, 0.825, 0)
+uv1_triplanar_sharpness = 0.366022
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_10142"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bjt6s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a5hm6"]
+albedo_texture = ExtResource("2_dvxpd")
+uv1_scale = Vector3(2.005, 2.005, 2.005)
+uv1_offset = Vector3(0.49, 0, 0)
+uv1_triplanar_sharpness = 0.366022
+
+[node name="Node3D" type="Node3D"]
+
+[node name="passableTile" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_8856d")
+surface_material_override/0 = SubResource("StandardMaterial3D_ws110")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="passableTile"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="passableTile/StaticBody3D"]
+shape = SubResource("BoxShape3D_10142")
+
+[node name="Exit" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.02478, 0, 0)
+mesh = SubResource("BoxMesh_bjt6s")
+surface_material_override/0 = SubResource("StandardMaterial3D_a5hm6")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Exit"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Exit/StaticBody3D"]
+shape = SubResource("BoxShape3D_10142")

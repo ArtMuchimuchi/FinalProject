@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://blc1g122jagdl"]
+[gd_scene load_steps=10 format=3 uid="uid://blc1g122jagdl"]
 
 [ext_resource type="Texture2D" uid="uid://7f84mdotodcd" path="res://texture/grass.png" id="1_g6a28"]
 [ext_resource type="Texture2D" uid="uid://cd2k31us27iqx" path="res://texture/exit.png" id="2_dvxpd"]
@@ -16,6 +16,16 @@ uv1_triplanar_sharpness = 0.366022
 [sub_resource type="BoxMesh" id="BoxMesh_bjt6s"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a5hm6"]
+albedo_texture = ExtResource("2_dvxpd")
+uv1_scale = Vector3(2.005, 2.005, 2.005)
+uv1_offset = Vector3(0.49, 0, 0)
+uv1_triplanar_sharpness = 0.366022
+
+[sub_resource type="BoxMesh" id="BoxMesh_m62cl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kko0i"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
 albedo_texture = ExtResource("2_dvxpd")
 uv1_scale = Vector3(2.005, 2.005, 2.005)
 uv1_offset = Vector3(0.49, 0, 0)
@@ -40,4 +50,14 @@ surface_material_override/0 = SubResource("StandardMaterial3D_a5hm6")
 [node name="StaticBody3D" type="StaticBody3D" parent="Exit"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Exit/StaticBody3D"]
+shape = SubResource("BoxShape3D_10142")
+
+[node name="invisibleTile" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.11236, 0, 0)
+mesh = SubResource("BoxMesh_m62cl")
+surface_material_override/0 = SubResource("StandardMaterial3D_kko0i")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="invisibleTile"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="invisibleTile/StaticBody3D"]
 shape = SubResource("BoxShape3D_10142")

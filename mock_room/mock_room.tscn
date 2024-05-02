@@ -12,10 +12,6 @@ script = ExtResource("1_g2wsx")
 [node name="Player" parent="." instance=ExtResource("2_o0vmi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.718, 0.5, 0.004)
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.990154, 0.139985, 0, -0.139985, 0.990154, 0.0232377, 1.73209, 4.18605)
-current = true
-
 [node name="GridMap" type="GridMap" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.001, 0)
 mesh_library = ExtResource("3_1ydmd")

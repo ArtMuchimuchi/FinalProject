@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://mock_room/mock_room.gd" id="1_g2wsx"]
 [ext_resource type="PackedScene" uid="uid://58jmk2r1l0p1" path="res://player.tscn" id="2_o0vmi"]
-[ext_resource type="MeshLibrary" uid="uid://nfnohaph7grb" path="res://demo.meshlib" id="3_xbru6"]
+[ext_resource type="MeshLibrary" uid="uid://dt6w8l63n5aer" path="res://texture/real.tres" id="3_1ydmd"]
 [ext_resource type="PackedScene" uid="uid://c1hjkl4y3abls" path="res://user_interface/hud/hud.tscn" id="5_5oesg"]
 [ext_resource type="PackedScene" uid="uid://ceaqepbc5e307" path="res://user_interface/menu/pause_menu/pause_menu.tscn" id="5_kypvy"]
 
@@ -18,7 +18,7 @@ current = true
 
 [node name="GridMap" type="GridMap" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.001, 0)
-mesh_library = ExtResource("3_xbru6")
+mesh_library = ExtResource("3_1ydmd")
 cell_size = Vector3(1, 1, 1)
 collision_mask = 0
 data = {

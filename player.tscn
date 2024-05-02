@@ -410,3 +410,6 @@ shape = SubResource("CylinderShape3D_yd5k0")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 bus = &"soundEffect"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.990154, 0.139985, 0, -0.139985, 0.990154, 0.0232377, 1.73209, 4.18605)

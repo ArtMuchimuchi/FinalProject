@@ -75,7 +75,10 @@ func attackCooldown(delta : float):
 func rangeAttack():
 	#create projectile and shoot in player current position
 	animationPlayer.play("RangeAttack")
-	animationPlayer.connect("animation_finished", func shootProjectile(animName : String):
+	animationPlayer.connect("animation_finished",shootProjectile)
+	
+
+func shootProjectile(animName : String):
 		if animName  == "RangeAttack":
 			var projectile = preload("res://entities/projectile_attack.tscn").instantiate()
 			projectile.position = position
@@ -83,8 +86,7 @@ func rangeAttack():
 			projectile.damage = rangeAttackDamage
 			var parent = self.get_parent()
 			parent.add_child(projectile)
-		)
-	
+
 #get damaged by entity
 func damaged(direction: Vector3, damage: int, knockbackSpeed: int, knockbackDuration: float):
 	#set to knockback state

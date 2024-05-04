@@ -182,6 +182,7 @@ func XZToIndex(x:int,z:int) -> int:
 func createGridMap():
 	var ss : String = ""
 	var playMap : GridMap = GridMap.new()
+	playMap.name = "GridMap"
 	playMap.mesh_library = meshLib
 	playMap.cell_size = Vector3(1,1,1)
 	for j in range(roomSize * Map.maxRowNumber):

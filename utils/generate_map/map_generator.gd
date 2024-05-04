@@ -12,6 +12,7 @@ var startTile : int
 var realMap : Array[int]
 var spawnPoint : int
 var otherExit : Array[int]
+var enemiesArea : Array[int]
 
 const roomSize : int = 3
 
@@ -30,6 +31,7 @@ func getMap():
 	finalMap.display()
 	createRealMap()
 	setSpawnAndExit()
+	createSpawnEnemiesArea()
 	createGridMap()
 	
 func setStartingTile():
@@ -200,6 +202,23 @@ func createGridMap():
 	print(ss)
 	ownerNode.add_child(playMap)
 	
+func createSpawnEnemiesArea():
+	enemiesArea.clear()
+	enemiesArea.resize(realMap.size())
+	for i in range(realMap.size()):
+		if(realMap[i] == Map.passableTile):
+			enemiesArea[i] = 1
+		else:
+			enemiesArea[i] = 0
+	
 func spawnPlayer() -> Vector3:
 	var playerPosition : Array[int] = indexToXZ(spawnPoint)
 	return Vector3(playerPosition[0] + 0.5, 1.5, playerPosition[1] + 0.5)
+
+func spawnEnemy() -> Array[int]:
+	var randPos = randi_range(0, enemiesArea.size() - 1)
+	while(enemiesArea[randPos] != 1):
+		randPos = randi_range(0, enemiesArea.size() - 1)
+	print("Spawn at " + str(randPos))
+	enemiesArea[randPos] = 0
+	return indexToXZ(randPos)

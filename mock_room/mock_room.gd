@@ -1,8 +1,11 @@
 extends Node3D
 
+@onready var thisNode = get_node(".")
+@onready var meshLib = load("res://texture/real.tres")
 @onready var pauseMenu = %PauseMenu
 @onready var enemiesNode = $Enemies
 @onready var player = $Player
+@onready var mapGenerator = MapGenerator.new(thisNode, meshLib)
 var generalMonkey = preload("res://entities/enemies/general_monkey/general_monkey.tscn")
 var flyMonkey = preload("res://entities/enemies/fly_monkey/fly_monkey.tscn")
 var zombieMonkey = preload("res://entities/enemies/zombie_monkey/zombie_monkey.tscn")
@@ -18,6 +21,8 @@ var enemyTypes  = [
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Connect player death signal for changing game over scene
+	generateMap()
+	spawnPlayer()
 	player.connect("playerDeath",gameOver)
 	spawnEnemies(4)
 	BackgroundMusicManager.playfightBGM()
@@ -26,7 +31,15 @@ func _ready():
 func _process(delta):
 	checkPauseGame()
 	gameClear()
-
+	
+#generate map
+func generateMap():
+	mapGenerator.getMap()
+	
+#change player position to spawn point
+func spawnPlayer():
+	player.position = mapGenerator.spawnPlayer()
+	
 # Check if user pause menu
 func checkPauseGame():
 	if Input.is_action_pressed("pause"):
@@ -40,10 +53,8 @@ func spawnEnemies(limit:int):
 		var randomType = randi() % enemyTypes.size()
 		randomEnemyType = enemyTypes[randomType] 
 
-		var rng = RandomNumberGenerator.new()
-		var randomXAxis = rng.randf_range(-3.00,3.00)
-		var randomZAxis = rng.randf_range(-2.00,-5.00)
-		var randomPosition = Vector3(randomXAxis,0.5,randomZAxis)
+		var rng = mapGenerator.spawnEnemy()
+		var randomPosition = Vector3(rng[0] + 0.5,1.5,rng[1] + 0.5)
 
 		var enemyInstance = randomEnemyType.instantiate()
 		enemiesNode.add_child(enemyInstance)

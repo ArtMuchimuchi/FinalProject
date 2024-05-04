@@ -82,7 +82,6 @@ func attack(delta : float):
 		movement.setState(EntityState.attacking)
 		isMeleeAttack = true
 		meleeAttack.meleeAttack(meleeAttackDamage)
-		print(position)
 	elif (Input.is_action_just_pressed("range_attack")):
 		movement.setState(EntityState.attacking)
 		isRangeAttack = true

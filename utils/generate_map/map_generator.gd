@@ -29,8 +29,8 @@ func getMap():
 	smoothenMap()
 	finalMap.display()
 	createRealMap()
-	createGridMap()
 	setSpawnAndExit()
+	createGridMap()
 	
 func setStartingTile():
 	var exitList : Array[int]
@@ -165,6 +165,7 @@ func createRealMap():
 		realMap[i] = gridMap[indexMap[i]]
 	print(realMap)
 
+#real map
 func indexToXZ(index: int) -> Array[int]:
 	var arrayRealIndex : Array[int] = [-1, -1]
 	#row
@@ -172,6 +173,9 @@ func indexToXZ(index: int) -> Array[int]:
 	#column
 	arrayRealIndex[0] = index - (arrayRealIndex[1] * Map.maxRowNumber * roomSize)
 	return arrayRealIndex
+	
+func XZToIndex(x:int,z:int) -> int:
+	return x + (z * roomSize * Map.maxColumnNumber)
 
 func createGridMap():
 	var ss : String = ""
@@ -180,7 +184,7 @@ func createGridMap():
 	playMap.cell_size = Vector3(1,1,1)
 	for j in range(roomSize * Map.maxRowNumber):
 		for i in range(roomSize * Map.maxColumnNumber):
-			var tile = realMap[i + (j * roomSize * Map.maxColumnNumber)]
+			var tile = realMap[XZToIndex(i,j)]
 			ss = ss + str(tile) + " "
 			if(tile == 0):
 				playMap.set_cell_item(Vector3(i, 0, j), 2)
@@ -188,7 +192,10 @@ func createGridMap():
 			elif (tile == 1):
 				playMap.set_cell_item(Vector3(i, 0, j), 0)
 			elif (tile == 2):
-				playMap.set_cell_item(Vector3(i, 0, j), 1)
+				if(XZToIndex(i,j) != spawnPoint):
+					playMap.set_cell_item(Vector3(i, 0, j), 1)
+				else:
+					playMap.set_cell_item(Vector3(i, 0, j), 3)
 		ss = ss + "\n"
 	print(ss)
 	ownerNode.add_child(playMap)

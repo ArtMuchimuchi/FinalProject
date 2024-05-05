@@ -263,3 +263,5 @@ shape = SubResource("CylinderShape3D_5xl2f")
 texture = SubResource("ViewportTexture_8boki")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

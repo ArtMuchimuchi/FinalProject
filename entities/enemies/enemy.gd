@@ -7,6 +7,7 @@ class_name Enemy
 @onready var animationPlayer = get_node("AnimationPlayer")
 @onready var hitboxAttack : Array[Node] = [get_node("HitBoxMeleeAttack"),get_node("HitBoxRangeAttack")]
 @onready var audioStreamPlayer = get_node("AudioStreamPlayer")
+@onready var nav : NavigationAgent3D = $NavigationAgent3D
 
 @onready var animationManager = AnimationManager.new()
 var HP : HealthPoint
@@ -51,7 +52,7 @@ func _physics_process(delta):
 	else:
 		#set to moving State
 		movement.setState(EntityState.moving)
-	movement.enemyMovement(delta, player)
+	movement.enemyMovement(delta, player, nav)
 	#attack
 	if(movementState == EntityState.attacking):
 		attackCooldown(delta)

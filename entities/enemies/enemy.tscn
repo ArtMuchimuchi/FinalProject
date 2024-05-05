@@ -190,3 +190,5 @@ collision_mask = 2
 
 [node name="HitBoxAttack" type="CollisionShape3D" parent="HitBoxRangeAttack"]
 shape = SubResource("CylinderShape3D_5xl2f")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

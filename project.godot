@@ -23,6 +23,12 @@ ConstantNumber="*res://utils/constant/constant_number.gd"
 DictionaryKey="*res://utils/constant/dictionary_key.gd"
 SoundEffectManager="*res://utils/sound_manager/sound_effect_manager/sound_effect_manager.gd"
 BackgroundMusicManager="*res://utils/sound_manager/background_music_manager/background_music_manager.tscn"
+RewardManager="*res://utils/reward_manager/reward_manager.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_width"
 
 [dotnet]
 

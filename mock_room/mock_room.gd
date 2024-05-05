@@ -1,6 +1,6 @@
 extends Node3D
 
-@onready var thisNode = get_node(".")
+@onready var thisNode = get_node("NavigationRegion3D")
 @onready var meshLib = load("res://texture/real.tres")
 @onready var pauseMenu = %PauseMenu
 @onready var enemiesNode = $Enemies
@@ -24,7 +24,7 @@ func _ready():
 	generateMap()
 	spawnPlayer()
 	player.connect("playerDeath",gameOver)
-	spawnEnemies(4)
+	spawnEnemies(1)
 	BackgroundMusicManager.playfightBGM()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,6 +35,8 @@ func _process(delta):
 #generate map
 func generateMap():
 	mapGenerator.getMap()
+	#prepare for navigation
+	thisNode.bake_navigation_mesh()
 	
 #change player position to spawn point
 func spawnPlayer():

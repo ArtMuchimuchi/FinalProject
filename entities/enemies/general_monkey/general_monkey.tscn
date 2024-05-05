@@ -257,3 +257,5 @@ shape = SubResource("BoxShape3D_pe4q7")
 texture = SubResource("ViewportTexture_qoq6t")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

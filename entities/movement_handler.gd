@@ -104,11 +104,13 @@ func setState(newState: int):
 		ownerNode.movementState = newState
 	
 #move pattern for enemy
-func enemyMovement(delta: float, player: Entity):
+func enemyMovement(delta: float, player: Entity, nav: NavigationAgent3D):
 	#move normally
 	if(ownerNode.movementState == EntityState.moving):
 		#calculate direction for chasing player
-		getDirection(player.position)
+		nav.target_position = player.position
+		ownerNode.direction = (nav.get_next_path_position() - ownerNode.position).normalized()
+		#getDirection(player.position)
 		#Update last direction of player facing
 		updateLastDirection()
 		#move

@@ -10,3 +10,6 @@ const defense : String = "defense"
 const price : String = "price"
 const rebirthPoint : String = "rebirth"
 const rebirthHP : String = "rebirthHP"
+
+# Dictionary key for saved coin data
+const currentCoin : String = "currentCoin"

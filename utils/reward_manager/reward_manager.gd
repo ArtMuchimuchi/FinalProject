@@ -8,13 +8,18 @@ var isRewarding : bool = false
 var rewardStack : int = 0
 var nextLevelEXP : int
 # Coin reward
-var currentCoin : int
+var currentCoin : int = 0
+var saverLoader := SaverLoader.new()
 
 signal expIncreased(currentEXP : int ,nextLevelExp : int ,currentLevel : int)
+signal currentCoinChanged
 
-func setRoomNode(currentRoomNode : Node):
-	roomNode = currentRoomNode
-
+func _ready():
+	var savedCoinData = saverLoader.loadCoinData()
+	if savedCoinData :
+		var coinDataDict : Dictionary = savedCoinData
+		if coinDataDict.has(DictionaryKey.currentCoin):
+			currentCoin = coinDataDict[DictionaryKey.currentCoin]
 
 func increaseExp(expAmount:int):
 	currentEXP += expAmount
@@ -23,6 +28,18 @@ func increaseExp(expAmount:int):
 func getNextLevelExp():
 	nextLevelEXP = 15 * (currentLevel + 1)
 	return nextLevelEXP
+
+func increaseCoin(coinAmount):
+	currentCoin += coinAmount
+	currentCoinChanged.emit()
+	saverLoader.saveCoinData(currentCoin)
+
+func descreaseCoin(coinAmount):
+	currentCoin -= coinAmount
+	currentCoinChanged.emit()
+	saverLoader.saveCoinData(currentCoin)
+
+
 
 # Check if player level uo
 func checkLevelUp():

@@ -4,7 +4,6 @@ extends Control
 @onready var upgradeSlotDetail = %SlotDetail
 @onready var currentCoinLabel = %CurrentCoinLabel
 const upgradeSlot = preload("res://user_interface/menu/upgrade_menu/upgrade_slot.tscn")
-var currentCoin : int = 1000
 signal closedUpgradeMenu
 # Mockup trait slot array
 var mockupTraitSlotArray : Array[TraitData] = [
@@ -40,24 +39,24 @@ func addSlotGrid(slots : Array[TraitData]):
 	
 # Set slot detail default to first slot in grid 
 func setDefaultSlotDetail(slots : Array[TraitData]):
-		upgradeSlotDetail.setSlotDetailData(slots[ConstantNumber.defaultSlotDetailIndex],currentCoin)
+		upgradeSlotDetail.setSlotDetailData(slots[ConstantNumber.defaultSlotDetailIndex],RewardManager.currentCoin)
 		upgradeSlotDetail.pressedUpgrade.connect(onPressedUpgrade)
 
 # Function to respond after user click slot, change slot detail to selected slot
 func onSelecetdSlot(slotIndex:int):
 	var selectedSlot = mockupTraitSlotArray[slotIndex]
-	upgradeSlotDetail.setSlotDetailData(selectedSlot,currentCoin)
+	upgradeSlotDetail.setSlotDetailData(selectedSlot,RewardManager.currentCoin)
 
 # Function to change current coin value display
 func updateCurrentCoin():
-	currentCoinLabel.text = "Current Coint : %s" %currentCoin
+	currentCoinLabel.text = "Current Coint : %s" %RewardManager.currentCoin
 
 # Function to upgrade slot level when user pressed upgrade button
 func onPressedUpgrade(price:int,slot:TraitData):
 	# Check if current point is enough to upgrade level
-	if currentCoin >= price:
+	if RewardManager.currentCoin >= price:
 		# Get the remaining current coin
-		currentCoin -= price
+		RewardManager.descreaseCoin(price)
 		# Update remaining current coin
 		updateCurrentCoin()
 		# Upgrade level of selected slot
@@ -65,7 +64,7 @@ func onPressedUpgrade(price:int,slot:TraitData):
 		# Update upgrade slot data by re-adding slots
 		addSlotGrid(mockupTraitSlotArray)
 		# Update slot detail in slot detail 
-		upgradeSlotDetail.setSlotDetailData(slot,currentCoin)
+		upgradeSlotDetail.setSlotDetailData(slot,RewardManager.currentCoin)
 		# Saved trait slot array in file when upgrade trait slot level
 		saverLoader.saveTraitArray(mockupTraitSlotArray)
 		

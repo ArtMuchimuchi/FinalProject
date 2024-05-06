@@ -5,6 +5,7 @@ extends Control
 @onready var player = get_node("../../Player")
 @onready var buffGrid = get_node("MarginContainer/BuffGrid")
 @onready var floorLevelLabel = get_node("MarginContainer/FloorLevelLabel")
+@onready var currentCoin = get_node("MarginContainer/CurrentCoin")
 @onready var buffScene = preload("res://user_interface/hud/buff/buff.tscn")
 @onready var activeBuffs : Array[BuffData] = []
 
@@ -13,9 +14,11 @@ func _ready():
 	# Connect currentHP_changed signal from player scene to HUD and update health func.
 	updateHealthPointBar(player.healthPoint.currentHP,player.healthPoint.maxHP)
 	updateExpericeBar(RewardManager.currentEXP,RewardManager.getNextLevelExp(),RewardManager.currentLevel)
+	updateCurrentCoin()
 	player.connect("hpChanged",updateHealthPointBar)
 	player.connect("activeBuffsUpdated",updateBuffGrid)
 	RewardManager.connect("expIncreased",updateExpericeBar)
+	RewardManager.connect("currentCoinChanged",updateCurrentCoin)
 	
 # Update health point bar of current health
 func updateHealthPointBar(currentHP : int,maxHP : int):
@@ -38,3 +41,6 @@ func updateBuffGrid(activeBuffs : Array[BuffData]):
 
 func updateExpericeBar(currentExp : int,nextLevelExp : int, currentLevel : int):
 	experienceBar.updateCurrentEXPAndLevel(currentExp,nextLevelExp,currentLevel)
+
+func updateCurrentCoin():
+	currentCoin.updateCurrentCoin()

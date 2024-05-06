@@ -48,8 +48,10 @@ func die():
 		SoundEffectManager.playSoundEffect(ownerNode,enemyDeathSFX)
 		# Random enmey exp from 3-5 gain from killed 
 		var rng = RandomNumberGenerator.new()
-		var randomEnemyExp = rng.randi_range(3, 6) 
+		var randomEnemyExp = rng.randi_range(3, 6)
+		var randomEnemyCoin = rng.randi_range(1,3) * 10 
 		RewardManager.increaseExp(randomEnemyExp)
+		RewardManager.increaseCoin(randomEnemyCoin)
 		# Create time delay so that death sound effect can play properly
 		await ownerNode.get_tree().create_timer(0.1).timeout
 		ownerNode.queue_free()

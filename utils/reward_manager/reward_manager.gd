@@ -10,6 +10,7 @@ var nextLevelEXP : int
 # Coin reward
 var currentCoin : int = 0
 var saverLoader := SaverLoader.new()
+var player : Entity
 
 signal expIncreased(currentEXP : int ,nextLevelExp : int ,currentLevel : int)
 signal currentCoinChanged
@@ -20,6 +21,10 @@ func _ready():
 		var coinDataDict : Dictionary = savedCoinData
 		if coinDataDict.has(DictionaryKey.currentCoin):
 			currentCoin = coinDataDict[DictionaryKey.currentCoin]
+
+func setRoomNode(ownerNode:Node):
+	roomNode = ownerNode
+	player = roomNode.find_child("Player")
 
 func increaseExp(expAmount:int):
 	currentEXP += expAmount
@@ -73,6 +78,9 @@ func getLevelUpReward():
 	get_tree().paused = true
 	# Await until player pressed select buff
 	await  buffSelectionInstance.tree_exited
+	# Heal player when level up each time
+	var healingAmount = player.healthPoint.maxHP * ConstantNumber.healingPerLevelUp
+	player.healthPoint.increaseHP(healingAmount)
 	# After buff selection menu dissappear, set reward state to false
 	isRewarding = false
 	# Loop to check if player currently have reward stack and buff selection menu doesn't show

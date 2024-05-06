@@ -12,7 +12,11 @@ func _init(targetNode: Entity, setHP: int):
 	maxHP = setHP
 	
 func  increaseHP(increaseAmount: int):
-	currentHP += increaseAmount
+	# Make sure current hp won't exceed max hp when heal
+	if increaseAmount + currentHP <= maxHP: 
+		currentHP += increaseAmount
+	else:
+		currentHP = maxHP
 	ownerNode.emit_signal("hpChanged",currentHP,maxHP)
 
 func decreaseHP(decreaseAmount: int):

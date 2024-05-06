@@ -16,5 +16,11 @@ func _init():
 			DictionaryKey.description : "Increase melee and range attack by 50%",
 			DictionaryKey.meleeAttackDamage : 0.5,
 			DictionaryKey.rangeAttackDamage : 0.5
+		},
+		3 : {
+			DictionaryKey.description : "Increase melee and range attack by  75%",
+			DictionaryKey.meleeAttackDamage : 0.75,
+			DictionaryKey.rangeAttackDamage : 0.75
 		}
+		
 	}

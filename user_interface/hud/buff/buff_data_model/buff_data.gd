@@ -23,3 +23,10 @@ func upgradeBuffLevel():
 	if currentLevel < maxLevel:
 		currentLevel += 1
 
+func getNextLevelBuffDescription():
+	if buffLevelData.has(currentLevel + 1):
+		var currentBuffLevel : Dictionary = buffLevelData[currentLevel + 1]
+		if currentBuffLevel.has(DictionaryKey.description):
+			return currentBuffLevel[DictionaryKey.description] 
+		else:
+			return null

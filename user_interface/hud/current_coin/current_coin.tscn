@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://buh2ncexxxr2w"]
+[gd_scene load_steps=3 format=3 uid="uid://buh2ncexxxr2w"]
 
+[ext_resource type="Script" path="res://user_interface/hud/current_coin/current_coin.gd" id="1_khybs"]
 [ext_resource type="Texture2D" uid="uid://ne02qudu1nu4" path="res://user_interface/hud/hud_sprites/current_coin/coin_icon.png" id="1_sscnj"]
 
 [node name="CurrentCoin" type="HBoxContainer"]
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_constants/separation = 10
+script = ExtResource("1_khybs")
 
 [node name="CurrentCoinLabel" type="Label" parent="."]
 layout_mode = 2

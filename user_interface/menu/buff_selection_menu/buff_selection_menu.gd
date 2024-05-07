@@ -75,7 +75,7 @@ func setSelectableBuffDatas(selectableBuffsData:Array[BuffData]):
 		var hasBuff : bool = false
 		if buffData:
 			if player.buffManager.findExistedBuff(buffData):
-				hasBuff = false
+				hasBuff = true
 		# This is buff index of available buffs, so 
 		var buffIndex : int 
 		if buffData != null:

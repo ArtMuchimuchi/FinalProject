@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://1pepnmfcjbk7"]
+[gd_scene load_steps=21 format=3 uid="uid://1pepnmfcjbk7"]
 
 [ext_resource type="Script" path="res://entities/enemies/enemy.gd" id="1_j3jud"]
 [ext_resource type="Texture2D" uid="uid://dc3kxwk2otphh" path="res://sprites/player_sprites/idle/player-idle-1.png" id="2_m7xeg"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://baqcty1evbjlf" path="res://sprites/player_sprites/run/player-run-4.png" id="9_l1ty7"]
 [ext_resource type="Texture2D" uid="uid://djx2wyowbt5f3" path="res://sprites/player_sprites/run/player-run-5.png" id="10_0j4av"]
 [ext_resource type="Texture2D" uid="uid://c2nq5bgrml3n4" path="res://sprites/player_sprites/run/player-run-6.png" id="11_n7vbj"]
+[ext_resource type="PackedScene" uid="uid://csa4trrcundko" path="res://entities/ray_cast_group.tscn" id="12_44i64"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u8r0w"]
 
@@ -192,3 +193,5 @@ collision_mask = 2
 shape = SubResource("CylinderShape3D_5xl2f")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="RayCastGroup" parent="." instance=ExtResource("12_44i64")]

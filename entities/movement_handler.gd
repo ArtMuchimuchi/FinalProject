@@ -104,12 +104,22 @@ func setState(newState: int):
 		ownerNode.movementState = newState
 	
 #move pattern for enemy
-func enemyMovement(delta: float, player: Entity, nav: NavigationAgent3D):
+func enemyMovement(delta: float, player: Entity, nav: NavigationAgent3D, rayCast : RayCastGroup):
 	#move normally
 	if(ownerNode.movementState == EntityState.moving):
 		#calculate direction for chasing player
 		nav.target_position = player.position
-		ownerNode.direction = (nav.get_next_path_position() - ownerNode.position).normalized()
+		var desiredDirection = (nav.get_next_path_position() - ownerNode.position).normalized()
+		if(rayCast.collideVector == rayCast.noCollitionVector):
+			ownerNode.direction = desiredDirection
+		else:
+			var direc2D = Vector2(desiredDirection.x,desiredDirection.z)
+			rayCast.calInterest(direc2D)
+			rayCast.calContext()
+			direc2D = rayCast.directionVector[rayCast.getDirection()]
+			ownerNode.direction.x = direc2D.x
+			ownerNode.direction.z = direc2D.y
+
 		#getDirection(player.position)
 		#Update last direction of player facing
 		updateLastDirection()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://xf854a1nlet3"]
+[gd_scene load_steps=25 format=3 uid="uid://xf854a1nlet3"]
 
 [ext_resource type="Script" path="res://entities/enemies/general_monkey/general_monkey.gd" id="1_l65pj"]
 [ext_resource type="Texture2D" uid="uid://dcpwko2h0vbgp" path="res://sprites/enemy_sprites/general_monkey/idle/general_monkey_idle.png" id="2_7oimb"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dmrys5jjs7asv" path="res://sprites/enemy_sprites/general_monkey/run/general_monkey_run.png" id="3_g8n0m"]
 [ext_resource type="PackedScene" uid="uid://cjifdhnssa7h5" path="res://entities/enemies/enemy_health_point_bar/enemy_health_point_bar_sprite.tscn" id="4_67aou"]
 [ext_resource type="AudioStream" uid="uid://c087noevpv5rx" path="res://audio/sound_effect/enemies/melee_attack_sfx.wav" id="5_ak5x1"]
+[ext_resource type="PackedScene" uid="uid://csa4trrcundko" path="res://entities/ray_cast_group.tscn" id="7_u244e"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u8r0w"]
 
@@ -259,3 +260,6 @@ texture = SubResource("ViewportTexture_qoq6t")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+debug_enabled = true
+
+[node name="RayCastGroup" parent="." instance=ExtResource("7_u244e")]

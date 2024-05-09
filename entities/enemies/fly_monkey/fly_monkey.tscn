@@ -1,10 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://ccswq1g8uqao6"]
+[gd_scene load_steps=25 format=3 uid="uid://ccswq1g8uqao6"]
 
 [ext_resource type="Script" path="res://entities/enemies/fly_monkey/fly_monkey.gd" id="1_u2px4"]
 [ext_resource type="Texture2D" uid="uid://dakwq4dj7bqds" path="res://sprites/enemy_sprites/fly_monkey/idle/fly_monkey.png" id="2_2v3en"]
 [ext_resource type="PackedScene" uid="uid://cjifdhnssa7h5" path="res://entities/enemies/enemy_health_point_bar/enemy_health_point_bar_sprite.tscn" id="3_qtvxq"]
 [ext_resource type="Texture2D" uid="uid://bf1il3ulv0mj1" path="res://sprites/enemy_sprites/fly_monkey/attack/fly_monkey_range_attack.png" id="3_vnnur"]
 [ext_resource type="AudioStream" uid="uid://bnc3ky2we4cws" path="res://audio/sound_effect/enemies/range_attack_sfx.wav" id="4_aie35"]
+[ext_resource type="PackedScene" uid="uid://csa4trrcundko" path="res://entities/ray_cast_group.tscn" id="6_dtafa"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u8r0w"]
 
@@ -265,3 +266,5 @@ texture = SubResource("ViewportTexture_8boki")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="RayCastGroup" parent="." instance=ExtResource("6_dtafa")]

@@ -24,7 +24,7 @@ func _ready():
 	generateMap()
 	spawnPlayer()
 	player.connect("playerDeath",gameOver)
-	spawnEnemies(1)
+	spawnEnemies(10)
 	BackgroundMusicManager.playfightBGM()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

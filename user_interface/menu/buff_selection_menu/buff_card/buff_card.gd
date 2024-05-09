@@ -3,6 +3,7 @@ extends PanelContainer
 var isSelected :bool = false
 var isEmpty : bool = true
 var buffIndex : int
+
 @onready var buffIcon = %BuffIcon
 @onready var buffNameLabel = %BuffNameLabel
 @onready var buffLevelLabel = %BuffLevelLabel
@@ -23,12 +24,13 @@ func setBuffCardData(buffData:BuffData,hasBuff: bool,index : int):
 		if currentLevel < maxLevel:
 			# If it's default level or max level show level
 			if hasBuff:
-				buffLevelLabel.text = "LV. %s -> %s " %[buffData.currentLevel,buffData.currentLevel + 1]				
+				buffLevelLabel.text = "LV. %s -> %s " %[buffData.currentLevel,buffData.currentLevel + 1]
+				buffDescriptionLabel.text = buffData.getNextLevelBuffDescription()
 			else:
 				buffLevelLabel.text = "LV. %s" %[buffData.currentLevel]
+				buffDescriptionLabel.text = buffData.getBuffPropertyValue(DictionaryKey.description)
 		buffIcon.texture = buffData.buffTexture
 		buffNameLabel.text = buffData.buffName
-		buffDescriptionLabel.text = buffData.getBuffPropertyValue(DictionaryKey.description)
 		
 
 	setEmptyCard(isEmpty)

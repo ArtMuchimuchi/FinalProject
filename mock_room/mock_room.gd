@@ -20,11 +20,12 @@ var enemyTypes  = [
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	RewardManager.setRoomNode(self)
 	# Connect player death signal for changing game over scene
 	generateMap()
 	spawnPlayer()
 	player.connect("playerDeath",gameOver)
-	spawnEnemies(10)
+	spawnEnemies(4)
 	BackgroundMusicManager.playfightBGM()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1hjkl4y3abls"]
+[gd_scene load_steps=5 format=3 uid="uid://c1hjkl4y3abls"]
 
 [ext_resource type="Script" path="res://user_interface/hud/hud.gd" id="1_2rygd"]
 [ext_resource type="PackedScene" uid="uid://5j8eqgjqv7fe" path="res://user_interface/hud/health_point_bar/health_point_bar.tscn" id="2_l1quo"]
 [ext_resource type="PackedScene" uid="uid://buh2ncexxxr2w" path="res://user_interface/hud/current_coin/current_coin.tscn" id="3_xo1e8"]
+[ext_resource type="PackedScene" uid="uid://brhhm1c0xpf8g" path="res://user_interface/hud/experience_bar/experience_bar.tscn" id="4_lkoi8"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -32,11 +33,6 @@ size_flags_vertical = 0
 theme_override_font_sizes/font_size = 20
 text = "Floor 1  "
 
-[node name="HealthPointBar" parent="MarginContainer" instance=ExtResource("2_l1quo")]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-
 [node name="CurrentCoin" parent="MarginContainer" instance=ExtResource("3_xo1e8")]
 layout_mode = 2
 
@@ -45,3 +41,17 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 columns = 6
+
+[node name="BottomLeft" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = 12
+
+[node name="ExperienceBar" parent="MarginContainer/BottomLeft" instance=ExtResource("4_lkoi8")]
+layout_mode = 2
+
+[node name="HealthPointBar" parent="MarginContainer/BottomLeft" instance=ExtResource("2_l1quo")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8

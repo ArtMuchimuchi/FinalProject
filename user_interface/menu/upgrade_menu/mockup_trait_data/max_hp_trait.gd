@@ -8,12 +8,12 @@ func _init():
 	traitLevelData = {
 		1 : {
 			DictionaryKey.price : 500,
-			DictionaryKey.description : "Increase melee and range attack by 15%",
+			DictionaryKey.description : "Increase max hp by 25%",
 			DictionaryKey.maxHP : 0.25,
 		},
 		2 : {
 			DictionaryKey.price : 1000,
-			DictionaryKey.description : "Increase melee and range attack by 30%",
+			DictionaryKey.description : "Increase max hp by 50%",
 			DictionaryKey.maxHP : 0.5,
 		}
 	}

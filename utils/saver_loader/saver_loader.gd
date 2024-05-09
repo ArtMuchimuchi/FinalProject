@@ -2,7 +2,8 @@ extends Node
 
 class_name SaverLoader
 
-const savedTraitSlotArrayPath : String = "res://user_interface/menu/upgrade_menu/saved_trait_slot_array.json"
+const savedTraitSlotArrayPath : String = "res://utils/saved_data/saved_trait_slot_array.json"
+const savedCoinPath : String = "res://utils/saved_data/saved_coin_data.json"
 
 # Function to save trait slot array data like current level
 func saveTraitArray(traitArrayData : Array[TraitData]):
@@ -48,3 +49,20 @@ func loadTraitArray(traitArrayData : Array[TraitData]):
 		return null
 
 
+func saveCoinData(currentCoin:int):
+	var coinDataFile = FileAccess.open(savedCoinPath,FileAccess.WRITE)
+	var coinDataDict : Dictionary = {
+		"currentCoin" : currentCoin
+		}
+	var coinDataJson = JSON.stringify(coinDataDict) 
+	coinDataFile.store_string(coinDataJson)
+	coinDataFile.close()
+
+func loadCoinData():
+	var coinDataFile = FileAccess.open(savedCoinPath,FileAccess.READ)
+	if FileAccess.file_exists(savedCoinPath):
+		var coinDataJson = coinDataFile.get_as_text()
+		var coinDataDict = JSON.parse_string(coinDataJson)
+		return coinDataDict
+	else:
+		return null

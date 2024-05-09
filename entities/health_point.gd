@@ -12,7 +12,11 @@ func _init(targetNode: Entity, setHP: int):
 	maxHP = setHP
 	
 func  increaseHP(increaseAmount: int):
-	currentHP += increaseAmount
+	# Make sure current hp won't exceed max hp when heal
+	if increaseAmount + currentHP <= maxHP: 
+		currentHP += increaseAmount
+	else:
+		currentHP = maxHP
 	ownerNode.emit_signal("hpChanged",currentHP,maxHP)
 
 func decreaseHP(decreaseAmount: int):
@@ -26,7 +30,7 @@ func decreaseHP(decreaseAmount: int):
 			currentHP -= decreaseAmount - defense 
 		# If defense value is greater than damage, reduce damage to 1 
 		elif defense >= decreaseAmount:
-			currentHP -= ConstantNumber.minimalDamage
+			currentHP -= ConstantNumber.minimalDamage 
 		ownerNode.emit_signal("hpChanged",currentHP,maxHP)
 
 func die():
@@ -46,6 +50,12 @@ func die():
 		# Play enemy deatj sound effect before it queued free
 		var enemyDeathSFX = preload("res://audio/sound_effect/enemies/death_sfx.wav") 
 		SoundEffectManager.playSoundEffect(ownerNode,enemyDeathSFX)
+		# Random enmey exp from 3-5 gain from killed 
+		var rng = RandomNumberGenerator.new()
+		var randomEnemyExp = rng.randi_range(3, 6)
+		var randomEnemyCoin = rng.randi_range(1,3) * 10 
+		RewardManager.increaseExp(randomEnemyExp)
+		RewardManager.increaseCoin(randomEnemyCoin)
 		# Create time delay so that death sound effect can play properly
 		await ownerNode.get_tree().create_timer(0.1).timeout
 		ownerNode.queue_free()

@@ -21,7 +21,6 @@ var enemyTypes  = [
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	RewardManager.setRoomNode(self)
-	RewardManager.resetLevel()
 	# Connect player death signal for changing game over scene
 	generateMap()
 	spawnPlayer()

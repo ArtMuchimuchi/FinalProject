@@ -1,8 +1,8 @@
 extends Node
 
 # Exp reward
-var currentLevel : int = 0
-var currentEXP : int = 0
+var currentLevel : int = ConstantNumber.defaultPlayerLevel
+var currentEXP : int = ConstantNumber.defaultPlayerExp
 var roomNode : Node
 var isRewarding : bool = false
 var rewardStack : int = 0
@@ -48,8 +48,6 @@ func descreaseCoin(coinAmount):
 
 # Check if player level uo
 func checkLevelUp():
-	# Update exp bar in hud for both current level and  exp 
-	expIncreased.emit(currentEXP,getNextLevelExp(),currentLevel)
 	# Check if current exp enough to level up
 	if currentEXP >= nextLevelEXP:
 		var differenceOfEXP = currentEXP - nextLevelEXP
@@ -65,6 +63,8 @@ func checkLevelUp():
 	# Check if player have level up stack and buff selection doesn't show yet, add buff selection
 	if isRewarding == false && rewardStack > 0:
 		getLevelUpReward()
+	# Update exp bar in hud for both current level and  exp 
+	expIncreased.emit(currentEXP,getNextLevelExp(),currentLevel)
 
 # Add buff selection window and add another one if player have level up stack  
 func getLevelUpReward():
@@ -95,3 +95,8 @@ func getLevelUpReward():
 # Un pause 
 func unPauseRoom():
 	get_tree().paused = false
+
+# Reset player level and exp 
+func resetLevel():
+	currentLevel = ConstantNumber.defaultPlayerLevel
+	currentEXP = ConstantNumber.defaultPlayerExp

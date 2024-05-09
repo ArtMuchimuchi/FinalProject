@@ -41,6 +41,7 @@ func onPressedBackOptionsMenu():
 
 # Accept and close main menu confirmation modal 
 func onAcceptedMainMenuConfirmation():
+	RewardManager.resetLevel()
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://user_interface/menu/main_menu/main_menu.tscn")
 	
@@ -50,6 +51,7 @@ func onClosedMainMenuConfirmation():
 
 # Accept and close restart confirmation modal 
 func onAcceptedRestartConfirmation():
+	RewardManager.resetLevel()	
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://mock_room/mock_room.tscn")
 

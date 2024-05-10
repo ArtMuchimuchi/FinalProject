@@ -2,67 +2,83 @@ extends Node
 
 class_name SaverLoader
 
-const savedTraitSlotArrayPath : String = "res://utils/saved_data/saved_trait_slot_array.json"
-const savedCoinPath : String = "res://utils/saved_data/saved_coin_data.json"
+const savedDataPath : String = "res://utils/saved_data/saved_data.json"
+var defaultTraitArrayData : Array[TraitData] = [
+	AttackTrait.new(),
+	MaxHPTrait.new(),
+	DefenseTrait.new(),
+	MovementSpeedTrait.new(), 
+	RebirthTrait.new(),
+]
 
-# Function to save trait slot array data like current level
-func saveTraitArray(traitArrayData : Array[TraitData]):
-	var traitArrayFile = FileAccess.open(savedTraitSlotArrayPath,FileAccess.WRITE)
-	# Create dictonary which has trait slot array 
-	var traitArrayDict : Dictionary = {
-		"traitSlotArray" : []
+
+# Function to save trait slot array data and current coin
+func saveData(traitArrayData : Array[Dictionary], currentCoin : int ):
+	var savedDataFile = FileAccess.open(savedDataPath,FileAccess.WRITE)
+	var savedDataDict = {
+		"traitSlotArray" : [],
+		"currentCoin" : 0,
 	}
-	
-	# For loop to add trait slot data into array dictionary
+	savedDataDict[DictionaryKey.traitSlotArray] = traitArrayData
+	savedDataDict[DictionaryKey.currentCoin] = currentCoin
+	var savedDataJson = JSON.stringify(savedDataDict)
+	savedDataFile.store_string(savedDataJson)
+	savedDataFile.close()
+
+
+
+func saveTraitArray(traitArrayData: Array[TraitData]):
+	# Variable for saved trait data
+	var savedTraitSlotArray : Array[Dictionary] = []
+	# Check if trait array data have members () 
+	if traitArrayData.size() == 0:
+		traitArrayData = defaultTraitArrayData
 	for traitData in traitArrayData:
 		# Create dictionary for trait slot data which include name and current level 
 		var traitSlotDict : Dictionary = {
 			"traitName": traitData.traitName,
 			"currentLevel" : traitData.currentLevel
 		}
-		# Add trait slot data dictionary into trait slot array data dictionary
-		traitArrayDict["traitSlotArray"].append(traitSlotDict)
+		# Add saved trait slot data dictionary into trait slot array data dictionary
+		savedTraitSlotArray.append(traitSlotDict)
 	
-	# Convert dictionary into json and save data into file
-	var traitArrayJson = JSON.stringify(traitArrayDict)
-	traitArrayFile.store_string(traitArrayJson)
-	traitArrayFile.close()
+	saveData(savedTraitSlotArray,RewardManager.currentCoin)
 
 
-# Function to load saved file to trait slot array data
+func saveCoinData():
+	var oldTraitSlotArray = loadTraitArray(defaultTraitArrayData)
+	if oldTraitSlotArray.size() > 0:
+		saveTraitArray(oldTraitSlotArray)
+	else:
+		saveTraitArray(defaultTraitArrayData)
+
+
+func loadData():
+	var savedDataFile = FileAccess.open(savedDataPath,FileAccess.READ)
+	if FileAccess.file_exists(savedDataPath):
+		var savedDataJson = savedDataFile.get_as_text()
+		var savedDataDict = JSON.parse_string(savedDataJson)
+		return savedDataDict
+	else: 
+		return null
+
 func loadTraitArray(traitArrayData : Array[TraitData]):
-	# Read the trait slot array file
-	var traitArrayFile = FileAccess.open(savedTraitSlotArrayPath,FileAccess.READ)
-	# If trait slot array file exist, assign saved current level to each slot 
-	if FileAccess.file_exists(savedTraitSlotArrayPath):
-		var traitArrayJson = traitArrayFile.get_as_text() 
-		var savedTraitArrayData = JSON.parse_string(traitArrayJson)
-		# Assign saved current level to each trait slot data in array with same name 
-		for savedTraitData in savedTraitArrayData["traitSlotArray"]:
+	var savedDataDict = loadData()
+	if savedDataDict && savedDataDict.has(DictionaryKey.traitSlotArray):
+		var savedTraitDataArray = savedDataDict[DictionaryKey.traitSlotArray] 
+		for savedTraitData in savedTraitDataArray:
 			for traitData in traitArrayData:
 				# Check if trait slot data name is same as saved name to update current level value
-				if traitData.traitName == savedTraitData["traitName"]:
-					traitData.currentLevel = savedTraitData["currentLevel"]
+				if traitData.traitName == savedTraitData[DictionaryKey.traitName]:
+					traitData.currentLevel = savedTraitData[DictionaryKey.currentLevel]
 		return traitArrayData
-	# If file doesn't exist return null so trait slot array data won't be loaded
 	else:
 		return null
-
-
-func saveCoinData(currentCoin:int):
-	var coinDataFile = FileAccess.open(savedCoinPath,FileAccess.WRITE)
-	var coinDataDict : Dictionary = {
-		"currentCoin" : currentCoin
-		}
-	var coinDataJson = JSON.stringify(coinDataDict) 
-	coinDataFile.store_string(coinDataJson)
-	coinDataFile.close()
 
 func loadCoinData():
-	var coinDataFile = FileAccess.open(savedCoinPath,FileAccess.READ)
-	if FileAccess.file_exists(savedCoinPath):
-		var coinDataJson = coinDataFile.get_as_text()
-		var coinDataDict = JSON.parse_string(coinDataJson)
-		return coinDataDict
+	var savedDataDict = loadData()
+	if savedDataDict && savedDataDict.has(DictionaryKey.currentCoin):
+		var currentCoin : int = savedDataDict[DictionaryKey.currentCoin]
+		return currentCoin 
 	else:
-		return null
+		return null 

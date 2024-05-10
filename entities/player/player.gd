@@ -6,6 +6,9 @@ extends Entity
 @onready var hitboxRangeAttack = get_node("HitBoxRangeAttack")
 @onready var playerHitbox = get_node("CollisionShape3D")
 
+@onready var nav : NavigationAgent3D = $NavigationAgent3D
+@onready var rayCast : RayCastGroup = $RayCastGroup
+
 @onready var animationManager = AnimationManager.new() 
 var HP : HealthPoint
 @onready var meleeAttack = AttackHandler.new(self, hitboxMeleeAttack)
@@ -21,6 +24,9 @@ var attackCountDown : float
 var isMeleeAttack : bool
 var isRangeAttack : bool
 var isRebirth : bool = false
+
+var aiMode : bool = false
+var mapInfo : MapGenerator
 
 func _init():
 	initEntity()
@@ -44,7 +50,17 @@ func _physics_process(delta):
 	playerAnimation(delta)
 	attack(delta)
 
+func triggerAI(map:MapGenerator):
+	mapInfo = map
+	aiMode = true
+
 func move(delta : float):
+	if(aiMode):
+		aiMove(delta)
+	else:
+		manualMove(delta)
+		
+func manualMove(delta: float):
 	#Check user input movement
 	var justMove = movement.checkPlayerInput()
 	if(justMove):
@@ -62,6 +78,47 @@ func move(delta : float):
 		movement.moveImediately(delta,dashSpeed,ConstantNumber.playerDashDuration)
 	elif(movementState == EntityState.moving):
 		#move depend on direction
+		movement.movementHandler()
+		
+func aiMove(delta: float):
+	#kill enemies
+	#find exit
+	findExit()
+	pass
+	
+func findExit():
+	if(mapInfo):
+		#get all exit
+		var exitList : Array[int] = mapInfo.otherExit
+		# find nearest exit
+		var distance : float = 1000
+		var desExit : int = -1
+		for i in range(exitList.size()):
+			var exitPos : Array[int] = mapInfo.indexToXZ(exitList[i])
+			var disExit : float = sqrt(pow((position.x - exitPos[0]),2)+pow((position.z - exitPos[1]),2))
+			if(disExit < distance):
+				distance = disExit
+				desExit = exitList[i]
+		#move to that exit
+		#find exit position
+		var desirePos : Array[int] = mapInfo.indexToXZ(desExit)
+		nav.target_position = Vector3(desirePos[0] + 0.5, position.y, desirePos[1] + 0.5)
+		print(nav.get_path())
+		#set path for exit
+		var desiredDirection = (nav.get_next_path_position() - position).normalized()
+		#when no obstacles
+		if(rayCast.collideVector == rayCast.noCollitionVector):
+			direction = desiredDirection
+		else:
+			var direc2D = Vector2(desiredDirection.x,desiredDirection.z)
+			rayCast.calInterest(direc2D)
+			rayCast.calContext()
+			direc2D = rayCast.directionVector[rayCast.getDirection()]
+			direction.x = direc2D.x
+			direction.z = direc2D.y
+		print(nav.get_current_navigation_result().path)
+		movement.setState(EntityState.moving)
+		movement.updateLastDirection()
 		movement.movementHandler()
 
 func playerAnimation(delta : float):

@@ -24,6 +24,7 @@ func _ready():
 	# Connect player death signal for changing game over scene
 	generateMap()
 	spawnPlayer()
+	player.triggerAI(mapGenerator)
 	player.connect("playerDeath",gameOver)
 	spawnEnemies(4)
 	BackgroundMusicManager.playfightBGM()

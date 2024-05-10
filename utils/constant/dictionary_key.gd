@@ -11,5 +11,8 @@ const price : String = "price"
 const rebirthPoint : String = "rebirth"
 const rebirthHP : String = "rebirthHP"
 
-# Dictionary key for saved coin data
+# Dictionary key for saved data
+const traitSlotArray : String = "traitSlotArray"
 const currentCoin : String = "currentCoin"
+const traitName : String = "traitName"
+const currentLevel : String = "currentLevel"

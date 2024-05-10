@@ -16,11 +16,8 @@ signal expIncreased(currentEXP : int ,nextLevelExp : int ,currentLevel : int)
 signal currentCoinChanged
 
 func _ready():
-	var savedCoinData = saverLoader.loadCoinData()
-	if savedCoinData :
-		var coinDataDict : Dictionary = savedCoinData
-		if coinDataDict.has(DictionaryKey.currentCoin):
-			currentCoin = coinDataDict[DictionaryKey.currentCoin]
+	if saverLoader.loadCoinData() != null:
+		currentCoin = saverLoader.loadCoinData()
 
 func setRoomNode(ownerNode:Node):
 	roomNode = ownerNode
@@ -37,12 +34,12 @@ func getNextLevelExp():
 func increaseCoin(coinAmount):
 	currentCoin += coinAmount
 	currentCoinChanged.emit()
-	saverLoader.saveCoinData(currentCoin)
+	saverLoader.saveCoinData()
 
 func descreaseCoin(coinAmount):
 	currentCoin -= coinAmount
 	currentCoinChanged.emit()
-	saverLoader.saveCoinData(currentCoin)
+	saverLoader.saveCoinData()
 
 
 

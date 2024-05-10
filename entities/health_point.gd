@@ -41,7 +41,7 @@ func die():
 		if traitManager.rebirthPoint > 0:
 			var rebirthHP = maxHP * traitManager.rebirthTrait.getTraitPropertyValue(DictionaryKey.rebirthHP) 
 			increaseHP(rebirthHP)
-			ownerNode.rebirthInvincible()
+			ownerNode.setRebirthInvincible()
 			traitManager.rebirthPoint =- 1
 		# If player don't have enough rebirth point, trigger death signal
 		else: 

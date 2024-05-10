@@ -35,7 +35,8 @@ func _process(delta):
 	
 #generate map
 func generateMap():
-	mapGenerator.getMap()
+	#mapGenerator.getMap()
+	mapGenerator.mockMap()
 	#prepare for navigation
 	thisNode.bake_navigation_mesh()
 	

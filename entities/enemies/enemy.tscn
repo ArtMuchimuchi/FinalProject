@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://1pepnmfcjbk7"]
+[gd_scene load_steps=22 format=3 uid="uid://1pepnmfcjbk7"]
 
 [ext_resource type="Script" path="res://entities/enemies/enemy.gd" id="1_j3jud"]
 [ext_resource type="Texture2D" uid="uid://dc3kxwk2otphh" path="res://sprites/player_sprites/idle/player-idle-1.png" id="2_m7xeg"]
@@ -157,6 +157,10 @@ size = Vector3(1, 1, 1.5)
 height = 1.0
 radius = 3.0
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1gyrt"]
+height = 1.0
+radius = 3.0
+
 [node name="Enemy" type="CharacterBody3D"]
 collision_layer = 4
 script = ExtResource("1_j3jud")
@@ -195,3 +199,10 @@ shape = SubResource("CylinderShape3D_5xl2f")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="RayCastGroup" parent="." instance=ExtResource("12_44i64")]
+
+[node name="ChaseArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="Hitbox" type="CollisionShape3D" parent="ChaseArea"]
+shape = SubResource("CylinderShape3D_1gyrt")

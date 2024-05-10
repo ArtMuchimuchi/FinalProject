@@ -12,3 +12,5 @@ func _init():
 	isAttacking = false
 	enemyType = ConstantNumber.enemyMeleeType
 	defense = ConstantNumber.enemyDefense
+	triggerRange = ConstantNumber.enemyMeleeTriggerChase
+	chaseRange = ConstantNumber.enemyMeleeStopChase

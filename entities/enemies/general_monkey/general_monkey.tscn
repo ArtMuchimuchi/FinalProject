@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://xf854a1nlet3"]
+[gd_scene load_steps=26 format=3 uid="uid://xf854a1nlet3"]
 
 [ext_resource type="Script" path="res://entities/enemies/general_monkey/general_monkey.gd" id="1_l65pj"]
 [ext_resource type="Texture2D" uid="uid://dcpwko2h0vbgp" path="res://sprites/enemy_sprites/general_monkey/idle/general_monkey_idle.png" id="2_7oimb"]
@@ -226,6 +226,10 @@ size = Vector3(1, 1, 1.5)
 [sub_resource type="ViewportTexture" id="ViewportTexture_qoq6t"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_h6n5s"]
+height = 1.0
+radius = 3.0
+
 [node name="Enemy" type="CharacterBody3D"]
 collision_layer = 4
 script = ExtResource("1_l65pj")
@@ -263,3 +267,10 @@ texture = SubResource("ViewportTexture_qoq6t")
 debug_enabled = true
 
 [node name="RayCastGroup" parent="." instance=ExtResource("7_u244e")]
+
+[node name="ChaseArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="Hitbox" type="CollisionShape3D" parent="ChaseArea"]
+shape = SubResource("CylinderShape3D_h6n5s")

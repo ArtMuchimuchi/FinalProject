@@ -32,6 +32,11 @@ const enemyRangeKnockbackSpeed : int = 7
 const enemyRangeKnockbackDuration : float = 0.1
 const enemyDefense : int = 1
 
+const enemyMeleeTriggerChase : int = 3
+const enemyMeleeStopChase : int = 7
+const enemyRangeTriggerChase : int = 4
+const enemyRangeStopChase : int = 9
+
 const flyMonkeyAttackCooldown : int = 2
 
 const defaultSlotDetailIndex : int = 0

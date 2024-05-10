@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ccswq1g8uqao6"]
+[gd_scene load_steps=26 format=3 uid="uid://ccswq1g8uqao6"]
 
 [ext_resource type="Script" path="res://entities/enemies/fly_monkey/fly_monkey.gd" id="1_u2px4"]
 [ext_resource type="Texture2D" uid="uid://dakwq4dj7bqds" path="res://sprites/enemy_sprites/fly_monkey/idle/fly_monkey.png" id="2_2v3en"]
@@ -233,6 +233,10 @@ radius = 3.0
 [sub_resource type="ViewportTexture" id="ViewportTexture_8boki"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_xm4gb"]
+height = 1.0
+radius = 3.0
+
 [node name="Enemy" type="CharacterBody3D"]
 collision_layer = 4
 script = ExtResource("1_u2px4")
@@ -268,3 +272,10 @@ texture = SubResource("ViewportTexture_8boki")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="RayCastGroup" parent="." instance=ExtResource("6_dtafa")]
+
+[node name="ChaseArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="Hitbox" type="CollisionShape3D" parent="ChaseArea"]
+shape = SubResource("CylinderShape3D_xm4gb")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://2lk31dbilr5d"]
+[gd_scene load_steps=26 format=3 uid="uid://2lk31dbilr5d"]
 
 [ext_resource type="Script" path="res://entities/enemies/zombie_monkey/zombie_monkey.gd" id="1_ixwwe"]
 [ext_resource type="Texture2D" uid="uid://cdrd2exgb1jra" path="res://sprites/enemy_sprites/zombie_monkey/idle/zombie_monkey_idle.png" id="2_s6m5s"]
@@ -226,6 +226,10 @@ size = Vector3(1, 1, 1.5)
 [sub_resource type="ViewportTexture" id="ViewportTexture_tulhh"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6rqlb"]
+height = 1.0
+radius = 3.0
+
 [node name="Enemy" type="CharacterBody3D"]
 collision_layer = 4
 script = ExtResource("1_ixwwe")
@@ -263,3 +267,10 @@ texture = SubResource("ViewportTexture_tulhh")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="RayCastGroup" parent="." instance=ExtResource("7_20735")]
+
+[node name="ChaseArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="Hitbox" type="CollisionShape3D" parent="ChaseArea"]
+shape = SubResource("CylinderShape3D_6rqlb")

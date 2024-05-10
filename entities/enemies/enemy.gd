@@ -9,16 +9,22 @@ class_name Enemy
 @onready var audioStreamPlayer = get_node("AudioStreamPlayer")
 @onready var nav : NavigationAgent3D = $NavigationAgent3D
 @onready var rayCast : RayCastGroup = $RayCastGroup
-
+@onready var chaser : Area3D = get_node("ChaseArea")
+@onready var chaseArea : CylinderShape3D = get_node("ChaseArea/Hitbox").get_shape()
 @onready var animationManager = AnimationManager.new()
 var HP : HealthPoint
 @onready var attackManager : Array[AttackHandler] = [
 	AttackHandler.new(self, hitboxAttack[ConstantNumber.enemyMeleeType])
 ,AttackHandler.new(self, hitboxAttack[ConstantNumber.enemyRangeType])]
-var isPlayerInRange
+var isPlayerInAttackRange
+var isPlayerInChaseRange
 
 var isAttacking : bool
 var enemyType : int
+
+var triggerRange : int 
+var chaseRange : int 
+var isChase : bool = false
 
 func _ready():
 	add_to_group("enemies")
@@ -36,11 +42,11 @@ func _init():
 	enemyType = ConstantNumber.enemyMeleeType
 
 func _physics_process(delta):
-	isPlayerInRange = hitboxAttack[enemyType].get_overlapping_bodies()
+	isPlayerInAttackRange = hitboxAttack[enemyType].get_overlapping_bodies()
 	#update hitbox attack
 	attackManager[enemyType].updateHitbox()
 	#if player in attack range
-	if(isPlayerInRange):
+	if(isPlayerInAttackRange):
 		if(movementState != EntityState.attacking && movementState != EntityState.knockBack):
 			#set to attacking state
 			movement.setState(EntityState.attacking)
@@ -51,8 +57,17 @@ func _physics_process(delta):
 			elif(enemyType == ConstantNumber.enemyRangeType):
 				rangeAttack()
 	else:
-		#set to moving State
-		movement.setState(EntityState.moving)
+		#if player in chase range then chase
+		isPlayerInChaseRange = chaser.get_overlapping_bodies()
+		if(isPlayerInChaseRange):
+			isChase = true
+			chaseArea.radius = chaseRange
+			#set to moving State
+			movement.setState(EntityState.moving)
+		else:
+			isChase = false
+			chaseArea.radius = triggerRange
+			movement.setState(EntityState.idle)
 	movement.enemyMovement(delta, player, nav, rayCast)
 	#attack
 	if(movementState == EntityState.attacking):

@@ -13,3 +13,5 @@ func _init():
 	enemyType = ConstantNumber.enemyRangeType
 	triedDuration = ConstantNumber.flyMonkeyAttackCooldown
 	defense = ConstantNumber.enemyDefense
+	triggerRange = ConstantNumber.enemyRangeTriggerChase
+	chaseRange = ConstantNumber.enemyRangeStopChase

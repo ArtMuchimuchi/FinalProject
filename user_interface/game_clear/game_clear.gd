@@ -8,7 +8,7 @@ func _ready():
 	BackgroundMusicManager.playing = false
 	var playerWinSFX = preload("res://audio/sound_effect/player/win_sfx.wav")
 	SoundEffectManager.playSoundEffect(self,playerWinSFX)
-
+	RewardManager.resetLevel()
 
 func onMainMenuButtonPressed():
 	get_tree().change_scene_to_file("res://user_interface/menu/main_menu/main_menu.tscn")

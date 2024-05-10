@@ -14,11 +14,13 @@ const playerRangeDamage : int = 1
 const playerDefense : int = 2
 const rebirthInvincibleDuration : float = 2.0
 const healingPerLevelUp : float = 0.3
+const defaultPlayerLevel : int = 0
+const defaultPlayerExp : int = 0 
 
 const enemyMeleeType : int = 0
 const enemyRangeType : int = 1
 
-const enemyHealthPoint : int = 1
+const enemyHealthPoint : int = 10
 const enemySpeed : int = 4
 const enemyDashSpeed : int = 14
 const enemyDashDuration : float = 0.3

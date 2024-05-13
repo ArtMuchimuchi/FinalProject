@@ -18,6 +18,9 @@ var enemyTypes  = [
 	muscleMonkey,
 ] 
 
+var exitPositionXList : Array[int]
+var exitPositionZList : Array[int]
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	RewardManager.setRoomNode(self)
@@ -26,8 +29,9 @@ func _ready():
 	spawnPlayer()
 	player.triggerAI(mapGenerator)
 	player.connect("playerDeath",gameOver)
-	spawnEnemies(4)
+	spawnEnemies(8)
 	BackgroundMusicManager.playfightBGM()
+	calExitPosition()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -36,8 +40,8 @@ func _process(delta):
 	
 #generate map
 func generateMap():
-	#mapGenerator.getMap()
-	mapGenerator.mockMap()
+	mapGenerator.getMap()
+	#mapGenerator.mockMap()
 	#prepare for navigation
 	thisNode.bake_navigation_mesh()
 	
@@ -65,11 +69,32 @@ func spawnEnemies(limit:int):
 		enemyInstance.name = "Enemy" + str(index)
 		enemiesNode.add_child(enemyInstance)
 		enemyInstance.position = randomPosition
-
+	
+#save position of exit list	
+func calExitPosition():
+	exitPositionXList.clear()
+	exitPositionZList.clear()
+	var exitList : Array[int] = mapGenerator.otherExit
+	for i in range(exitList.size()):
+		var exitPos : Array[int] = mapGenerator.indexToXZ(exitList[i])
+		exitPositionXList.append(exitPos[0])
+		exitPositionZList.append(exitPos[1])
+	
+#check if player are on exit	
+func checkIfPlayerExit() -> bool:
+	for i in range(exitPositionXList.size()):
+		if(player.position.x >= exitPositionXList[i] && 
+		player.position.x <= exitPositionXList[i] + 1 &&
+		player.position.z >= exitPositionZList[i] &&
+		player.position.z <= exitPositionZList[i] + 1):
+			return true
+	return false
+	
 func gameOver():
 	get_tree().change_scene_to_file("res://user_interface/game_over/game_over.tscn")
 
 # Check if enemies are zero / player killed all then game is cleared
 func gameClear():
 	if get_tree().get_nodes_in_group("enemies").size() == 0:
-		get_tree().change_scene_to_file("res://user_interface/game_clear/game_clear.tscn")
+		if(checkIfPlayerExit()):
+			get_tree().change_scene_to_file("res://user_interface/game_clear/game_clear.tscn")

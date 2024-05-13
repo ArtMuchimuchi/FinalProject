@@ -129,3 +129,25 @@ func enemyMovement(delta: float, player: Entity, nav: NavigationAgent3D, rayCast
 	elif (ownerNode.movementState == EntityState.knockBack):
 		#calculate knock back direction
 		moveImediately(delta, ownerNode.dashSpeed, ownerNode.dashDuration)
+		
+func aiMovement(destination: Vector3, nav: NavigationAgent3D, rayCast: RayCastGroup):
+	if(ownerNode.movementState == EntityState.moving):
+		#calculate direction for chasing enemy
+		nav.target_position = destination
+		print(destination)
+		var desiredDirection = (nav.get_next_path_position() - ownerNode.position).normalized()
+		#when no obstacles between, can go directly
+		if(rayCast.collideVector == rayCast.noCollitionVector):
+			ownerNode.direction = desiredDirection
+		#in the other hand, avoid obstacles
+		else:
+			var direc2D = Vector2(desiredDirection.x,desiredDirection.z)
+			rayCast.calInterest(direc2D)
+			rayCast.calContext()
+			direc2D = rayCast.directionVector[rayCast.getDirection()]
+			ownerNode.direction.x = direc2D.x
+			ownerNode.direction.z = direc2D.y
+		#Update last direction of player facing
+		updateLastDirection()
+		#move
+		movementHandler()

@@ -102,24 +102,8 @@ func findExit():
 		#move to that exit
 		#find exit position
 		var desirePos : Array[int] = mapInfo.indexToXZ(desExit)
-		nav.target_position = Vector3(desirePos[0] + 0.5, position.y, desirePos[1] + 0.5)
-		print(nav.get_path())
-		#set path for exit
-		var desiredDirection = (nav.get_next_path_position() - position).normalized()
-		#when no obstacles
-		if(rayCast.collideVector == rayCast.noCollitionVector):
-			direction = desiredDirection
-		else:
-			var direc2D = Vector2(desiredDirection.x,desiredDirection.z)
-			rayCast.calInterest(direc2D)
-			rayCast.calContext()
-			direc2D = rayCast.directionVector[rayCast.getDirection()]
-			direction.x = direc2D.x
-			direction.z = direc2D.y
-		print(nav.get_current_navigation_result().path)
-		movement.setState(EntityState.moving)
-		movement.updateLastDirection()
-		movement.movementHandler()
+		movement.aiMovement(Vector3(desirePos[0] + 0.5, position.y, desirePos[1] + 0.5)
+		,nav,rayCast)
 
 func playerAnimation(delta : float):
 	#Play animation of player by the movement of player

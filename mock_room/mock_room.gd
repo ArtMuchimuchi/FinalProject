@@ -62,6 +62,7 @@ func spawnEnemies(limit:int):
 		var randomPosition = Vector3(rng[0] + 0.5,1.5,rng[1] + 0.5)
 
 		var enemyInstance = randomEnemyType.instantiate()
+		enemyInstance.name = "Enemy" + str(index)
 		enemiesNode.add_child(enemyInstance)
 		enemyInstance.position = randomPosition
 

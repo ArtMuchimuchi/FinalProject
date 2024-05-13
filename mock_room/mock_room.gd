@@ -24,6 +24,7 @@ func _ready():
 	# Connect player death signal for changing game over scene
 	generateMap()
 	spawnPlayer()
+	player.triggerAI(mapGenerator)
 	player.connect("playerDeath",gameOver)
 	spawnEnemies(4)
 	BackgroundMusicManager.playfightBGM()
@@ -35,7 +36,8 @@ func _process(delta):
 	
 #generate map
 func generateMap():
-	mapGenerator.getMap()
+	#mapGenerator.getMap()
+	mapGenerator.mockMap()
 	#prepare for navigation
 	thisNode.bake_navigation_mesh()
 	
@@ -60,6 +62,7 @@ func spawnEnemies(limit:int):
 		var randomPosition = Vector3(rng[0] + 0.5,1.5,rng[1] + 0.5)
 
 		var enemyInstance = randomEnemyType.instantiate()
+		enemyInstance.name = "Enemy" + str(index)
 		enemiesNode.add_child(enemyInstance)
 		enemyInstance.position = randomPosition
 

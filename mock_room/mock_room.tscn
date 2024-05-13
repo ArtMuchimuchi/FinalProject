@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://nnakytfd1jpb"]
 
 [ext_resource type="Script" path="res://mock_room/mock_room.gd" id="1_g2wsx"]
-[ext_resource type="PackedScene" uid="uid://58jmk2r1l0p1" path="res://player.tscn" id="2_o0vmi"]
+[ext_resource type="PackedScene" uid="uid://58jmk2r1l0p1" path="res://entities/player/player.tscn" id="2_o0vmi"]
 [ext_resource type="PackedScene" uid="uid://c1hjkl4y3abls" path="res://user_interface/hud/hud.tscn" id="5_5oesg"]
 [ext_resource type="PackedScene" uid="uid://ceaqepbc5e307" path="res://user_interface/menu/pause_menu/pause_menu.tscn" id="5_kypvy"]
 

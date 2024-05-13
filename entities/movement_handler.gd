@@ -134,7 +134,6 @@ func aiMovement(destination: Vector3, nav: NavigationAgent3D, rayCast: RayCastGr
 	if(ownerNode.movementState == EntityState.moving):
 		#calculate direction for chasing enemy
 		nav.target_position = destination
-		print(destination)
 		var desiredDirection = (nav.get_next_path_position() - ownerNode.position).normalized()
 		#when no obstacles between, can go directly
 		if(rayCast.collideVector == rayCast.noCollitionVector):

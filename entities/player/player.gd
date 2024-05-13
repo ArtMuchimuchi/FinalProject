@@ -27,6 +27,7 @@ var isRebirth : bool = false
 
 var aiMode : bool = false
 var mapInfo : MapGenerator
+var enemiesPositionList : Array[Vector3] = []
 
 func _init():
 	initEntity()
@@ -81,10 +82,49 @@ func manualMove(delta: float):
 		movement.movementHandler()
 		
 func aiMove(delta: float):
-	#kill enemies
-	#find exit
-	findExit()
-	pass
+	#get enemies list
+	getEnemiesList()
+	#if have enemies on map, chase them
+	if(enemiesPositionList):
+		#check if enemies in attack range
+		var isEnemyInRange = hitboxMeleeAttack.get_overlapping_bodies()
+		#if yes attack them
+		if(isEnemyInRange && movementState != EntityState.attacking):
+			movement.setState(EntityState.idle)
+			movement.setState(EntityState.attacking)
+			isMeleeAttack = true
+			meleeAttack.meleeAttack(meleeAttackDamage)
+		#if not chase them
+		else:
+			movement.setState(EntityState.moving)
+		#get closest enemies
+		var closetEnemy : int = findClosetEnemy()
+		#move close to enemy
+		movement.aiMovement(enemiesPositionList[closetEnemy],
+		nav,rayCast)
+	else:
+		#if no nemies
+		#find exit
+		movement.setState(EntityState.moving)
+		findExit()
+	
+func getEnemiesList():
+	var enemiesList = get_node("/root/MockRoom/Enemies").get_children()
+	enemiesPositionList.clear()
+	for i in range(enemiesList.size()):
+		enemiesPositionList.append(enemiesList[i].position)
+		
+#find closet enemy and return it's index of enemiesPositionList
+func findClosetEnemy() -> int:
+	var minDistance : float = 1000
+	var minEnemyIndex : int = -1
+	for i in range(enemiesPositionList.size()):
+		var distance = euclideanDistance(position.x, position.z,
+		enemiesPositionList[i].x,enemiesPositionList[i].z)
+		if(distance < minDistance):
+			minDistance = distance
+			minEnemyIndex = i
+	return minEnemyIndex
 	
 func findExit():
 	if(mapInfo):
@@ -95,7 +135,7 @@ func findExit():
 		var desExit : int = -1
 		for i in range(exitList.size()):
 			var exitPos : Array[int] = mapInfo.indexToXZ(exitList[i])
-			var disExit : float = sqrt(pow((position.x - exitPos[0]),2)+pow((position.z - exitPos[1]),2))
+			var disExit : float = euclideanDistance(position.x,position.z,exitPos[0],exitPos[1])
 			if(disExit < distance):
 				distance = disExit
 				desExit = exitList[i]
@@ -163,3 +203,6 @@ func setRebirthInvincible():
 	isRebirth = true
 	await get_tree().create_timer(ConstantNumber.rebirthInvincibleDuration).timeout
 	isRebirth = false
+	
+func euclideanDistance(x1:float,y1:float,x2:float,y2:float) -> float:
+	return sqrt(pow((x1 - x2),2)+pow((y1 - y2),2))

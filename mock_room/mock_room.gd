@@ -6,6 +6,7 @@ extends Node3D
 @onready var enemiesNode = $Enemies
 @onready var player = $Player
 @onready var mapGenerator = MapGenerator.new(thisNode, meshLib)
+
 var generalMonkey = preload("res://entities/enemies/general_monkey/general_monkey.tscn")
 var flyMonkey = preload("res://entities/enemies/fly_monkey/fly_monkey.tscn")
 var zombieMonkey = preload("res://entities/enemies/zombie_monkey/zombie_monkey.tscn")
@@ -97,4 +98,19 @@ func gameOver():
 func gameClear():
 	if get_tree().get_nodes_in_group("enemies").size() == 0:
 		if(checkIfPlayerExit()):
-			get_tree().change_scene_to_file("res://user_interface/game_clear/game_clear.tscn")
+			# Check if current floor is not last or 10th floor
+			if FloorManager.floorLevel == 10:
+				get_tree().change_scene_to_file("res://user_interface/game_clear/game_clear.tscn")
+			# If current floor is not last floor, move to next level and sent transfer player data to floor maanger
+			else:
+				# Get trasnfer player data and make it as dictionary to floor manager
+				var playerCurrentHP : int = player.healthPoint.currentHP
+				var playerMaxHP : int = player.healthPoint.maxHP
+				var playerActiveBuffs : Array[BuffData] = player.buffManager.activeBuffs
+				var playerData : Dictionary = {
+					DictionaryKey.currentHP : playerCurrentHP,
+					DictionaryKey.maxHP : playerMaxHP,
+					DictionaryKey.activeBuffs : playerActiveBuffs,
+				}
+				FloorManager.toNextFloorLevel(playerData)
+				SceneLoader.loadScene("res://mock_room/mock_room.tscn")

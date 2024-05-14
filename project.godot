@@ -25,6 +25,7 @@ SoundEffectManager="*res://utils/sound_manager/sound_effect_manager/sound_effect
 BackgroundMusicManager="*res://utils/sound_manager/background_music_manager/background_music_manager.tscn"
 RewardManager="*res://utils/reward_manager/reward_manager.gd"
 SceneLoader="*res://utils/scene_loader/scene_loader.gd"
+FloorManager="*res://utils/floor_manager/floor_manager.gd"
 
 [display]
 

@@ -34,6 +34,22 @@ func getMap():
 	createSpawnEnemiesArea()
 	createGridMap()
 	
+func mockMap():
+	var map : Map = Map.new()
+	var mock = [2,1,1,1,0,0,0,1,1,1,1,1,2,0,0,0]
+	for i in range(map.mapArray.size()):
+		map.mapArray[i].type = mock[i]
+	finalMap = map
+	finalMap.display()
+	setStartingTile()
+	checkExplorable(startTile)
+	smoothenMap()
+	finalMap.display()
+	createRealMap()
+	setSpawnAndExit()
+	createSpawnEnemiesArea()
+	createGridMap()
+	
 func setStartingTile():
 	var exitList : Array[int]
 	for i in range(Map.mapSize):

@@ -28,6 +28,7 @@ var isChase : bool = false
 
 func _ready():
 	add_to_group("enemies")
+	animationPlayer.connect("animation_finished",shootProjectile)
 	audioStreamPlayer.volume_db = -5
 
 func _init():
@@ -92,7 +93,6 @@ func attackCooldown(delta : float):
 func rangeAttack():
 	#create projectile and shoot in player current position
 	animationPlayer.play("RangeAttack")
-	animationPlayer.connect("animation_finished",shootProjectile)
 	
 
 func shootProjectile(animName : String):

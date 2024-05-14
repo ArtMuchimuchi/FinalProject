@@ -16,3 +16,7 @@ const traitSlotArray : String = "traitSlotArray"
 const currentCoin : String = "currentCoin"
 const traitName : String = "traitName"
 const currentLevel : String = "currentLevel"
+
+# Transfer player data dictionary key
+const currentHP : String = "currentHP"
+const activeBuffs : String = "activeBuffs"

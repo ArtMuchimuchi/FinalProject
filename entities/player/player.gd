@@ -43,8 +43,9 @@ func _init():
 	defense = ConstantNumber.playerDefense
 
 func _ready():
-	connect("modifyStatsFromActiveBuffs",modifyStats)
+	setTransferPlayerData()
 	modifyStats()
+	connect("modifyStatsFromActiveBuffs",modifyStats)
 
 func _physics_process(delta):
 	move(delta)
@@ -190,7 +191,7 @@ func modifyStats():
 	rangeAttackDamage = calculateStatValue(ConstantNumber.playerRangeDamage,DictionaryKey.rangeAttackDamage)
 	movementSpeed = calculateStatValue(ConstantNumber.playerSpeed,DictionaryKey.movementSpeed)
 	var modifiedmaxHP = calculateStatValue(ConstantNumber.playerHealthPoint,DictionaryKey.maxHP)
-	healthPoint.updateHPFromPercentage(modifiedmaxHP, ConstantNumber.playerHealthPoint)
+	healthPoint.updateHPFromPercentage(modifiedmaxHP, healthPoint.maxHP)
 	defense = calculateStatValue(ConstantNumber.playerDefense,DictionaryKey.defense)
 
 # Calculate base stat with buff percentage
@@ -206,3 +207,19 @@ func setRebirthInvincible():
 	
 func euclideanDistance(x1:float,y1:float,x2:float,y2:float) -> float:
 	return sqrt(pow((x1 - x2),2)+pow((y1 - y2),2))
+
+# Set player transfer data such as buffs, healthpoint (current and max hp)
+func setTransferPlayerData():
+	var transferPlayerData : Dictionary = FloorManager.transferPlayerData
+	if transferPlayerData.is_empty() == false:
+		# Set current and max hp to transfer hp data 
+		if transferPlayerData.has(DictionaryKey.currentHP) && transferPlayerData.has(DictionaryKey.maxHP):
+			var currentHP = transferPlayerData[DictionaryKey.currentHP]
+			var maxHP = transferPlayerData[DictionaryKey.maxHP]
+			healthPoint.setTransferHP(currentHP,maxHP) 
+		# Set active buff to transfer buff data
+		if transferPlayerData.has(DictionaryKey.activeBuffs):
+			buffManager.activeBuffs = transferPlayerData[DictionaryKey.activeBuffs]
+			# Call signal to update buff data
+			#activeBuffsUpdated.emit(buffManager.activeBuffs)
+

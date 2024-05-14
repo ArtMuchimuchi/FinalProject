@@ -15,6 +15,7 @@ func _ready():
 	updateHealthPointBar(player.healthPoint.currentHP,player.healthPoint.maxHP)
 	updateExpericeBar(RewardManager.currentEXP,RewardManager.getNextLevelExp(),RewardManager.currentLevel)
 	updateCurrentCoin()
+	updateBuffGrid(player.buffManager.activeBuffs)
 	player.connect("hpChanged",updateHealthPointBar)
 	player.connect("activeBuffsUpdated",updateBuffGrid)
 	RewardManager.connect("expIncreased",updateExpericeBar)

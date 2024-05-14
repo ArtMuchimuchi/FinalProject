@@ -16,18 +16,20 @@ func _ready():
 	updateExpericeBar(RewardManager.currentEXP,RewardManager.getNextLevelExp(),RewardManager.currentLevel)
 	updateCurrentCoin()
 	updateBuffGrid(player.buffManager.activeBuffs)
+	updateFloorLevel(FloorManager.floorLevel)	
 	player.connect("hpChanged",updateHealthPointBar)
 	player.connect("activeBuffsUpdated",updateBuffGrid)
 	RewardManager.connect("expIncreased",updateExpericeBar)
 	RewardManager.connect("currentCoinChanged",updateCurrentCoin)
-	
+	FloorManager.connect("changedfloorLevel",updateFloorLevel)
+
 # Update health point bar of current health
 func updateHealthPointBar(currentHP : int,maxHP : int):
 	healthPointBar.updateCurrentHealth(currentHP,maxHP)
 
 # Update floor level label
 func updateFloorLevel(floorLevel : int):
-	floorLevelLabel.text = str(floorLevel)
+	floorLevelLabel.text = "Floor %s" %floorLevel
 
 # Add selected buff inside BuffGrid to show updated buff data
 func updateBuffGrid(activeBuffs : Array[BuffData]):

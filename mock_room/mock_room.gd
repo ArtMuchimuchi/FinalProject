@@ -22,6 +22,10 @@ var enemyTypes  = [
 var exitPositionXList : Array[int]
 var exitPositionZList : Array[int]
 
+var logPlayerHP : SaveLog = SaveLog.new("PlayerHP" + str(FloorManager.floorLevel))
+
+var compareTime : int = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	RewardManager.setRoomNode(self)
@@ -30,12 +34,13 @@ func _ready():
 	spawnPlayer()
 	player.triggerAI(mapGenerator)
 	player.connect("playerDeath",gameOver)
-	spawnEnemies(8)
+	spawnEnemies(1)
 	BackgroundMusicManager.playfightBGM()
 	calExitPosition()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	updatePlayerHP()
 	checkPauseGame()
 	gameClear()
 	
@@ -91,13 +96,34 @@ func checkIfPlayerExit() -> bool:
 			return true
 	return false
 	
+#update player HP every period of time to log
+func updatePlayerHP():
+	#get current time
+	var currentTime : int = Time.get_ticks_msec()
+	#check if time pass for 1 sec
+	if(currentTime - compareTime >= 1000):
+		#calculate percentage of HP
+		var currentHP : int = player.healthPoint.currentHP
+		var maxHP : int = player.healthPoint.maxHP
+		var percentageHP : float = (currentHP / float(maxHP)) * 100
+		#save to log file
+		logPlayerHP.add(currentTime, percentageHP)
+		#reset compare time
+		compareTime = currentTime
+	
+#save player HP log to file
+func savePlayerHPLog():
+	logPlayerHP.save()
+	
 func gameOver():
 	get_tree().change_scene_to_file("res://user_interface/game_over/game_over.tscn")
+	savePlayerHPLog()
 
 # Check if enemies are zero / player killed all then game is cleared
 func gameClear():
 	if get_tree().get_nodes_in_group("enemies").size() == 0:
 		if(checkIfPlayerExit()):
+			savePlayerHPLog()
 			# Check if current floor is not last or 10th floor
 			if FloorManager.floorLevel == 10:
 				get_tree().change_scene_to_file("res://user_interface/game_clear/game_clear.tscn")
@@ -114,3 +140,4 @@ func gameClear():
 				}
 				FloorManager.toNextFloorLevel(playerData)
 				SceneLoader.loadScene("res://mock_room/mock_room.tscn")
+

@@ -236,6 +236,6 @@ func spawnEnemy() -> Array[int]:
 	var randPos = randi_range(0, enemiesArea.size() - 1)
 	while(enemiesArea[randPos] != 1):
 		randPos = randi_range(0, enemiesArea.size() - 1)
-	print("Spawn at " + str(randPos))
+	#print("Spawn at " + str(randPos))
 	enemiesArea[randPos] = 0
 	return indexToXZ(randPos)

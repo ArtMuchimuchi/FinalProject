@@ -9,7 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://dhbaqmkncdwyq" path="res://audio/sound_effect/player/dash_sfx.wav" id="7_yhmgm"]
 [ext_resource type="AudioStream" uid="uid://4j32f82uma5b" path="res://audio/sound_effect/player/melee_attack_sfx.wav" id="8_nb2ms"]
 [ext_resource type="AudioStream" uid="uid://cmou4sp0wgl1l" path="res://audio/sound_effect/player/range_attack_sfx.wav" id="9_xoky8"]
-[ext_resource type="PackedScene" uid="uid://csa4trrcundko" path="res://entities/ray_cast_group.tscn" id="10_cpboi"]
+[ext_resource type="PackedScene" path="res://entities/ray_cast_group.tscn" id="10_cpboi"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sv0xa"]
 

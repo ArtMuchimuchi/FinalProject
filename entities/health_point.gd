@@ -66,5 +66,8 @@ func updateHPFromPercentage(modifiedHP:int, baseHP: int):
 	maxHP = modifiedHP
 	currentHP = newCurrentHP
 	ownerNode.emit_signal("hpChanged",currentHP,maxHP)
-	
 
+# Set current and max transfer hp
+func setTransferHP(oldCurrentHP:int,oldMaxHP:int):
+	currentHP = oldCurrentHP
+	maxHP = oldMaxHP

@@ -43,12 +43,15 @@ func _init():
 	enemyType = ConstantNumber.enemyMeleeType
 
 func _physics_process(delta):
+	#if enemies not finish attacking then do it
+	if(triedCountdown > 0):
+		movement.setState(EntityState.attacking)
 	isPlayerInAttackRange = hitboxAttack[enemyType].get_overlapping_bodies()
 	#update hitbox attack
 	attackManager[enemyType].updateHitbox()
 	#if player in attack range
 	if(isPlayerInAttackRange):
-		if(movementState != EntityState.attacking && movementState != EntityState.knockBack):
+		if(movementState != EntityState.attacking && movementState != EntityState.knockBack && triedCountdown == 0):
 			#set to attacking state
 			movement.setState(EntityState.attacking)
 			#deal damage
@@ -108,7 +111,6 @@ func shootProjectile(animName : String):
 func damaged(direction: Vector3, damage: int, knockbackSpeed: int, knockbackDuration: float):
 	#set to knockback state
 	movement.setState(EntityState.knockBack)
-	triedCountdown = 0
 	#get knock back
 	movement.knockBack(direction, knockbackSpeed, knockbackDuration)
 	#deal damage to itself

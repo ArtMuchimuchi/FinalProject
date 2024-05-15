@@ -2,10 +2,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import json
 
-dictPlayable = json.load(open('PlayableScore.json', 'r'))
-dictExit = json.load(open('ExitTileScore.json', 'r'))
-dictOverall = json.load(open('OverAllScore.json', 'r'))
-dictExitExplore = json.load(open('ExitExploreScore.json', 'r'))
+dictPlayable = json.load(open('C:\\Users\\chisa\\Downloads\\Project\\utils\\generate_map\\log\\PlayableScore.json', 'r'))
+dictExit = json.load(open('C:\\Users\\chisa\\Downloads\\Project\\utils\\generate_map\\log\\ExitTileScore.json', 'r'))
+dictOverall = json.load(open('C:\\Users\\chisa\\Downloads\\Project\\utils\\generate_map\\log\\OverAllScore.json', 'r'))
+dictExitExplore = json.load(open('C:\\Users\\chisa\\Downloads\\Project\\utils\\generate_map\\log\\ExitExploreScore.json', 'r'))
 xAxis = [key for key, value in dictOverall.items()]
 yPlayable = [value for key, value in dictPlayable.items()]
 yExit = [value for key, value in dictExit.items()]

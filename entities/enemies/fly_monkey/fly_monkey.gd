@@ -15,3 +15,4 @@ func _init():
 	defense = ConstantNumber.enemyDefense
 	triggerRange = ConstantNumber.enemyRangeTriggerChase
 	chaseRange = ConstantNumber.enemyRangeStopChase
+	enemyName = "flyMonkey"

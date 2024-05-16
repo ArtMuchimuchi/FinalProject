@@ -14,3 +14,4 @@ func _init():
 	defense = ConstantNumber.enemyDefense
 	triggerRange = ConstantNumber.enemyMeleeTriggerChase
 	chaseRange = ConstantNumber.enemyMeleeStopChase
+	enemyName = "muscleMonkey"

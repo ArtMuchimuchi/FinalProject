@@ -16,7 +16,7 @@ var enemyTypes  = [
 	generalMonkey,
 	flyMonkey,
 	zombieMonkey,
-	muscleMonkey,
+	muscleMonkey
 ] 
 
 var exitPositionXList : Array[int]
@@ -26,6 +26,9 @@ var logPlayerHP : SaveLog = SaveLog.new("PlayerHP" + str(FloorManager.floorLevel
 
 var compareTime : int = 0
 
+var difficultyEvaluator : DifficultyEvaluator = DifficultyEvaluator.new()
+var enemiesList : Array[Enemy]
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	RewardManager.setRoomNode(self)
@@ -34,7 +37,8 @@ func _ready():
 	spawnPlayer()
 	player.triggerAI(mapGenerator)
 	player.connect("playerDeath",gameOver)
-	spawnEnemies(1)
+	spawnEnemies(4)
+	calculateDifficulty()
 	BackgroundMusicManager.playfightBGM()
 	calExitPosition()
 
@@ -55,6 +59,11 @@ func generateMap():
 func spawnPlayer():
 	player.position = mapGenerator.spawnPlayer()
 	
+func calculateDifficulty():
+	difficultyEvaluator.setEnemiesList(enemiesList)
+	difficultyEvaluator.setPlayer(player)
+	print(difficultyEvaluator.calDifficulty())
+	
 # Check if user pause menu
 func checkPauseGame():
 	if Input.is_action_pressed("pause"):
@@ -73,6 +82,7 @@ func spawnEnemies(limit:int):
 
 		var enemyInstance = randomEnemyType.instantiate()
 		enemyInstance.name = "Enemy" + str(index)
+		enemiesList.append(enemyInstance)
 		enemiesNode.add_child(enemyInstance)
 		enemyInstance.position = randomPosition
 	

@@ -10,6 +10,7 @@ func _ready():
 	var playerDeathSFX = preload("res://audio/sound_effect/player/death_sfx.wav")
 	SoundEffectManager.playSoundEffect(self,playerDeathSFX)
 	RewardManager.resetLevel()
+	FloorManager.resetFloorData()
 
 func onPlayAgainButtonPressed():
 	get_tree().change_scene_to_file("res://mock_room/mock_room.tscn")

@@ -22,6 +22,8 @@ var isPlayerInChaseRange
 var isAttacking : bool
 var enemyType : int
 
+var enemyName : String
+
 var triggerRange : int 
 var chaseRange : int 
 var isChase : bool = false

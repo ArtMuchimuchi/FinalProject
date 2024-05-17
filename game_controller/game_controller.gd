@@ -38,7 +38,7 @@ func _ready():
 	player.triggerAI(mapGenerator)
 	player.connect("playerDeath",gameOver)
 	configuringEnemies(4)
-	calculateEnemiesStat(ConstantNumber.easyMode)
+	calculateEnemiesStat(FloorManager.difficultyMode)
 	spawnEnemies()
 	calculateDifficulty()
 	BackgroundMusicManager.playfightBGM()

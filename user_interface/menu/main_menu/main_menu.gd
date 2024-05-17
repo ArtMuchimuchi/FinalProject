@@ -11,13 +11,15 @@ func _ready():
 	# Connect signal of pressed closed button in upgrade menu	
 	upgradeMenu.closedUpgradeMenu.connect(onClosedUpgradeMenu)
 	BackgroundMusicManager.playMenuBGM()
+	# When comeback to main menu reset difficulty mode to default easy mode
+	FloorManager.resetDifficultyMode()
 
 func onQuitButtonPressed():
 	get_tree().quit()
 
 
 func onStartButtonPressed():
-	SceneLoader.loadScene("res://game_controller/game_controller.tscn")
+	get_tree().change_scene_to_file("res://user_interface/difficulty_selection_menu/difficulty_selection_menu.tscn")
 
 func onUpgradeButtonPressed():
 	mainMenuMarginContainer.visible = false

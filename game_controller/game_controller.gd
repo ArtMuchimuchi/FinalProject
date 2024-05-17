@@ -22,10 +22,11 @@ var enemyTypes  = [
 var exitPositionXList : Array[int]
 var exitPositionZList : Array[int]
 
-var logPlayerHP : SaveLog = SaveLog.new("PlayerHP" + str(FloorManager.floorLevel))
+var logPlayerHP : SaveLog = SaveLog.new("PlayerHPnormal" + str(FloorManager.floorLevel))
 
 var compareTime : int = 0
 
+var difficultyMode : int = FloorManager.difficultyMode
 var difficultyEvaluator : DifficultyEvaluator = DifficultyEvaluator.new()
 var enemiesList : Array[Enemy]
 
@@ -37,10 +38,11 @@ func _ready():
 	spawnPlayer()
 	player.triggerAI(mapGenerator)
 	player.connect("playerDeath",gameOver)
-	configuringEnemies(4)
-	calculateEnemiesStat(FloorManager.difficultyMode)
+	var finalDifficulty = generateEnemies()
+	while(finalDifficulty < ConstantNumber.minDifficulty[difficultyMode] || finalDifficulty > ConstantNumber.maxDifficulty[difficultyMode]):
+		finalDifficulty = generateEnemies()
+	print(finalDifficulty)
 	spawnEnemies()
-	calculateDifficulty()
 	BackgroundMusicManager.playfightBGM()
 	calExitPosition()
 
@@ -77,12 +79,12 @@ func calculateEnemiesStat(difficulty: int):
 		else:
 			enemiesList[i].rangeAttackDamage = attack
 		enemiesList[i].defense = defense
-		enemiesList[i].healthPoint.maxHP = hp 
+		enemiesList[i].healthPoint.setTransferHP(hp,hp)
 	
-func calculateDifficulty():
+func calculateDifficulty() -> float:
 	difficultyEvaluator.setEnemiesList(enemiesList)
 	difficultyEvaluator.setPlayer(player)
-	print(difficultyEvaluator.calDifficulty())
+	return difficultyEvaluator.calDifficulty()
 	
 # Check if user pause menu
 func checkPauseGame():
@@ -92,6 +94,7 @@ func checkPauseGame():
 
 #prepare enemies before add it's to parent node
 func configuringEnemies(limit:int):
+	enemiesList.clear()
 	for index in limit:
 		var randomEnemyType
 		var randomType = randi() % enemyTypes.size()
@@ -104,6 +107,14 @@ func configuringEnemies(limit:int):
 		enemyInstance.name = "Enemy" + str(index)
 		enemiesList.append(enemyInstance)
 		enemyInstance.position = randomPosition
+
+#generate enemies and evaluate difficulty
+func generateEnemies() -> float:
+	#rand enemies number depends on difficulty
+	var randEnemiesNumber : int = randi_range(ConstantNumber.minEnemiesNumber[difficultyMode],ConstantNumber.maxEnemiesNumber[difficultyMode])
+	configuringEnemies(randEnemiesNumber)
+	calculateEnemiesStat(ConstantNumber.easyMode)
+	return calculateDifficulty()
 
 #add enemies to parent child
 func spawnEnemies():

@@ -54,9 +54,15 @@ const easyMode : int = 0
 const normalMode : int = 1
 const hardMode : int = 2
 
-const easyMinimumMultiply : float = 0.7
-const easyMaximumMultiply : float = 0.9
-const normalMinimumMultiply : float = 1.2
-const normalMaximumMultiply : float = 1.5
-const hardMinimumMultiply : float = 1.8
-const hardMaximumMultiply : float = 2.3
+const minEnemiesNumber : Array[int] = [4,6,8]
+const maxEnemiesNumber : Array[int] = [5,8,10]
+
+const easyMinimumMultiply : float = 0.6
+const easyMaximumMultiply : float = 0.8
+const normalMinimumMultiply : float = 1.1
+const normalMaximumMultiply : float = 1.4
+const hardMinimumMultiply : float = 1.5
+const hardMaximumMultiply : float = 2.0
+
+const minDifficulty : Array[float] = [4, 4.5, 5.5]
+const maxDifficulty : Array[float] = [4.4, 5.4, 6]

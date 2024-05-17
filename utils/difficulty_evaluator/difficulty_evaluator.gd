@@ -28,6 +28,8 @@ func calDifficulty() -> float:
 	averageHealthPoint = averageHealthPoint / enemiesNumber
 	averageDifficultyConstant = averageDifficultyConstant / enemiesNumber
 	difficulty = (averageAttack/player.meleeAttackDamage) + (averageDefense/player.defense) + (averageHealthPoint/player.healthPoint.maxHP) + averageDifficultyConstant
+	var numberDifficulty : int = enemiesNumber / 4
+	difficulty = difficulty + numberDifficulty
 	return difficulty
 	
 #enemy have 2 type, if it's melee type get from melee attack damage

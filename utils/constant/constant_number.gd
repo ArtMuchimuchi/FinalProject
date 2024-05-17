@@ -50,6 +50,10 @@ const emptyBuffIndex : int = -1
 
 const minimalDamage : int = 1
 
+const easyMode : int = 0
+const normalMode : int = 1
+const hardMode : int = 2
+
 const easyMinimumMultiply : float = 0.7
 const easyMaximumMultiply : float = 0.9
 const normalMinimumMultiply : float = 1.2

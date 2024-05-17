@@ -38,7 +38,7 @@ func _ready():
 	player.triggerAI(mapGenerator)
 	player.connect("playerDeath",gameOver)
 	configuringEnemies(4)
-	calculateEnemiesStat()
+	calculateEnemiesStat(ConstantNumber.easyMode)
 	spawnEnemies()
 	calculateDifficulty()
 	BackgroundMusicManager.playfightBGM()
@@ -62,8 +62,7 @@ func spawnPlayer():
 	player.position = mapGenerator.spawnPlayer()
 	
 #calculate enemies stat base on player's stat and difficulty
-func calculateEnemiesStat():
-	var difficulty : int = 2
+func calculateEnemiesStat(difficulty: int):
 	var minMultiply : Array[float] = [ConstantNumber.easyMinimumMultiply,ConstantNumber.normalMinimumMultiply,ConstantNumber.hardMinimumMultiply]
 	var maxMultiply : Array[float] = [ConstantNumber.easyMaximumMultiply,ConstantNumber.normalMaximumMultiply,ConstantNumber.hardMaximumMultiply]
 	for i in range(enemiesList.size()):

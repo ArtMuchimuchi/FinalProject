@@ -6,6 +6,7 @@ extends Control
 @onready var buffGrid = get_node("MarginContainer/BuffGrid")
 @onready var floorLevelLabel = get_node("MarginContainer/FloorLevelLabel")
 @onready var currentCoin = get_node("MarginContainer/CurrentCoin")
+@onready var difficultyModeLabel = get_node("MarginContainer/DifficultyModeLabel")
 @onready var buffScene = preload("res://user_interface/hud/buff/buff.tscn")
 @onready var activeBuffs : Array[BuffData] = []
 
@@ -22,6 +23,7 @@ func _ready():
 	RewardManager.connect("expIncreased",updateExpericeBar)
 	RewardManager.connect("currentCoinChanged",updateCurrentCoin)
 	FloorManager.connect("changedfloorLevel",updateFloorLevel)
+	setDifficultyModeText()
 
 # Update health point bar of current health
 func updateHealthPointBar(currentHP : int,maxHP : int):
@@ -47,3 +49,13 @@ func updateExpericeBar(currentExp : int,nextLevelExp : int, currentLevel : int):
 
 func updateCurrentCoin():
 	currentCoin.updateCurrentCoin()
+
+func setDifficultyModeText():
+	var difficultyModeText : String
+	if FloorManager.difficultyMode == ConstantNumber.easyMode:
+		difficultyModeText = "Easy Mode"
+	elif FloorManager.difficultyMode == ConstantNumber.normalMode:
+		difficultyModeText = "Normal Mode"
+	elif FloorManager.difficultyMode == ConstantNumber.hardMode:
+		difficultyModeText = "Hard Mode"
+	difficultyModeLabel.text = difficultyModeText

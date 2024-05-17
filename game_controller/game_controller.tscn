@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://nnakytfd1jpb"]
+
+[ext_resource type="Script" path="res://game_controller/game_controller.gd" id="1_mwgj5"]
+[ext_resource type="PackedScene" uid="uid://58jmk2r1l0p1" path="res://entities/player/player.tscn" id="2_frggt"]
+[ext_resource type="PackedScene" uid="uid://c1hjkl4y3abls" path="res://user_interface/hud/hud.tscn" id="3_cfyv7"]
+[ext_resource type="PackedScene" uid="uid://ceaqepbc5e307" path="res://user_interface/menu/pause_menu/pause_menu.tscn" id="4_2b1b7"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_cb00l"]
+
+[node name="GameController" type="Node3D"]
+script = ExtResource("1_mwgj5")
+
+[node name="Player" parent="." instance=ExtResource("2_frggt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.15454, 0.5, 0.004)
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Hud" parent="CanvasLayer" instance=ExtResource("3_cfyv7")]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("4_2b1b7")]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_cb00l")

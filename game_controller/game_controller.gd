@@ -173,5 +173,5 @@ func gameClear():
 					DictionaryKey.activeBuffs : playerActiveBuffs,
 				}
 				FloorManager.toNextFloorLevel(playerData)
-				SceneLoader.loadScene("res://mock_room/mock_room.tscn")
+				SceneLoader.loadScene("res://game_controller/game_controller.tscn")
 

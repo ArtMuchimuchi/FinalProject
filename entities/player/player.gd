@@ -110,7 +110,7 @@ func aiMove(delta: float):
 		findExit()
 	
 func getEnemiesList():
-	var enemiesList = get_node("/root/MockRoom/Enemies").get_children()
+	var enemiesList = get_node("/root/GameController/Enemies").get_children()
 	enemiesPositionList.clear()
 	for i in range(enemiesList.size()):
 		enemiesPositionList.append(enemiesList[i].position)

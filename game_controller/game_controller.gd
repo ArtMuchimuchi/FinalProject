@@ -141,7 +141,10 @@ func updatePlayerHP():
 		var maxHP : int = player.healthPoint.maxHP
 		var percentageHP : float = (currentHP / float(maxHP)) * 100
 		#save to log file
-		logPlayerHP.add(currentTime, percentageHP)
+		logPlayerHP.add(FloorManager.timeStamp, percentageHP)
+		print(FloorManager.timeStamp)
+		#add time
+		FloorManager.timeStamp += 1
 		#reset compare time
 		compareTime = currentTime
 	

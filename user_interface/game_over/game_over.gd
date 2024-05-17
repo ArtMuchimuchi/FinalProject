@@ -13,7 +13,7 @@ func _ready():
 	FloorManager.resetFloorData()
 
 func onPlayAgainButtonPressed():
-	get_tree().change_scene_to_file("res://game_controller/game_controller.tscn")
+	SceneLoader.loadScene("res://game_controller/game_controller.tscn")
 
 func onMainMenuButtonPressed():
 	get_tree().change_scene_to_file("res://user_interface/menu/main_menu/main_menu.tscn")

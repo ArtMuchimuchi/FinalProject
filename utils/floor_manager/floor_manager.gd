@@ -3,6 +3,7 @@ extends Node
 var floorLevel : int = 1
 var transferPlayerData : Dictionary = {}
 var difficultyMode : int = ConstantNumber.easyMode
+var timeStamp : int = 0
 
 signal changedfloorLevel(changedlevel:int)
 # When player move to next floor
@@ -14,6 +15,7 @@ func toNextFloorLevel(playerData : Dictionary):
 func resetFloorData():
 	floorLevel = 1
 	transferPlayerData = {}
+	timeStamp = 0
 
 func setDifficultyMode(mode:int):
 	difficultyMode = mode

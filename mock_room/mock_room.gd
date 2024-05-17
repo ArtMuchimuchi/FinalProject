@@ -37,7 +37,8 @@ func _ready():
 	spawnPlayer()
 	player.triggerAI(mapGenerator)
 	player.connect("playerDeath",gameOver)
-	spawnEnemies(4)
+	configuringEnemies(4)
+	spawnEnemies()
 	calculateDifficulty()
 	BackgroundMusicManager.playfightBGM()
 	calExitPosition()
@@ -70,8 +71,8 @@ func checkPauseGame():
 		get_tree().paused = true
 		pauseMenu.show()
 
-# Spawn random enemy type with random position
-func spawnEnemies(limit:int):
+#prepare enemies before add it's to parent node
+func configuringEnemies(limit:int):
 	for index in limit:
 		var randomEnemyType
 		var randomType = randi() % enemyTypes.size()
@@ -83,8 +84,12 @@ func spawnEnemies(limit:int):
 		var enemyInstance = randomEnemyType.instantiate()
 		enemyInstance.name = "Enemy" + str(index)
 		enemiesList.append(enemyInstance)
-		enemiesNode.add_child(enemyInstance)
 		enemyInstance.position = randomPosition
+
+#add enemies to parent child
+func spawnEnemies():
+	for enemy in range(enemiesList.size()):
+		enemiesNode.add_child(enemiesList[enemy])
 	
 #save position of exit list	
 func calExitPosition():

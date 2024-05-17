@@ -49,3 +49,10 @@ const emptyArray : int = 0
 const emptyBuffIndex : int = -1
 
 const minimalDamage : int = 1
+
+const easyMinimumMultiply : float = 0.7
+const easyMaximumMultiply : float = 0.9
+const normalMinimumMultiply : float = 1.2
+const normalMaximumMultiply : float = 1.5
+const hardMinimumMultiply : float = 1.8
+const hardMaximumMultiply : float = 2.3

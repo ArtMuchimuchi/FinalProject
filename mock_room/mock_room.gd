@@ -38,6 +38,7 @@ func _ready():
 	player.triggerAI(mapGenerator)
 	player.connect("playerDeath",gameOver)
 	configuringEnemies(4)
+	calculateEnemiesStat()
 	spawnEnemies()
 	calculateDifficulty()
 	BackgroundMusicManager.playfightBGM()
@@ -59,6 +60,25 @@ func generateMap():
 #change player position to spawn point
 func spawnPlayer():
 	player.position = mapGenerator.spawnPlayer()
+	
+#calculate enemies stat base on player's stat and difficulty
+func calculateEnemiesStat():
+	var difficulty : int = 2
+	var minMultiply : Array[float] = [ConstantNumber.easyMinimumMultiply,ConstantNumber.normalMinimumMultiply,ConstantNumber.hardMinimumMultiply]
+	var maxMultiply : Array[float] = [ConstantNumber.easyMaximumMultiply,ConstantNumber.normalMaximumMultiply,ConstantNumber.hardMaximumMultiply]
+	for i in range(enemiesList.size()):
+		var randMultiply : float = randf_range(minMultiply[difficulty], maxMultiply[difficulty])
+		var attack : int = player.meleeAttackDamage * randMultiply
+		randMultiply = randf_range(minMultiply[difficulty], maxMultiply[difficulty])
+		var defense : int = player.defense * randMultiply
+		randMultiply = randf_range(minMultiply[difficulty], maxMultiply[difficulty])
+		var hp : int = player.healthPoint.maxHP * randMultiply
+		if(enemiesList[i].enemyType == ConstantNumber.enemyMeleeType):
+			enemiesList[i].meleeAttackDamage = attack
+		else:
+			enemiesList[i].rangeAttackDamage = attack
+		enemiesList[i].defense = defense
+		enemiesList[i].healthPoint.maxHP = hp 
 	
 func calculateDifficulty():
 	difficultyEvaluator.setEnemiesList(enemiesList)

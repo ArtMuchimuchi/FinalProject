@@ -66,8 +66,6 @@ func getCollider():
 		collideVector[NORTH_WEST] -= 5
 		collideVector[NORTH_WEST - 1] -= 2
 		collideVector[NORTH] -= 2
-	print("collide")
-	print(collideVector)
 
 func calInterest(direction : Vector2):
 	for i in range(interestVector.size()):

@@ -22,7 +22,7 @@ var enemyTypes  = [
 var exitPositionXList : Array[int]
 var exitPositionZList : Array[int]
 
-var logPlayerHP : SaveLog = SaveLog.new("PlayerHPnormal" + str(FloorManager.floorLevel))
+var logPlayerHP : SaveLog = SaveLog.new("PlayerHPhard" + str(FloorManager.floorLevel))
 
 var compareTime : int = 0
 
@@ -113,7 +113,7 @@ func generateEnemies() -> float:
 	#rand enemies number depends on difficulty
 	var randEnemiesNumber : int = randi_range(ConstantNumber.minEnemiesNumber[difficultyMode],ConstantNumber.maxEnemiesNumber[difficultyMode])
 	configuringEnemies(randEnemiesNumber)
-	calculateEnemiesStat(ConstantNumber.easyMode)
+	calculateEnemiesStat(difficultyMode)
 	return calculateDifficulty()
 
 #add enemies to parent child

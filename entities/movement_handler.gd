@@ -110,6 +110,7 @@ func enemyMovement(delta: float, player: Entity, nav: NavigationAgent3D, rayCast
 		#calculate direction for chasing player
 		nav.target_position = player.position
 		var desiredDirection = (nav.get_next_path_position() - ownerNode.position).normalized()
+		rayCast.getCollider()
 		if(rayCast.collideVector == rayCast.noCollitionVector):
 			ownerNode.direction = desiredDirection
 		else:
@@ -136,6 +137,7 @@ func aiMovement(destination: Vector3, nav: NavigationAgent3D, rayCast: RayCastGr
 		nav.target_position = destination
 		var desiredDirection = (nav.get_next_path_position() - ownerNode.position).normalized()
 		#when no obstacles between, can go directly
+		rayCast.getCollider()
 		if(rayCast.collideVector == rayCast.noCollitionVector):
 			ownerNode.direction = desiredDirection
 		#in the other hand, avoid obstacles

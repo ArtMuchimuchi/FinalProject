@@ -32,41 +32,42 @@ Vector2(0,1),
 Vector2(-1,1),
 Vector2(-1,0),
 Vector2(-1,-1)]
-
-func _process(delta):
+	
+func getCollider():
 	if(north.is_colliding()):
-		collideVector[NORTH] = -5
-	else :
-		collideVector[NORTH] = 0
+		collideVector[NORTH] -= 5
+		collideVector[NORTH + 1] -= 2
+		collideVector[NORTH_WEST] -= 2
 	if(northEast.is_colliding()):
-		collideVector[NORTH_EAST] = -5
-	else :
-		collideVector[NORTH_EAST] = 0
+		collideVector[NORTH_EAST] -= 5
+		collideVector[NORTH_EAST + 1] -= 2
+		collideVector[NORTH_EAST - 1] -= 2
 	if(east.is_colliding()):
-		collideVector[EAST] = -5
-	else :
-		collideVector[EAST] = 0
+		collideVector[EAST] -= 5
+		collideVector[EAST + 1] -= 2
+		collideVector[EAST - 1] -= 2
 	if(southEast.is_colliding()):
-		collideVector[SOUTH_EAST] = -5
-	else :
-		collideVector[SOUTH_EAST] = 0
+		collideVector[SOUTH_EAST] -= 5
+		collideVector[SOUTH_EAST + 1] -= 2
+		collideVector[SOUTH_EAST - 1] -= 2
 	if(south.is_colliding()):
-		collideVector[SOUTH] = -5
-	else :
-		collideVector[SOUTH] = 0
+		collideVector[SOUTH] -= 5
+		collideVector[SOUTH + 1] -= 2
+		collideVector[SOUTH - 1] -= 2
 	if(southWest.is_colliding()):
-		collideVector[SOUTH_WEST] = -5
-	else :
-		collideVector[SOUTH_WEST] = 0
+		collideVector[SOUTH_WEST] -= 5
+		collideVector[SOUTH_WEST + 1] -= 2
+		collideVector[SOUTH_WEST - 1] -= 2
 	if(west.is_colliding()):
-		collideVector[WEST] = -5
-	else :
-		collideVector[WEST] = 0
+		collideVector[WEST] -= 5
+		collideVector[WEST + 1] -= 2
+		collideVector[WEST - 1] -= 2
 	if(northWest.is_colliding()):
-		collideVector[NORTH_WEST] = -5
-	else :
-		collideVector[NORTH_WEST] = 0
-	#print(collideVector)
+		collideVector[NORTH_WEST] -= 5
+		collideVector[NORTH_WEST - 1] -= 2
+		collideVector[NORTH] -= 2
+	print("collide")
+	print(collideVector)
 
 func calInterest(direction : Vector2):
 	for i in range(interestVector.size()):
@@ -75,6 +76,7 @@ func calInterest(direction : Vector2):
 func calContext():
 	for i in range(contextVector.size()):
 		contextVector[i] = float(interestVector[i] + collideVector[i])
+	collideVector = [0,0,0,0,0,0,0,0]
 		
 func getDirection() -> int:
 	var max = 0

@@ -45,7 +45,7 @@ func getDifficultyConstant(enemy: Enemy) -> float:
 	if(enemy.enemyName == "generalMonkey"):
 		return 1
 	elif(enemy.enemyName == "flyMonkey"):
-		return 2
+		return 6
 	elif(enemy.enemyName == "muscleMonkey"):
 		return 1.5
 	else:

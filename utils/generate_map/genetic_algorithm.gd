@@ -1,10 +1,10 @@
 class_name GeneticAlgorithm
 
 const roomSize : int = 1
-const numberPopulation : int = 10
+const numberPopulation : int = 100
 const selectedProportion : float = 0.4
 const selectedNumber : int = numberPopulation * selectedProportion
-const maxGeneration : int = 10
+const maxGeneration : int = 60
 
 const mutateChance : float = 0.01
 

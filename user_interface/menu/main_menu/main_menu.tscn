@@ -37,7 +37,7 @@ layout_mode = 2
 [node name="TitleLabel" type="Label" parent="MarginContainer/GameTitle"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 52
-text = "Ropburi"
+text = "Robburi"
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true

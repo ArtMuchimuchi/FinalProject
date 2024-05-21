@@ -36,7 +36,7 @@ func _ready():
 	# Connect player death signal for changing game over scene
 	generateMap()
 	spawnPlayer()
-	player.triggerAI(mapGenerator)
+	#player.triggerAI(mapGenerator)
 	player.connect("playerDeath",gameOver)
 	var finalDifficulty = generateEnemies()
 	while(finalDifficulty < ConstantNumber.minDifficulty[difficultyMode] || finalDifficulty > ConstantNumber.maxDifficulty[difficultyMode]):

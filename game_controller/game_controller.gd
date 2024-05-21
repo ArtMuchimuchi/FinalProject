@@ -161,7 +161,8 @@ func updatePlayerHP():
 	
 #save player HP log to file
 func savePlayerHPLog():
-	logPlayerHP.save()
+	pass
+	#logPlayerHP.save()
 	
 func gameOver():
 	get_tree().change_scene_to_file("res://user_interface/game_over/game_over.tscn")

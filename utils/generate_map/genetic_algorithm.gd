@@ -59,10 +59,10 @@ func  generateMap():
 		print(sketchMap[i].specialTilesScore)
 		print("exit explore " + str(sketchMap[i].exitExplorScore))
 		sketchMap[i].display()
-	constrain1.save()
-	constrain2.save()
-	constrain3.save()
-	constrain4.save()
+	#constrain1.save()
+	#constrain2.save()
+	#constrain3.save()
+	#constrain4.save()
 	
 #spawn
 func firstGeneration():
